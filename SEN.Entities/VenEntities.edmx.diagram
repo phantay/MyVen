@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4f6db62aa5b746709e9b45c59230a1b8" Name="Diagram1">
+        <EntityTypeShape EntityType="VenDatabaseModel.BanTinAnh" Width="1.5" PointX="3" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="VenDatabaseModel.BanTin" Width="1.5" PointX="6" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="VenDatabaseModel.BinhLuan" Width="1.5" PointX="8.25" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="VenDatabaseModel.ChiaS" Width="1.5" PointX="8.25" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="VenDatabaseModel.DiaDiem" Width="1.5" PointX="3.75" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="VenDatabaseModel.KetBan" Width="1.5" PointX="3" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="VenDatabaseModel.Nhom" Width="1.5" PointX="5.25" PointY="18.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="VenDatabaseModel.ThanhVienNhom" Width="1.5" PointX="7.5" PointY="19.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="VenDatabaseModel.ThanhVien" Width="1.5" PointX="0.75" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="VenDatabaseModel.ThongBao" Width="1.5" PointX="3" PointY="19" IsExpanded="true" />
+        <EntityTypeShape EntityType="VenDatabaseModel.ThuMuc_Anh_" Width="1.5" PointX="3" PointY="22.625" IsExpanded="true" />
+        <AssociationConnector Association="VenDatabaseModel.FK_dbo_BanTinAnhs_dbo_BanTins_BanTinId" ManuallyRouted="false" />
+        <AssociationConnector Association="VenDatabaseModel.FK_dbo_BanTinAnhs_dbo_ThanhViens_ThanhVien_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="VenDatabaseModel.FK_dbo_BanTins_dbo_DiaDiems_DiaDiemId" ManuallyRouted="false" />
+        <AssociationConnector Association="VenDatabaseModel.FK_dbo_BanTins_dbo_ThanhViens_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="VenDatabaseModel.FK_dbo_BinhLuans_dbo_BanTins_BanTinId" ManuallyRouted="false" />
+        <AssociationConnector Association="VenDatabaseModel.FK_dbo_ChiaSes_dbo_BanTins_BanTinId" ManuallyRouted="false" />
+        <AssociationConnector Association="VenDatabaseModel.FK_dbo_KetBans_dbo_ThanhViens_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="VenDatabaseModel.FK_dbo_Nhoms_dbo_ThongBaos_ThongBaoId" ManuallyRouted="false" />
+        <AssociationConnector Association="VenDatabaseModel.FK_dbo_ThanhVienNhoms_dbo_Nhoms_NhomId" ManuallyRouted="false" />
+        <AssociationConnector Association="VenDatabaseModel.FK_dbo_ThongBaos_dbo_ThanhViens_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="VenDatabaseModel.FK_dbo_ThuMuc_Anh__dbo_ThanhViens_UserId" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

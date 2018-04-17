@@ -1,0 +1,733 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+<div class="row" ng-controller="banTinCtrl">
+    <!-- div new feed -->
+    <div class="col-md-8 nf">
+
+        <div class="x_panel postarea">
+            <article class="media event">
+                <a href="#" title="">
+                    <img src="~/images/img.jpg" class="pull-left avata" alt="">
+                </a>
+                <div class="media-body">
+                    <textarea rows="2" data-toggle="modal" data-target="#myModal" placeholder="Sự kiên gì đang diễn ra?"></textarea>
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content ">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                <div class="modal-body">
+                                    <textarea style="width:50%; margin-bottom: 10px;" rows="1" placeholder="Từ khóa"></textarea>
+                                    <textarea rows="3" ng-model="noiDungBanTin" placeholder="Nội dung"></textarea>
+                                    <input type="file" class="upload btn btn-default" accept="image/*" data-ak-file-model="imageFile" id="fileImage">
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Thêm ảnh</button>
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="dangTin()">Đăng tin</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            <div class="row post_action">
+                <button type="button" class="pull-left btn-upload">Định dạng nhiều hơn</button>
+                <ul class="pull-right">
+                    <li><button type="button" class="btn-upload"><i class="fa fa-file-photo-o"></i> Ảnh</button></li>
+                    <li><button type="button" class="btn-upload"><i class="fa fa-map-marker"></i> Địa điểm</button></li>
+                    <li><button type="button" class="btn-upload"><i class=""></i>! Thẻ</button></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- div 1 bài viết -->
+        <div class="x_panel" ng-repeat="bt in dsBanTin">
+            <!-- div tieu de -->
+            <div class="x_title" id="abc">
+
+                <div class="col-md-11 user_title">
+                    <article class="media event">
+                        <a href="#" title="">
+                            <img src="~/images/img.jpg" class="pull-left avata" alt="">
+                        </a>
+                        <div class="media-body">
+                            <a class="title" href="#"><span class="ng-bind">{{bt.TenNguoiDang}}</span></a><span> đã thêm một sự kiện</span>
+                            <p class="hour">{{chuyenGio(bt.ThoiGian)}}</p>
+                            <a href="#" title="" class="hashtag">!music</a>
+                        </div>
+                    </article>
+                </div>
+                <div class="col-md-1 option">
+
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-angle-down"></i></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a href="#" ng-click="xoaTin(bt)"><span>Xoa</span></a>
+                        </li>
+                        <li>
+                            <a href="#">Settings 2</a>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <!-- /div tieu de -->
+            <!-- div noi dung bai viet -->
+            <div class="nf_content">
+                <div class="nf_caption">
+                    <p ng-bind="bt.NoiDung"></p>
+                </div>
+
+                <div class="gallery">
+                    <!--<img class="img" src="~/images/excel.jpg" alt="" data-toggle="modal" data-target="#myModal1">-->
+                    <img class="img" alt="" ng-src="/images/BanTin/{{bt.BanTinId}}.jpg" ng-click="open_modal(bt)"/>
+                    <button type="button" id="link-open-modal" class="btn btn-info btn-lg" data-toggle="modal" data-target="#openmodal">Open Modal</button>
+
+                   
+                    
+                </div>
+            </div>
+            <!-- /div noi dung bai viet -->
+            <!-- div like -->
+            <div class="nf_sameword">
+                <ul class="list-inline list-unstyled">
+                    <li><a href="#" class="btn btn-link"><small>!lu_lut_2016</small></a></li>
+                    <li><a href="#" class="btn btn-link"><small>!lu_lut_mien_trung</small></a></li>
+                    <li><a href="#" class="btn btn-link"><small>!cuu_tro_lu_lut</small></a></li>
+                    <li><a href="#" class="btn btn-link"><small>!ung_ho_mien_trung</small></a></li>
+                </ul>
+
+            </div>
+            <div class="nf_action">
+                <ul>
+                    <li><button type="button" class="btn-like"><i class="fa fa-angellist"></i><span>50</span> </button></li>
+                    <li><button type="button" class="btn-like" data-toggle="modal" data-target="#myModal{{bt.BanTinId}}"><i class="fa fa-comments-o"></i></button></li>
+                    <li><button type="button" class="btn-like"><i class="fa fa-retweet"></i></button></li>
+
+                </ul>
+            </div>
+            <!-- /div like -->
+        </div>
+        <!-- /div 1 bài viết -->
+
+        <div>
+            <a href="#post-modal" id="link-modal" data-animation="fadein" data-plugin="custommodal" data-overlaySpeed="200" data-overlayColor="#36404a"></a>
+            <!-- Modal -->
+            <div id="post-modal" class="modal-sen">
+                <div class="modal-dialog" style="width:105%;">
+                    <div class="modal-content">
+                        <button type="button" class="close btn-close-modal" onclick="Custombox.close();">
+                            <span>&times;</span><span class="sr-only">Close</span>
+                        </button>
+                        <div class="post-modal-body">
+                            <div class="col-md-4 modal-post-info text-left">
+
+                                <div class="post-scroll-modal">
+                                    <div class="blog-box-one">
+                                        <div class="post-info">
+                                            <div class="poster">
+                                                <img src=C:\Users\PC\Desktop\UI-2.0/assets/images/users/avatar-1.jpg" alt="">
+                                            </div>
+
+                                            <div class="meta-container">
+                                                <a href="#">
+                                                    <h4 class="text-overflow m-t-0">{{post.name}}</h4>
+                                                </a>
+                                                <a href="#" class="post-keyword">
+                                                    <h4 class="text-overflow m-t-0">!cit</h4>
+                                                </a>
+                                                <h4 class="text-muted pull-right dropdown">
+                                                    <span class="fa fa-angle-down dropdown-toggle waves-effect" data-toggle="dropdown" aria-expanded="false"></span>
+                                                    <ul class="dropdown-menu drop-menu-right" role="menu">
+                                                        <li><a href="#">Action</a></li>
+                                                        <li><a href="#">Another action</a></li>
+                                                        <li><a href="#">Something else here</a></li>
+                                                        <li class="divider"></li>
+                                                        <li><a href="#">Separated link</a></li>
+                                                    </ul>
+                                                </h4>
+                                                <div class="font-13">
+                                                    <span class="meta text-muted">2 giờ trước</span>
+                                                </div>
+                                            </div>
+
+                                            <p class="m-b-0">
+                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto deleniti possimus libero officiis provident laboriosam, eaque, accusamus illo laborum perferendis odio. Recusandae quos excepturi dicta magnam perferendis nemo eaque nulla.
+                                            </p>
+                                            <div class="row m-t-10">
+                                                <div class="col-xs-7">
+                                                    <div class="m-t-10 blog-widget-action">
+                                                        <a class="btn-like" href="javascript:void(0)">
+                                                            <i class="fa fa-thumbs-o-up"></i> <span>54</span>
+                                                        </a>
+                                                        <a class="btn-helpful" href="javascript:void(0)">
+                                                            <i class="fa fa-angellist"></i> <span>5</span>
+                                                        </a>
+                                                        <a href="javascript:void(0)" class="btn-post-comment" data-toggle="collapse" data-target="#post-comment-id1">
+                                                            <i class="fa fa-comment-o"></i> <span>26</span>
+                                                        </a>
+                                                        <a href="javascript:void(0)">
+                                                            <i class="fa fa-retweet"></i> <span>54</span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-5 text-right">
+                                                    <div class="dropup">
+                                                        <a href="" class="btn btn-sm waves-effect btn-white" data-toggle="dropdown">Từ khóa liên quan</a>
+                                                        <ul class="dropdown-menu dropdown-menu-right">
+                                                            <li><a href="#">!cit</a></li>
+                                                            <li><a href="#">!cit</a></li>
+                                                            <li><a href="#">!cit</a></li>
+                                                            <li class="divider"></li>
+                                                            <li><a href="#">Xem thêm...</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-post-comment">
+                                            <ul class="list-unstyled modal-list-comment">
+                                                <li>
+                                                    <a href="#"><h4>Phan Tay </h4></a>  <p> hom nay dep trời</p>
+                                                </li>
+                                                <li>
+                                                    <a href="#"><h4>Mr.Join </h4></a>  <p> hom nay dep trời</p>
+                                                </li>
+                                                <li>
+                                                    <a href="#"><h4>Phan Tay </h4></a>  <p> hom nay dep trời</p>
+                                                </li>
+                                                <li>
+                                                    <a href="#">&#09;<h5>Xem thêm...</h5></a>
+                                                </li>
+                                                <li>
+                                                    <div class="col-sm-12">
+                                                        <input type="text" class="form-control input-comment text-muted" placeholder=" Viết bình luận...">
+                                                        <button class="form-control-feedback btn btn-lg btn-emotion"> <i class="icon-emotsmile"></i></button>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class=" col-md-8">
+                                <div class="modal-gallery">
+                                    <a href="#" role="button" data-slide="prev" class="left carousel-control"> <span aria-hidden="true" class="fa fa-angle-left"></span> <span class="sr-only">Previous</span> </a>
+
+                                    <img alt="jjj" ng-src="{{post.anh}}" class="img-responsive post-image-modal" id="image-modal">
+
+                                    <a href="#" role="button" data-slide="next" class="right carousel-control"> <span aria-hidden="true" class="fa fa-angle-right"></span> <span class="sr-only">Next</span> </a>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div>
+            </div>
+            <!-- /.sen-modal -->
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade modal-sen" id="openmodal" role="dialog">
+            <div class="modal-dialog modal-lg" style="width:85%; margin-left: auto">
+                <div class="modal-content" style="padding:0">
+                    <button type="button" class="close btn-close-modal" onclick="Custombox.close();">
+                        <span>&times;</span><span class="sr-only">Close</span>
+                    </button>
+                    <div class="post-modal-body" style="margin:0">
+                        <div class="col-md-4 modal-post-info text-left">
+
+                            <div class="post-scroll-modal">
+                                <div class="blog-box-one">
+                                    <div class="post-info">
+                                        <div class="poster">
+                                            <img ng-src="/images/BanTin/{{modalData.BanTinId}}.jpg" alt="">
+                                        </div>
+
+                                        <div class="meta-container">
+                                            <a href="#">
+                                                <h4 class="text-overflow m-t-0">{{modalData.TenNguoiDang}}</h4>
+                                            </a>
+                                            <a href="#" class="post-keyword">
+                                                <h4 class="text-overflow m-t-0">!cit</h4>
+                                            </a>
+                                            <h4 class="text-muted pull-right dropdown">
+                                                <span class="fa fa-angle-down dropdown-toggle waves-effect" data-toggle="dropdown" aria-expanded="false"></span>
+                                                <ul class="dropdown-menu drop-menu-right" role="menu">
+                                                    <li><a href="#">Action</a></li>
+                                                    <li><a href="#">Another action</a></li>
+                                                    <li><a href="#">Something else here</a></li>
+                                                    <li class="divider"></li>
+                                                    <li><a href="#">Separated link</a></li>
+                                                </ul>
+                                            </h4>
+                                            <div class="font-13">
+                                                <span class="meta text-muted">2 giờ trước</span>
+                                            </div>
+                                        </div>
+
+                                        <p class="m-b-0">
+                                            {{modalData.NoiDung}}
+                                        </p>
+                                        <div class="row m-t-10">
+                                            <div class="col-xs-7">
+                                                <div class="m-t-10 blog-widget-action">
+                                                    <a class="btn-like" href="javascript:void(0)">
+                                                        <i class="fa fa-thumbs-o-up"></i> <span>54</span>
+                                                    </a>
+                                                    <a class="btn-helpful" href="javascript:void(0)">
+                                                        <i class="fa fa-angellist"></i> <span>5</span>
+                                                    </a>
+                                                    <a href="javascript:void(0)" class="btn-post-comment" data-toggle="collapse" data-target="#post-comment-id1">
+                                                        <i class="fa fa-comment-o"></i> <span>26</span>
+                                                    </a>
+                                                    <a href="javascript:void(0)">
+                                                        <i class="fa fa-retweet"></i> <span>54</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-5 text-right">
+                                                <div class="dropup">
+                                                    <a href="" class="btn btn-sm waves-effect btn-white" data-toggle="dropdown">Từ khóa liên quan</a>
+                                                    <ul class="dropdown-menu dropdown-menu-right">
+                                                        <li><a href="#">!cit</a></li>
+                                                        <li><a href="#">!cit</a></li>
+                                                        <li><a href="#">!cit</a></li>
+                                                        <li class="divider"></li>
+                                                        <li><a href="#">Xem thêm...</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-post-comment">
+                                        <ul class="list-unstyled modal-list-comment">
+                                            <li ng-repeat="bl in dsBinhLuan">
+                                                <a href="#">
+                                                    <strong>Phan Tay</strong> 
+                                                    <p>{{bl.NoiDung}}</p>
+                                                </a>
+                                            </li>
+                                            
+                                            <li>
+                                                <a href="#">&#09;<h5>Xem thêm...</h5></a>
+                                            </li>
+                                            <li>
+                                                <div class="col-sm-12">
+                                                    <input type="text" class="form-control input-comment text-muted" ng-model="binhLuanMoi" placeholder="Viết bình luận...">
+                                                    <button class="form-control-feedback btn btn-lg btn-emotion" ng-click="dangBinhLuan()"><i class="icon-emotsmile"></i></button>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class=" col-md-8">
+                            <div class="modal-gallery">
+                                <a href="#" role="button" data-slide="prev" class="left carousel-control"> <span aria-hidden="true" class="fa fa-angle-left"></span> <span class="sr-only">Previous</span> </a>
+
+                                <img alt="{{abc.name}}alt {{modalData.BanTinId}}" ng-src="/images/BanTin/{{modalData.BanTinId}}.jpg" class="img-responsive post-image-modal" id="image-modal">
+
+                                <a href="#" role="button" data-slide="next" class="right carousel-control"> <span aria-hidden="true" class="fa fa-angle-right"></span> <span class="sr-only">Next</span> </a>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div>
+        </div>
+
+        <!-- div 1 bài viết -->
+        <div class="x_panel">
+            <!-- div tieu de -->
+            <div class="x_title">
+                <div class="col-md-11 user_title">
+                    <article class="media event">
+                        <a href="#" title="">
+                            <img src="/images/img.jpg" class="pull-left avata" alt="">
+                        </a>
+                        <div class="media-body">
+                            <a class="title" href="#">Phan Tay</a><span> đã thêm một sự kiện</span>
+                            <p class="hour">1 giờ</p>
+                            <a href="#" title="" class="hashtag">!lu_lut_2016</a>
+                        </div>
+                    </article>
+                </div>
+                <div class="col-md-1 option">
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-angle-down"></i></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>
+                                    <a href="#">Settings 1</a>
+                                </li>
+                                <li>
+                                    <a href="#">Settings 2</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <!-- /div tieu de -->
+            <!-- div noi dung bai viet -->
+            <div class="nf_content">
+                <div class="nf_caption">
+                    <p>Danh sách cứu hộ tại thôn Thuận Hòa, xã Quảng Trường, huyện Quảng Trạch, tỉnh Quảng Bình. Hiện đã có 16 hộ được trao, còn khoảng 20 hộ thuộc diện ngập lụt chưa được tiếp tế. Kính mong các nhà hảo tâm tiếp tục cứu hộ cho các gia đình còn lại.</p>
+                </div>
+                <div class="gallery">
+                    <img class="img" src="/images/excel.jpg" alt="" data-toggle="modal" data-target="#myModal2">
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content ">
+
+                                <img class="img" src="/images/excel.jpg" alt="">
+                                <div class="modal-body">
+                                    <div class="x_title">
+                                        <div class="col-md-11 user_title">
+                                            <article class="media event">
+                                                <a href="#" title="">
+                                                    <img src="/images/img.jpg" class=" pull-left avata" alt="">
+                                                </a>
+                                                <div class="media-body">
+                                                    <a class="title" href="#">Phan Tay</a><span> 1 giờ trước</span> <br>
+                                                    <a href="#" title="" class="hashtag">!lu_lut_2016</a>
+                                                    <p>Danh sách cứu hộ tại thôn Thuận Hòa, xã Quảng Trường, huyện Quảng Trạch, tỉnh Quảng Bình. Hiện đã có 16 hộ được trao, còn khoảng 20 hộ thuộc diện ngập lụt chưa được tiếp tế. Kính mong các nhà hảo tâm tiếp tục cứu hộ cho các gia đình còn lại.</p>
+                                                </div>
+                                            </article>
+                                        </div>
+                                        <div class="col-md-1 option">
+                                            <ul class="nav navbar-right panel_toolbox">
+
+                                                <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-angle-down"></i></a>
+                                                    <ul class="dropdown-menu" role="menu">
+                                                        <li>
+                                                            <a href="#">Settings 1</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">Settings 2</a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <div class="nf_caption">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <div class="media pull-left ">
+                                        <img src="/images/img.jpg" alt="" class="avt-comment">
+                                    </div>
+                                    <div class="input-group pull-right input-comment">
+                                        <input type="text" class="form-control" placeholder="Nhập bình luận">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button">Xong</button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /div noi dung bai viet -->
+            <!-- div like -->
+            <div class="nf_action">
+                <ul>
+                    <li><button type="button" class="btn-like"><i class="fa fa-angellist"></i><span>50</span> </button></li>
+                    <li><button type="button" class="btn-like"><i class="fa fa-comments-o"></i></button></li>
+                    <li><button type="button" class="btn-like"><i class="fa fa-retweet"></i></button></li>
+                </ul>
+            </div>
+            <!-- /div like -->
+        </div><!-- /div 1 bài viết -->
+
+        <!-- div 1 bài viết -->
+        <div class="x_panel">
+            <!-- div tieu de -->
+            <div class="x_title">
+                <div class="col-md-11 user_title">
+                    <article class="media event">
+                        <a href="#" title="">
+                            <img src="/images/img.jpg" class="pull-left avata" alt="">
+                        </a>
+                        <div class="media-body">
+                            <a class="title" href="#">Tay Phan</a><span> đã thêm một sự kiện</span>
+                            <p class="hour">Sủa lần cuối 2 ngày trước</p>
+                            <a href="#" title="" class="hashtag">!banh_xoe_da_nang</a>
+                        </div>
+                    </article>
+                </div>
+                <div class="col-md-1 option">
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-angle-down"></i></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>
+                                    <a href="#">Settings 1</a>
+                                </li>
+                                <li>
+                                    <a href="#">Settings 2</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <!-- /div tieu de -->
+            <!-- div noi dung bai viet -->
+            <div class="nf_content">
+                <div class="nf_caption">
+                    <p></p>
+                </div>
+                <div class="gallery">
+                    <img class="img" src="/images/monan.jpg" alt="" data-toggle="modal" data-target="#myModal3">
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content ">
+
+                                <img class="img" src="/images/monan.jpg" alt="">
+                                <div class="modal-body">
+                                    <div class="x_title">
+                                        <div class="col-md-11 user_title">
+                                            <article class="media event">
+                                                <a href="#" title="">
+                                                    <img src="/images/img.jpg" class="pull-left avata" alt="">
+                                                </a>
+                                                <div class="media-body">
+                                                    <a class="title" href="#">Phan Tay</a><span> Sửa lần cuối 2 ngày trước</span> <br>
+                                                    <a href="#" title="" class="hashtag">!banh_xoe_da_nang</a>
+                                                </div>
+                                            </article>
+                                        </div>
+                                        <div class="col-md-1 option">
+                                            <ul class="nav navbar-right panel_toolbox">
+
+                                                <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-angle-down"></i></a>
+                                                    <ul class="dropdown-menu" role="menu">
+                                                        <li>
+                                                            <a href="#">Settings 1</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">Settings 2</a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <div class="nf_caption">
+                                            <p></p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <div class="media pull-left ">
+                                        <img src="/images/img.jpg" alt="" class="avt-comment">
+                                    </div>
+                                    <div class="input-group pull-right input-comment">
+                                        <input type="text" class="form-control" placeholder="Nhập bình luận">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button">Xong</button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- /div noi dung bai viet -->
+            <!-- div like -->
+            <div class="nf_action">
+                <ul>
+                    <li><button type="button" class="btn-like"><i class="fa fa-angellist"></i><span>50</span> </button></li>
+                    <li><button type="button" class="btn-like"><i class="fa fa-comments-o"></i></button></li>
+                    <li><button type="button" class="btn-like"><i class="fa fa-retweet"></i></button></li>
+                </ul>
+            </div>
+            <!-- /div like -->
+        </div><!-- /div 1 bài viết -->
+
+        
+        <!-- div 1 bài viết -->
+        <div class="x_panel">
+            <!-- div tieu de -->
+            <div class="x_title">
+                <div class="col-md-11 user_title">
+                    <article class="media event">
+                        <a href="#" title="">
+                            <img src="~/images/img.jpg" class="pull-left avata" alt="">
+                        </a>
+                        <div class="media-body">
+                            <a class="title" href="#">John Doe</a><span> đã thêm một sự kiện</span>
+                            <p class="hour">1 giờ</p>
+                            <a href="#" title="" class="hashtag">#CIT</a>
+                        </div>
+                    </article>
+                </div>
+                <div class="col-md-1 option">
+                    <ul class="nav navbar-right panel_toolbox">
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-angle-down"></i></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>
+                                    <a href="#">Settings 1</a>
+                                </li>
+                                <li>
+                                    <a href="#">Settings 2</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <!-- /div tieu de -->
+            <!-- div noi dung bai viet -->
+            <div class="nf_content">
+                <div class="nf_caption">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+                </div>
+                <div class="gallery">
+
+                </div>
+            </div>
+            <!-- /div noi dung bai viet -->
+            <!-- div like -->
+            <div class="nf_action">
+                <ul>
+                    <li><button type="button" class="btn-like"><i class="fa fa-angellist"></i><span>50</span> </button></li>
+                    <li><button type="button" class="btn-like"><i class="fa fa-comments-o"></i></button></li>
+                    <li><button type="button" class="btn-like"><i class="fa fa-retweet"></i></button></li>
+                </ul>
+            </div>
+            <!-- /div like -->
+        </div>
+        <!-- /div 1 bài viết -->
+    </div>
+    <!-- / div new feed -->
+
+    <!-- div cot phai -->
+    <div class="col-md-4 ">
+        <div class="card-box top-keyword">
+            <h4 class="m-t-0 m-b-20 header-title"><b>Top từ khóa</b></h4>
+
+            <ul class="list-unstyled">
+                <li>
+                    <a href="#"><span><strong>!</strong>ngap_ung_quan_11</span></a>
+                </li>
+                <li>
+                    <a href="#"><span><strong>!</strong>ngap_ung_quan_11</span></a>
+                </li>
+                <li>
+                    <a href="#"><span><strong>!</strong>ngap_ung_quan_11</span></a>
+                </li>
+                <li>
+                    <a href="#"><span><strong>!</strong>ngap_ung_quan_11</span></a>
+                </li>
+                <li>
+                    <a href="#"><span><strong>!</strong>ngap_ung_quan_11</span></a>
+                </li>
+                <li>
+                    <a href="#"><span><strong>!</strong>ngap_ung_quan_11</span></a>
+                </li>
+                <li>
+                    <a href="#"><span><strong>!</strong>ngap_ung_quan_11</span></a>
+                </li>
+            </ul>
+        </div>
+        <div class="card-box recommend-follower">
+            <h4 class="m-t-0 m-b-20 header-title"><b>Gợi ý theo giõi</b></h4>
+            <ul class="list-unstyled">
+                <li>
+                    <div class="contact-card">
+                        <a class="pull-left" href="#">
+                            <img class="img-circle" src="assets/images/users/avatar-8.jpg" alt="">
+                        </a>
+                        <div class="member-info">
+                            <h4 class="m-t-0 m-b-5 header-title"><a href="#"><b>Phan Tay</b></a></h4>
+                            <p class="text-muted">500 theo giõi</p>
+                            <p class="text-dark"><i class="md md-business m-r-10"></i><small>ABC company Pvt Ltd.</small></p>
+                            <div class="contact-action">
+                                <a href="#" class="btn btn-default"><i class=" icon-user-follow"> Theo giõi</i></a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="contact-card">
+                        <a class="pull-left" href="#">
+                            <img class="img-circle" src="assets/images/users/avatar-8.jpg" alt="">
+                        </a>
+                        <div class="member-info">
+                            <h4 class="m-t-0 m-b-5 header-title"><a href="#"><b>Phan Tay</b></a></h4>
+                            <p class="text-muted">500 theo giõi</p>
+                            <p class="text-dark"><i class="md md-business m-r-10"></i><small>ABC company Pvt Ltd.</small></p>
+                            <div class="contact-action">
+                                <a href="#" class="btn btn-default"><i class=" icon-user-follow"> Theo giõi</i></a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="contact-card">
+                        <a class="pull-left" href="#">
+                            <img class="img-circle" src="assets/images/users/avatar-8.jpg" alt="">
+                        </a>
+                        <div class="member-info">
+                            <h4 class="m-t-0 m-b-5 header-title"><a href="#"><b>Phan Tay</b></a></h4>
+                            <p class="text-muted">500 theo giõi</p>
+                            <p class="text-dark"><i class="md md-business m-r-10"></i><small>ABC company Pvt Ltd.</small></p>
+                            <div class="contact-action">
+                                <a href="#" class="btn btn-default"><i class=" icon-user-follow"> Theo giõi</i></a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="contact-card">
+                        <a class="pull-left" href="#">
+                            <img class="img-circle" src="assets/images/users/avatar-8.jpg" alt="">
+                        </a>
+                        <div class="member-info">
+                            <h4 class="m-t-0 m-b-5 header-title"><a href="#"><b>Phan Tay</b></a></h4>
+                            <p class="text-muted">500 theo giõi</p>
+                            <p class="text-dark"><i class="md md-business m-r-10"></i><small>ABC company Pvt Ltd.</small></p>
+                            <div class="contact-action">
+                                <a href="#" class="btn btn-default"><i class=" icon-user-follow"> Theo giõi</i></a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+
+        </div>
+    </div>
+</div>
