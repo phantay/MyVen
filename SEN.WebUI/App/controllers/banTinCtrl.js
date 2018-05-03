@@ -3,13 +3,14 @@
 
     var app = angular.module('venApp');
 
-    app.controller('banTinCtrl', function ($scope, banTinService, thanhVienService, binhLuanService, akFileUploaderService) {
+    app.controller('banTinCtrl', function ($scope, $location, banTinService, thanhVienService, binhLuanService, akFileUploaderService) {
         $scope.dsBanTin = [];
         $scope.dsBinhLuan = [];
         $scope.imageFile;
         $scope.binhLuanMoi;
 
         thanhVienService.getThanhVien().then(function (response) {
+            console.log(response);
             $scope.FirstName = response.data.FirstName;
             $scope.LastName = response.data.LastName;
         });
@@ -18,24 +19,18 @@
             $scope.dsBanTin = response.data;
         });
 
-       
-
         //mo modal
         $scope.post = {
             name: "",
             anh: ""
         };
-        $scope.abc = { name: "assad" };
         $scope.modalData = { BanTinId: "", NoiDung: "", TenNguoiDang: "" };
         $scope.open_modal = function (bt) {
             this.modalData.BanTinId = bt.BanTinId;
             this.modalData.NoiDung = bt.NoiDung;
             this.modalData.TenNguoiDang = bt.BanTinId;
 
-            binhLuanService.getDanhSanhBinhLuan(bt.BanTinId).then(function (result) {
-                debugger;
-                $scope.dsBinhLuan = result.data;
-            });
+            binhLuanService.getDanhSanhBinhLuan($scope, bt.BanTinId, 0);
 
             //alert('mo modal ' + this.modalData.BanTinId + " " + this.modalData.NoiDung + " " + this.modalData.TenNguoiDang);
             $('#link-open-modal').trigger('click');
@@ -50,9 +45,6 @@
             //        height: $('.modal-gallery').height() - 15
             //    });
             //}, 250);
-
-
-
         };
         //het modal
 
@@ -60,7 +52,6 @@
         $scope.noiDungBinhLuan = "";
 
         $scope.dangTin = function () {
-            //
             // Dang Tin
             var model = {
                 NoiDung: $scope.noiDungBanTin,
@@ -80,18 +71,6 @@
                 $scope.dsBanTin.splice(btIndex, 1);
             });
         }
-
-        $scope.dangBinhLuan = function () {
-
-            var model = {
-                NoiDung: $scope.noiDungBinhLuan,
-                attachment: $scope.imageFile
-            };
-            akFileUploaderService.saveModel(model, "/BinhLuan/DangBinhLuan").then(function (data) {
-                //
-                // TODO: Get danh sach binh luan cua bai viet, can truyen IdBaiViet
-            });
-        };
 
         $scope.chuyenGio = function (date) {            
             if (!date)
@@ -133,20 +112,23 @@
             else {
                 fuzzy = Math.floor(delta / year) + ' nam trước';
             }
-
             return fuzzy;
         }
 
         $scope.dangBinhLuan = function () {
-            debugger;
             if (!$scope.modalData.BanTinId || !$scope.binhLuanMoi)
                 return;
-
-
             binhLuanService.dangBinhLuan($scope.modalData.BanTinId, $scope.binhLuanMoi).then(function (binhLuan) {
-                debugger;
+                var pageSize = $scope.dsBinhLuan.length + 1;
+                binhLuanService.getDanhSanhBinhLuan($scope, $scope.modalData.BanTinId, pageSize);
             });            
         }
+
+        $scope.loadMoreBinhLuan = function () {
+            var pageSize = $scope.dsBinhLuan.length + 5;
+            binhLuanService.getDanhSanhBinhLuan($scope, $scope.modalData.BanTinId, pageSize);
+        }
+
     });
 })();
 

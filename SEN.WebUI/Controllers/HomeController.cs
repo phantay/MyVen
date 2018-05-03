@@ -3,7 +3,7 @@ using SEN.WebUI.Code;
 using SEN.WebUI.Models;
 using SEN.Entities;
 using SEN.Data;
-
+using System.Web.Security;
 
 namespace SEN.WebUI.Controllers
 {
@@ -12,7 +12,6 @@ namespace SEN.WebUI.Controllers
         public ActionResult Index()
         {
             ViewBag.Title = "Home Page";
-
             return View();
         }
 
@@ -30,18 +29,29 @@ namespace SEN.WebUI.Controllers
                 ModelState.AddModelError("", "Thiếu tên đăng nhập hoặc mật khẩu chưa đúng");
                 return View(model);
             }
-            var result = new ThanhVienModel().Login(model.Email, model.Password);
-            if (result)
-            {
-                SessionHelper.SetEmailSession(model.Email);
 
-                return RedirectToAction("Index", "Home");
-            }
-            else
+
+            //Login
+            var result = new ThanhVienModel().Login(model.Email, model.Password);
+
+            if (result != null)
             {
+                Session["user_login"] = result;
+                return RedirectToAction("Index", "Home");
+            } else {
                 ModelState.AddModelError("", "Tên đăng nhập hoặc mật khẩu chưa đúng");
             }
 
+            //Check login and redirect to page.
+            //if (result)
+            //{
+            //    SessionHelper.SetEmailSession(model.Email);
+            //    return RedirectToAction("Index", "Home");
+            //}
+            //else
+            //{
+            //    ModelState.AddModelError("", "Tên đăng nhập hoặc mật khẩu chưa đúng");
+            //}
             return View(model);
         }
 
@@ -53,25 +63,22 @@ namespace SEN.WebUI.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult DangKy(ThanhVien thanhVien)
-        
-
         {
             if (ModelState.IsValid)
             {
-                
                 VenEntities db = new VenEntities();
-
                 db.ThanhViens.Add(thanhVien);
                 db.SaveChanges();
                 return View(thanhVien);
-               
-                
             }
-
             return RedirectToAction("DangKy");
 
         }
         
-
+        public ActionResult LogOut()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("DangNhap", "Home");
+        }
     }
 }

@@ -1,19 +1,16 @@
-﻿@model SEN.WebUI.Models.LoginModel
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>VEN - Đăng nhập hoặc đăng ký</title>
-
     <link href="~/Assets/css/style.css" rel="stylesheet" />
     <link href="~/Assets/css/bootstrap.min.css" rel="stylesheet" />
     <script src="~/Scripts/jquery-3.1.1.min.js"></script>
     <script src="~/Scripts/angular.min.js"></script>
     <script src="~/Scripts/angular-cookies.min.js"></script>
-
-    <script src="~/Scripts/app.js"></script>
+    <script src="~/App/services/app.js"></script>
 </head>
 <body style="background-image: url('/images/pexels-photo2.jpg'); padding: 50px;" ng-app="app">
 
@@ -21,7 +18,7 @@
         <div class="row">
             <header>
                 <ul>
-                    <li><a href="#" title="">Giới thiệu  </a>    |</li>
+                    <li><a href="#" title="">Giới thiệu </a></li>
                     <li><a href="#" title="">Liên hệ</a></li>
                 </ul>
             </header><!-- /header -->
@@ -32,10 +29,7 @@
                 <h1>Kết nối ngay để không bỏ lở</h1>
             </div>
             <div class="col-md-4" id="login-dp">
-
                 @RenderBody()
-
-                
             </div>
         </div>
         <div class="row">
@@ -56,7 +50,6 @@
                 Password: $("#password").val(),
                 GioiTinh: 1,
             };
-
             $.ajax({
                 method: "POST",
                 url: "/DangKy",
@@ -68,10 +61,8 @@
                     debugger;
                 }
             });
-
             return false
         }
-
         $(document).ready(function () {
             $("#login-nav").submit(function (e) {
                 debugger;

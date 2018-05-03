@@ -16,19 +16,22 @@ namespace SEN.Data
             context = new VenEntities();
         }
 
-        public bool Login(string Email, string Password)
+        public dynamic Login(string Email, string Password)
         {
-            object[] sqlParams =
-             {
-                new SqlParameter("@Email",Email),
-                new SqlParameter("@Password",Password),
-            };
+            //object[] sqlParams =
+            // {
+            //    new SqlParameter("@Email",Email),
+            //    new SqlParameter("@Password",Password),
+            //};
 
-            var res = context.Sp_ThanhViens_Login(Email, Password);
+            var dataLogin = context.ThanhViens.Where(x => x.Email == Email && x.Password == Password).FirstOrDefault();
 
-            var items = new List<bool?>((IEnumerable<bool?>)res);
+            return dataLogin;
+            //var res = context.Sp_ThanhViens_Login(Email, Password);
 
-            return items != null && items.Any() && items.First() != null && items.First().Value;
+            //var items = new List<bool?>((IEnumerable<bool?>)res);
+
+            //return items != null && items.Any() && items.First() != null && items.First().Value;
         }
         public bool ModelState { get; set; }
         public bool IsValid { get; set; }

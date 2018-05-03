@@ -51,5 +51,6 @@ namespace SEN.Entities
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<bool>>("Sp_ThanhViens_Login", emailParameter, passwordParameter);
         }
+
     }
 }

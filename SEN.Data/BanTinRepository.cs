@@ -33,6 +33,7 @@ namespace SEN.Data
         {
             throw new NotImplementedException();
         }
+
         public void Remove(BanTin banTin)
         {
 

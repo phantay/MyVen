@@ -3,7 +3,7 @@
 
     var app = angular.module('app', []);
 
-    app.controller('dangKyCtrl', function ($scope,dangKyService) {
+    app.controller('dangKyCtrl', function ($scope, dangKyService) {
         $scope.submitText = "Save";
         $scope.submitted = false;
         $scope.message = '';
@@ -15,9 +15,9 @@
             Email: '',
             Mobile: '',
             Password: '',
+            ConfirmPassword: '',
             NgaySinh: '',
             GioiTinh: ''
-
         };
 
         $scope.$watch('f1.$valid', function (newValue) {
@@ -38,40 +38,38 @@
                             ClearForm();
                         }
                         $scope.submitText = "Save";
-                    });
-}
-    else {
-    $scope.message = '';
-}
-
-
+                    };
+                }
+                else {
+                    $scope.message = '';
+                }
             }
         }
-    function ClearForm() {
-        $scope.ThanhVien = {};
-        $scope.f1.$setPristine();
-        $scope.submitted = false; 
-    }
+        function ClearForm() {
+            $scope.ThanhVien = {};
+            $scope.f1.$setPristine();
+            $scope.submitted = false;
+        }
     });
-.factory('dangKyService', function ($http, $q) {
-    var fac = {};
-    fac.SaveFormData = function (data) {
-        var defer = $q.defer();
-        $http({
-            url: '/Home/DangKy',
-            method: 'POST',
-            data: JSON.stringify(data),
-            headers: { 'content-type': 'application/json' }
-        }).success(function (d) {
-            // Success callback
-            defer.resolve(d);
-        }).error(function (e) {
-            //Failed Callback
-            alert('Error!');
-            defer.reject(e);
-        });
-        return defer.promise;
+    .factory('dangKyService', function ($http, $q) {
+        var fac = {};
+        fac.SaveFormData = function (data) {
+            var defer = $q.defer();
+            $http({
+                url: '/Home/DangKy',
+                method: 'POST',
+                data: JSON.stringify(data),
+                headers: { 'content-type': 'application/json' }
+            }).success(function (d) {
+                // Success callback
+                defer.resolve(d);
+            }).error(function (e) {
+                //Failed Callback
+                alert('Error!');
+                defer.reject(e);
+            };
+            return defer.promise;
+        }
+        return fac;
     }
-    return fac;
-    }
-})();   
+    })();   

@@ -5,7 +5,7 @@
 
     app.service('thanhVienService', function ($http) {
         this.getThanhVien = function () {
-            return $http.post("/ThanhVien/GetThanhVien");
+            return $http.get("/ThanhVien/GetThanhVien");
         }
     });
 })();

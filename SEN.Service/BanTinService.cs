@@ -75,7 +75,6 @@ namespace SEN.Service
             if (banTin.ThanhVienId != banTinDb.ThanhVienId)
                 throw new Exception("Bạn không có quyền sửa bản tin này");
 
-            //
             // TODO: Cần lưu lại lịch sử sửa bản tin
             try
             {
@@ -91,12 +90,10 @@ namespace SEN.Service
         }
         public void XoaTin(BanTin banTin)
         {
-
             try
             {
                 BanTinStore.Remove(banTin);
                 BanTinStore.SaveChanges();
-
             }
             catch (Exception)
             {

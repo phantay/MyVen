@@ -1,4 +1,5 @@
-﻿using SEN.Service;
+﻿using SEN.Entities;
+using SEN.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,15 +16,13 @@ namespace SEN.WebUI.Controllers
         {
             _thanhVienService= new ThanhVienService();
         }
-
+            
         public JsonResult GetThanhVien()
         {
             try
             {
-                var thanhVienId = 1; // Session
-                var thanhVien = _thanhVienService.GetThanhVien(thanhVienId);
-
-                return Json(thanhVien, JsonRequestBehavior.AllowGet);
+                var thanhVien = (ThanhVien)Session["user_login"];
+                return Json(new { thanhVien.FirstName, thanhVien.LastName }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -33,7 +32,5 @@ namespace SEN.WebUI.Controllers
                 throw new Exception(ex.Message);
             }
         }
-
-
     }
 }

@@ -1,9 +1,8 @@
-﻿
+﻿@model SEN.WebUI.Models.LoginModel
 @{
     ViewBag.Title = "Đăng Nhập";
     Layout = "~/Views/Shared/_LayoutLanding.cshtml";
 }
-@model SEN.WebUI.Models.LoginModel
 
 <div class="top text-center" id="toptext">
     <b>Đăng nhập</b>
@@ -17,13 +16,13 @@
             @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @placeholder = "Email hoặc số di dộng", @autofocus = "autofocus" })
         </div>
         <div class="form-group">
-            @Html.TextBoxFor(model => model.Password,new { @class = "form-control", @placeholder = "Password", @type = "Password", @autofocus = "autofocus" })
+            @Html.TextBoxFor(model => model.Password, new { @class = "form-control", @placeholder = "Password", @type = "Password", @autofocus = "autofocus" })
             <div class="row">
                 <div class="checkbox col-md-6">
-                   <!-- <label>
-                           @@Html.CheckBoxFor(model => model.RemberMe)
-                           RememberMe
-                       </label> -->
+                    <!-- <label>
+                            @@Html.CheckBoxFor(model => model.RemberMe)
+                            RememberMe
+                        </label> -->
                 </div>
                 <div class="help-block text-right col-md-6"><a href="">Forget the password ?</a></div>
             </div>

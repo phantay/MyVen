@@ -10,6 +10,11 @@ namespace SEN.WebUI.Controllers
 {
     public class BaseController : Controller
     {
+        protected  bool CheckLogin()
+        {
+            var isCheck = false;
+            return isCheck;
+        }
         protected override JsonResult Json(object data, string contentType, System.Text.Encoding contentEncoding, JsonRequestBehavior behavior)
         {
             return new JsonNetResult

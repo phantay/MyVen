@@ -183,9 +183,9 @@
 }
 .post-image-modal{
 	max-width: 85%;
-	max-height: 80vh;
 	border-radius: 5px;
 	margin: 0 auto;
+    height:100%;
 }
 .post-image-full-modal{
 	max-width: 100%;
@@ -250,6 +250,7 @@
 .modal-gallery {
     margin-right: -10px;
     position: relative;
+    height:100%;
 }
 
 .modal-post-info {
