@@ -29,8 +29,6 @@ namespace SEN.WebUI.Controllers
                 ModelState.AddModelError("", "Thiếu tên đăng nhập hoặc mật khẩu chưa đúng");
                 return View(model);
             }
-
-
             //Login
             var result = new ThanhVienModel().Login(model.Email, model.Password);
 
@@ -41,7 +39,6 @@ namespace SEN.WebUI.Controllers
             } else {
                 ModelState.AddModelError("", "Tên đăng nhập hoặc mật khẩu chưa đúng");
             }
-
             //Check login and redirect to page.
             //if (result)
             //{
@@ -77,6 +74,7 @@ namespace SEN.WebUI.Controllers
         
         public ActionResult LogOut()
         {
+            Session.Clear();
             FormsAuthentication.SignOut();
             return RedirectToAction("DangNhap", "Home");
         }

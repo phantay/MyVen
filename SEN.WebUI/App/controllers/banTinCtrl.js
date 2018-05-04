@@ -8,15 +8,17 @@
         $scope.dsBinhLuan = [];
         $scope.imageFile;
         $scope.binhLuanMoi;
+        $scope.thanhVienId;
 
         thanhVienService.getThanhVien().then(function (response) {
-            console.log(response);
+            $scope.thanhVienId = response.data.ThanhVienId;
             $scope.FirstName = response.data.FirstName;
             $scope.LastName = response.data.LastName;
-        });
 
-        banTinService.getDanhSachBanTin().then(function (response) {
-            $scope.dsBanTin = response.data;
+            //
+            banTinService.getDanhSachBanTin($scope.thanhVienId).then(function (response) {
+                $scope.dsBanTin = response.data;
+            });
         });
 
         //mo modal
@@ -28,26 +30,12 @@
         $scope.open_modal = function (bt) {
             this.modalData.BanTinId = bt.BanTinId;
             this.modalData.NoiDung = bt.NoiDung;
-            this.modalData.TenNguoiDang = bt.BanTinId;
+            this.modalData.TenNguoiDang = bt.ThanhVienId;
 
             binhLuanService.getDanhSanhBinhLuan($scope, bt.BanTinId, 0);
 
-            //alert('mo modal ' + this.modalData.BanTinId + " " + this.modalData.NoiDung + " " + this.modalData.TenNguoiDang);
-            $('#link-open-modal').trigger('click');
-            //this.post.name = bt.BanTinId;
-            //this.post.anh = bt.BanTinId;
-
-            //$('#link-modal').trigger('click');
-            //setTimeout(function () {
-
-            //    $('.post-scroll-modal').slimscroll({
-            //        size: '5px',
-            //        height: $('.modal-gallery').height() - 15
-            //    });
-            //}, 250);
         };
         //het modal
-
         $scope.noiDungBanTin = "";
         $scope.noiDungBinhLuan = "";
 
@@ -57,9 +45,8 @@
                 NoiDung: $scope.noiDungBanTin,
                 attachment: $scope.imageFile
             };
-
             akFileUploaderService.saveModel(model, "/BanTin/DangTin").then(function (data) {
-                banTinService.getDanhSachBanTin().then(function (response) {
+                banTinService.getDanhSachBanTin($scope.thanhVienId).then(function (response) {
                     $scope.dsBanTin = response.data;
                 });
             });
@@ -75,9 +62,7 @@
         $scope.chuyenGio = function (date) {            
             if (!date)
                 return null;
-
             date = new Date(date);
-
             var currentDate = new Date();
             var delta = Math.abs(currentDate - date) / 1000;
             var minute = 60,

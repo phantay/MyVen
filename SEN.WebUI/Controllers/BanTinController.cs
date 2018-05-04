@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using SEN.WebUI.Models;
 using SEN.Entities;
@@ -26,7 +24,7 @@ namespace SEN.WebUI.Controllers
         }
 
         public JsonResult ListBanTin(int thanhVienId) {
-            var banTins = _banTinService.GetList(1);
+            var banTins = _banTinService.GetList(thanhVienId);
             var listBanTin = banTins.Select(_=> new BanTinModel {
                 BanTinId = _.BanTinId,
                 NoiDung = _.NoiDung,
@@ -47,7 +45,6 @@ namespace SEN.WebUI.Controllers
             {
                 //
                 //TODO: Cần lưu lại lỗi
-
                 throw new Exception(ex.Message);
             }
         }
@@ -57,7 +54,9 @@ namespace SEN.WebUI.Controllers
         {
             try
             {
-                banTin.ThanhVienId = 1;
+                //banTin.ThanhVienId = 1;
+                var thanhVien = (ThanhVien)Session["user_login"];
+                banTin.ThanhVienId = thanhVien.ThanhVienId;
                 _banTinService.DangTin(banTin);
 
                 if(banTin != null && Request.Files != null && Request.Files.Count > 0)
@@ -74,14 +73,12 @@ namespace SEN.WebUI.Controllers
                         }
                     }
                 }
-
                 return Json(banTin);
             }
             catch (Exception ex)
             {
                 //
                 //TODO: Cần lưu lại lỗi
-
                 throw new Exception(ex.Message);
             }
         }
@@ -91,14 +88,12 @@ namespace SEN.WebUI.Controllers
             try
             {
                 var banTinMoi = _banTinService.SuaTin(banTin);
-
                 return Json(banTinMoi);
             }
             catch (Exception ex)
             {
                 //
                 //TODO: Cần lưu lại lỗi
-
                 throw new Exception(ex.Message);
             }
         }
@@ -113,7 +108,6 @@ namespace SEN.WebUI.Controllers
                     var bantin = data.BanTins.Where(x => x.BanTinId == banTinId).FirstOrDefault();
                     if (bantin == null)
                         throw new Exception("Ban tin khong ton tai");
-
                     data.BanTins.Remove(bantin);
                     data.SaveChanges();
                     return Json(true);
@@ -123,7 +117,6 @@ namespace SEN.WebUI.Controllers
             {
                 //
                 //TODO: Cần lưu lại lỗi
-
                 throw new Exception(ex.Message);
             }
         }
@@ -138,7 +131,6 @@ namespace SEN.WebUI.Controllers
                     var bantin = data.BanTins.Where(x => x.BanTinId == banTinId).FirstOrDefault();
                     if (bantin == null)
                         throw new Exception("Ban tin khong ton tai");
-
                     var bl = new BinhLuan
                     {
                         BanTinId = banTinId,
@@ -146,9 +138,7 @@ namespace SEN.WebUI.Controllers
                         ThanhVienId = 1,
                         ThoiGian = DateTime.Now,                        
                     };
-
                     data.BinhLuans.Add(bl);
-
                     data.SaveChanges();
                     return Json(true);
                 }
@@ -157,7 +147,6 @@ namespace SEN.WebUI.Controllers
             {
                 //
                 //TODO: Cần lưu lại lỗi
-
                 throw new Exception(ex.Message);
             }
         }
@@ -171,7 +160,6 @@ namespace SEN.WebUI.Controllers
                 {
                     int pageIndex = 1;
                     int _pageSize = (pageSize != 0) ? pageSize : 5;
-
                     var ds = data.BinhLuans.Where(_ => _.BanTinId == banTinId)
                         .OrderByDescending(_=>_.ThoiGian)
                         .Skip((pageIndex - 1) * _pageSize)
@@ -183,14 +171,12 @@ namespace SEN.WebUI.Controllers
                             NoiDung = _.NoiDung,
                             ThoiGian = _.ThoiGian
                         }).ToList();
-
                     return Json(ds, JsonRequestBehavior.AllowGet);
                 }
             }
             catch (Exception ex)
             {
                 //TODO: Cần lưu lại lỗi
-
                 throw new Exception(ex.Message);
             }
         }

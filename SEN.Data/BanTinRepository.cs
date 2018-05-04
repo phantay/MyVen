@@ -21,7 +21,7 @@ namespace SEN.Data
 
         public List<BanTin> GetList(int thanhVienId)
         {
-            return Db.BanTins.Include("ThanhVien").Where(_ => _.ThanhVienId == thanhVienId).OrderByDescending(_ => _.ThoiGian).ToList();
+            return Db.BanTins.Include("ThanhVien").Where(b => b.ThanhVienId == thanhVienId).OrderByDescending(b => b.ThoiGian).ToList();
         }
 
         public List<BanTin> GetList(int thanhVienId, DateTime startDate, DateTime endDate)
@@ -36,7 +36,6 @@ namespace SEN.Data
 
         public void Remove(BanTin banTin)
         {
-
             Db.BanTins.Remove(banTin);
         }
     }
