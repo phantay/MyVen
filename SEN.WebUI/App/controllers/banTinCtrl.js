@@ -31,9 +31,8 @@
             this.modalData.BanTinId = bt.BanTinId;
             this.modalData.NoiDung = bt.NoiDung;
             this.modalData.TenNguoiDang = bt.ThanhVienId;
-
-            binhLuanService.getDanhSanhBinhLuan($scope, bt.BanTinId, 0);
-
+            //
+            $scope.getTopBinhLuanMoiNhat(bt.BanTinId);
         };
         //het modal
         $scope.noiDungBanTin = "";
@@ -86,34 +85,45 @@
                 fuzzy = Math.floor(delta / hour) + ' giờ trước';
             }
             else if (delta < week) {
-                fuzzy = Math.floor(delta / day) + ' ngay trước';
+                fuzzy = Math.floor(delta / day) + ' ngày trước';
             }
             else if (delta < month) {
-                fuzzy = Math.floor(delta / week) + ' tuan trước';
+                fuzzy = Math.floor(delta / week) + ' tuần trước';
             }
             else if (delta < year) {
-                fuzzy = Math.floor(delta / month) + ' thang trước';
+                fuzzy = Math.floor(delta / month) + ' tháng trước';
             }
             else {
-                fuzzy = Math.floor(delta / year) + ' nam trước';
+                fuzzy = Math.floor(delta / year) + 'năm trước';
             }
             return fuzzy;
         }
 
         $scope.dangBinhLuan = function () {
-            if (!$scope.modalData.BanTinId || !$scope.binhLuanMoi)
+            if (!$scope.modalData.BanTinId || !$scope.binhLuanMoi) {
                 return;
-            binhLuanService.dangBinhLuan($scope.modalData.BanTinId, $scope.binhLuanMoi).then(function (binhLuan) {
-                var pageSize = $scope.dsBinhLuan.length + 1;
-                binhLuanService.getDanhSanhBinhLuan($scope, $scope.modalData.BanTinId, pageSize);
-            });            
+            }
+            binhLuanService.dangBinhLuan($scope.modalData.BanTinId, $scope.binhLuanMoi).then(function (response) {
+                if (response.data.success != undefined && response.data.success != null && response.data.success == true ) {
+                    $scope.getTopBinhLuanMoiNhat($scope.modalData.BanTinId);
+                }
+                console.log();
+            });
+            $scope.binhLuanMoi = '';
         }
 
+        $scope.getTopBinhLuanMoiNhat = function (banTinId) {
+            binhLuanService.getTopBinhLuanMoiNhat(banTinId).then(function (response) {
+                $scope.dsBinhLuan = response.data;
+            });
+        }
+
+        //
         $scope.loadMoreBinhLuan = function () {
-            var pageSize = $scope.dsBinhLuan.length + 5;
-            binhLuanService.getDanhSanhBinhLuan($scope, $scope.modalData.BanTinId, pageSize);
+            var minBinhLuanId = $scope.dsBinhLuan[$scope.dsBinhLuan.length - 1].BinhLuanId;
+            binhLuanService.getMoreBinhLuan($scope.modalData.BanTinId, minBinhLuanId).then(function (response) {
+                $scope.dsBinhLuan = [].concat($scope.dsBinhLuan, response.data);
+            });
         }
-
     });
 })();
-

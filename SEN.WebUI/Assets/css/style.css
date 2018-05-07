@@ -118,7 +118,6 @@ footer{
 }
 
 
-
 /*phan modal*/
 
 .modal-dem {
@@ -191,8 +190,9 @@ footer{
 .modal-sen {
     display: none;
 }
-
 /* flex box */
+
+
 
 .post-modal-body {
     display: flex;

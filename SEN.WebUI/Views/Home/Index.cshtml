@@ -50,14 +50,13 @@
                             <img src="~/images/img.jpg" class="pull-left avata" alt="">
                         </a>
                         <div class="media-body">
-                            <a class="title" href="#"><span>{{FirstName}}{{LastName}}</span></a><span> đã thêm một sự kiện</span>
+                            <a class="title" href="#"><span>{{FirstName}} {{LastName}}</span></a><span> đã thêm một sự kiện</span>
                             <p class="hour">{{chuyenGio(bt.ThoiGian)}}</p>
                             <a href="#" title="" class="hashtag">!music</a>
                         </div>
                     </article>
                 </div>
                 <div class="col-md-1 option">
-
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-angle-down"></i></a>
                     <ul class="dropdown-menu" role="menu">
                         <li>
@@ -94,8 +93,27 @@
             <div class="nf_action">
                 <ul>
                     <li><button type="button" class="btn-like"><i class="fa fa-angellist"></i><span>50</span> </button></li>
-                    <li><button type="button" class="btn-like" ng-click="open_modal(bt)" data-toggle="modal" data-target="#openmodal"><i class="fa fa-comments-o"></i></button></li>
+                    <li><button id="target" type="button" class="btn-like" onclick="focusMethod()" ng-click="open_modal(bt)"><i class="fa fa-comments-o"></i></button></li>
                     <li><button type="button" class="btn-like"><i class="fa fa-retweet"></i></button></li>
+                </ul>
+            </div>
+            <div class="modal-post-comment">
+                <ul class="list-unstyled modal-list-comment">
+                    <li ng-repeat="bl in dsBinhLuan">
+                        <a href="#">
+                            <strong>{{FirstName}} {{LastName}}</strong>
+                            <p>{{bl.NoiDung}}</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a ng-click="loadMoreBinhLuan()" href="#">&#09;<h5>Xem thêm...</h5></a>
+                    </li>
+                    <li>
+                        <div id="formComment" class="col-sm-12">
+                            <input id="comment" type="text" class="input-comment text-muted" ng-model="bl.binhLuanMoi" placeholder="Viết bình luận...">
+                            <button class="form-control-feedback btn btn-lg btn-emotion" ng-click="bl.dangBinhLuan()"><i class="icon-emotsmile"></i></button>
+                        </div>
+                    </li>
                 </ul>
             </div>
             <!-- /div like -->
@@ -118,7 +136,7 @@
                                         </div>
                                         <div class="meta-container">
                                             <a href="#">
-                                                <h4 class="text-overflow m-t-0">{{modalData.TenNguoiDang}}</h4>
+                                                <h4 class="text-overflow m-t-0">{{FirstName}} {{LastName}}</h4>
                                             </a>
                                             <a href="#" class="post-keyword">
                                                 <h4 class="text-overflow m-t-0">!cit</h4>
@@ -134,7 +152,7 @@
                                                 </ul>
                                             </h4>
                                             <div class="font-13">
-                                                <span class="meta text-muted">2 giờ trước</span>
+                                                <span class="meta text-muted">{{chuyenGio(bt.ThoiGian)}}</span>
                                             </div>
                                         </div>
                                         <p class="m-b-0">
@@ -175,7 +193,7 @@
                                         <ul class="list-unstyled modal-list-comment">
                                             <li ng-repeat="bl in dsBinhLuan">
                                                 <a href="#">
-                                                    <strong>Phan Tay</strong>
+                                                    <strong>{{FirstName}} {{LastName}}</strong>
                                                     <p>{{bl.NoiDung}}</p>
                                                 </a>
                                             </li>
@@ -184,8 +202,8 @@
                                             </li>
                                             <li>
                                                 <div class="col-sm-12">
-                                                    <input type="text" class="form-control input-comment text-muted" ng-model="binhLuanMoi" placeholder="Viết bình luận...">
-                                                    <button class="form-control-feedback btn btn-lg btn-emotion" ng-click="dangBinhLuan()"><i class="icon-emotsmile"></i></button>
+                                                    <input id="myInput" type="text" class="input-comment text-muted" row="5" ng-model="binhLuanMoi" placeholder="Viết bình luận...">
+                                                    <button id="myBtn" class="form-control-feedback btn btn-lg btn-emotion" ng-click="dangBinhLuan()"><i class="icon-emotsmile"></i></button>
                                                 </div>
                                             </li>
                                         </ul>
@@ -302,3 +320,17 @@
         </div>
     </div>
 </div>
+<script>
+    focusMethod = function getFocus() {
+        document.getElementById("comment").focus();
+    }
+</script>
+<script>
+    var input = document.getElementById("myInput");
+    input.addEventListener("keyup", function (event) {
+        event.preventDefault();
+        if (event.keyCode === 13) {
+            document.getElementById("myBtn").click();
+        }
+    });
+</script>

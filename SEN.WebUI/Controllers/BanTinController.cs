@@ -25,10 +25,10 @@ namespace SEN.WebUI.Controllers
 
         public JsonResult ListBanTin(int thanhVienId) {
             var banTins = _banTinService.GetList(thanhVienId);
-            var listBanTin = banTins.Select(_=> new BanTinModel {
-                BanTinId = _.BanTinId,
-                NoiDung = _.NoiDung,
-                ThoiGian = _.ThoiGian,               
+            var listBanTin = banTins.Select(b=> new BanTinModel {
+                BanTinId = b.BanTinId,
+                NoiDung = b.NoiDung,
+                ThoiGian = b.ThoiGian,               
             }).ToList();
             return Json(listBanTin, JsonRequestBehavior.AllowGet);
         }
@@ -54,7 +54,6 @@ namespace SEN.WebUI.Controllers
         {
             try
             {
-                //banTin.ThanhVienId = 1;
                 var thanhVien = (ThanhVien)Session["user_login"];
                 banTin.ThanhVienId = thanhVien.ThanhVienId;
                 _banTinService.DangTin(banTin);
@@ -140,7 +139,8 @@ namespace SEN.WebUI.Controllers
                     };
                     data.BinhLuans.Add(bl);
                     data.SaveChanges();
-                    return Json(true);
+
+                    return Json(new { success = true, binhLuanId = bl.BinhLuanId }, JsonRequestBehavior.AllowGet);
                 }
             }
             catch (Exception ex)
@@ -152,32 +152,110 @@ namespace SEN.WebUI.Controllers
         }
 
         [HttpGet]
-        public JsonResult GetDanhSachBinhLuan(int banTinId, int pageSize = 0)
+        public JsonResult GetTopBinhLuanMoiNhat(int banTinId)
         {
+            int pageSize = 5;
+
+            if (banTinId <= 0)
+            {
+                return Json(new { success = false, error = "banTinId không hợp lệ!" }, JsonRequestBehavior.AllowGet);
+            }
+
             try
             {
                 using (VenEntities data = new VenEntities())
                 {
-                    int pageIndex = 1;
-                    int _pageSize = (pageSize != 0) ? pageSize : 5;
-                    var ds = data.BinhLuans.Where(_ => _.BanTinId == banTinId)
-                        .OrderByDescending(_=>_.ThoiGian)
-                        .Skip((pageIndex - 1) * _pageSize)
-                        .Take(_pageSize)
+                    var binhLuans = data.BinhLuans.Where(b => b.BanTinId == banTinId)
+                        .OrderByDescending(b => b.ThoiGian)
+                        .Take(pageSize)
                         .ToList()
-                        .Select(_=> new BinhLuan {
-                            BinhLuanId = _.BinhLuanId,
-                            BanTinId = _.BanTinId,
-                            NoiDung = _.NoiDung,
-                            ThoiGian = _.ThoiGian
+                        .Select(b => new BinhLuan {
+                            BinhLuanId = b.BinhLuanId,
+                            BanTinId = b.BanTinId,
+                            NoiDung = b.NoiDung,
+                            ThoiGian = b.ThoiGian
                         }).ToList();
-                    return Json(ds, JsonRequestBehavior.AllowGet);
+
+                    return Json(binhLuans, JsonRequestBehavior.AllowGet);
                 }
             }
             catch (Exception ex)
             {
                 //TODO: Cần lưu lại lỗi
-                throw new Exception(ex.Message);
+                return Json(new { success = false, error = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpGet]
+        public JsonResult GetBinhLuanById(int binhLuanId)
+        {
+            if (binhLuanId <= 0)
+            {
+                return Json(new { success = false, error = "binhLuanId không hợp lệ!" }, JsonRequestBehavior.AllowGet);
+            }
+
+            try
+            {
+                using (VenEntities data = new VenEntities())
+                {
+                    var binhLuan = data.BinhLuans.Where(b => b.BinhLuanId == binhLuanId)
+                        .ToList()
+                        .Select(b => new BinhLuan
+                        {
+                            BinhLuanId = b.BinhLuanId,
+                            BanTinId = b.BanTinId,
+                            NoiDung = b.NoiDung,
+                            ThoiGian = b.ThoiGian
+                        }).FirstOrDefault();
+
+                    return Json(binhLuan, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                //TODO: Cần lưu lại lỗi
+                return Json(new { success = false, error = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpGet]
+        public JsonResult GetMoreBinhLuan(int banTinId, int minBinhLuanId)
+        {
+            int pageSize = 5;
+
+            if (banTinId <= 0)
+            {
+                return Json(new { success = false, error = "banTinId không hợp lệ!" }, JsonRequestBehavior.AllowGet);
+            }
+
+            if (minBinhLuanId <= 0)
+            {
+                return Json(new { success = false, error = "minBinhLuanId không hợp lệ!" }, JsonRequestBehavior.AllowGet);
+            }
+
+            try
+            {
+                using (VenEntities data = new VenEntities())
+                {
+                    var binhLuans = data.BinhLuans.Where(b => b.BanTinId == banTinId && b.BinhLuanId < minBinhLuanId)
+                        .OrderByDescending(b => b.ThoiGian)
+                        .Take(pageSize)
+                        .ToList()
+                        .Select(b => new BinhLuan
+                        {
+                            BinhLuanId = b.BinhLuanId,
+                            BanTinId = b.BanTinId,
+                            NoiDung = b.NoiDung,
+                            ThoiGian = b.ThoiGian
+                        }).ToList();
+
+                    return Json(binhLuans, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                //TODO: Cần lưu lại lỗi
+                return Json(new { success = false, error = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
     }

@@ -5,7 +5,6 @@
 
     app.service('banTinService', function ($http) {
         this.getDanhSachBanTin = function (thanhVienId) {
-            
             return $http.get("/BanTin/ListBanTin?thanhVienId=" + thanhVienId);
             //return $http.get("/BanTin/ListBanTin?thanhVienId=1");
         }

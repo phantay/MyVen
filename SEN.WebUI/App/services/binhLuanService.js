@@ -5,13 +5,19 @@
 
     app.service('binhLuanService', function ($http) {
         this.dangBinhLuan = function (banTinId, binhLuan) {
-            return $http.post("/BanTin/DangBinhLuan", { "banTinId": banTinId, "binhLuan": binhLuan});
+            return $http.post("/BanTin/DangBinhLuan", { "banTinId": banTinId, "binhLuan": binhLuan });
         }
 
-        this.getDanhSanhBinhLuan = function ($scope, banTinId, pageSize) {
-            $http.get("/BanTin/GetDanhSachBinhLuan?banTinId=" + banTinId + "&pageSize=" + pageSize).then(function (result) {
-                $scope.dsBinhLuan = result.data;
-            });
+        this.getTopBinhLuanMoiNhat = function (banTinId) {
+            return $http.get("/BanTin/GetTopBinhLuanMoiNhat?banTinId=" + banTinId);
+        }
+
+        this.getBinhLuanById = function (binhLuanId) {
+            return $http.get("/BanTin/GetBinhLuanById?binhLuanId=" + binhLuanId);
+        }
+
+        this.getMoreBinhLuan = function (banTinId, minBinhLuanId) {
+            return $http.get("/BanTin/GetMoreBinhLuan?banTinId=" + banTinId + "&minBinhLuanId=" + minBinhLuanId);
         }
     });
 })();
