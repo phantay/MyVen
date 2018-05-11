@@ -192,6 +192,7 @@
   <ItemGroup>
     <Content Include="App\app.ven.js" />
     <Content Include="App\controllers\banTinCtrl.js" />
+    <Content Include="App\controllers\binhLuanCtrl.js" />
     <Content Include="App\modules\akFileUploader.js" />
     <Content Include="App\services\banTinService.js" />
     <Content Include="App\services\binhLuanService.js" />

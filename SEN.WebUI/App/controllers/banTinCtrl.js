@@ -1,42 +1,27 @@
-﻿(function () {
+﻿var app = angular.module('venApp');
+
+(function (app) {
     'use strict';
 
-    var app = angular.module('venApp');
-
-    app.controller('banTinCtrl', function ($scope, $location, banTinService, thanhVienService, binhLuanService, akFileUploaderService) {
+    app.controller('banTinCtrl', function ($scope, $location, banTinService, thanhVienService, akFileUploaderService) {
         $scope.dsBanTin = [];
-        $scope.dsBinhLuan = [];
         $scope.imageFile;
-        $scope.binhLuanMoi;
-        $scope.thanhVienId;
+        $scope.thanhVien = {
+            Id: "",
+            FirstName: "",
+            LastName: ""
+        };
 
         thanhVienService.getThanhVien().then(function (response) {
-            $scope.thanhVienId = response.data.ThanhVienId;
-            $scope.FirstName = response.data.FirstName;
-            $scope.LastName = response.data.LastName;
+            $scope.thanhVien.Id = response.data.ThanhVienId;
+            $scope.thanhVien.FirstName = response.data.FirstName;
+            $scope.thanhVien.LastName = response.data.LastName;
 
             //
-            banTinService.getDanhSachBanTin($scope.thanhVienId).then(function (response) {
+            banTinService.getDanhSachBanTin($scope.thanhVien.Id).then(function (response) {
                 $scope.dsBanTin = response.data;
             });
         });
-
-        //mo modal
-        $scope.post = {
-            name: "",
-            anh: ""
-        };
-        $scope.modalData = { BanTinId: "", NoiDung: "", TenNguoiDang: "" };
-        $scope.open_modal = function (bt) {
-            this.modalData.BanTinId = bt.BanTinId;
-            this.modalData.NoiDung = bt.NoiDung;
-            this.modalData.TenNguoiDang = bt.ThanhVienId;
-            //
-            $scope.getTopBinhLuanMoiNhat(bt.BanTinId);
-        };
-        //het modal
-        $scope.noiDungBanTin = "";
-        $scope.noiDungBinhLuan = "";
 
         $scope.dangTin = function () {
             // Dang Tin
@@ -45,7 +30,7 @@
                 attachment: $scope.imageFile
             };
             akFileUploaderService.saveModel(model, "/BanTin/DangTin").then(function (data) {
-                banTinService.getDanhSachBanTin($scope.thanhVienId).then(function (response) {
+                banTinService.getDanhSachBanTin($scope.thanhVien.Id).then(function (response) {
                     $scope.dsBanTin = response.data;
                 });
             });
@@ -98,32 +83,5 @@
             }
             return fuzzy;
         }
-
-        $scope.dangBinhLuan = function () {
-            if (!$scope.modalData.BanTinId || !$scope.binhLuanMoi) {
-                return;
-            }
-            binhLuanService.dangBinhLuan($scope.modalData.BanTinId, $scope.binhLuanMoi).then(function (response) {
-                if (response.data.success != undefined && response.data.success != null && response.data.success == true ) {
-                    $scope.getTopBinhLuanMoiNhat($scope.modalData.BanTinId);
-                }
-                console.log();
-            });
-            $scope.binhLuanMoi = '';
-        }
-
-        $scope.getTopBinhLuanMoiNhat = function (banTinId) {
-            binhLuanService.getTopBinhLuanMoiNhat(banTinId).then(function (response) {
-                $scope.dsBinhLuan = response.data;
-            });
-        }
-
-        //
-        $scope.loadMoreBinhLuan = function () {
-            var minBinhLuanId = $scope.dsBinhLuan[$scope.dsBinhLuan.length - 1].BinhLuanId;
-            binhLuanService.getMoreBinhLuan($scope.modalData.BanTinId, minBinhLuanId).then(function (response) {
-                $scope.dsBinhLuan = [].concat($scope.dsBinhLuan, response.data);
-            });
-        }
     });
-})();
+})(app);

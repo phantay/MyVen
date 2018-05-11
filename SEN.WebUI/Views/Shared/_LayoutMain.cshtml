@@ -25,9 +25,9 @@
     <!-- Custom Theme Style -->
     <link href="~/css/style.css" rel="stylesheet" />
 </head>
-<body class="fixed-left" ng-app="venApp">
+<body class="fixed-left">
     <!-- Begin page -->
-    <div id="wrapper" ng-controller="banTinCtrl">
+    <div id="wrapper" ng-app="venApp" ng-controller="banTinCtrl">
         <!-- Top Bar Start -->
         <div class="topbar">
             <!-- LOGO -->
@@ -305,7 +305,7 @@
                         <img src="~/Assets/images/users/avatar-1.jpg" alt="" class="thumb-md img-circle">
                     </div>
                     <div class="user-info">
-                        <a href="#" title=""><h2>{{FirstName}} {{LastName}}</h2></a>
+                        <a href="#" title=""><h2>{{thanhVien.FirstName}} {{thanhVien.LastName}}</h2></a>
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="#"><i class=""></i> Cập nhật thông tin</a>
@@ -599,6 +599,7 @@
     <script src="~/App/services/binhLuanService.js"></script>
     <script src="~/App/services/thanhVienService.js"></script>
     <script src="~/App/controllers/banTinCtrl.js"></script>
+    <script src="~/App/controllers/binhLuanCtrl.js"></script>
     <script src="~/Assets/js/custom.js"></script>
 </body>
 </html>

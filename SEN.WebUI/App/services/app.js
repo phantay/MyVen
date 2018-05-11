@@ -51,7 +51,7 @@
             $scope.submitted = false;
         }
     });
-    .factory('dangKyService', function ($http, $q) {
+    app.factory('dangKyService', function ($http, $q) {
         var fac = {};
         fac.SaveFormData = function (data) {
             var defer = $q.defer();
@@ -71,5 +71,5 @@
             return defer.promise;
         }
         return fac;
-    }
-    })();   
+    });
+})();   

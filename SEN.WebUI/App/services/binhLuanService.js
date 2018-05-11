@@ -4,8 +4,8 @@
     var app = angular.module('venApp');
 
     app.service('binhLuanService', function ($http) {
-        this.dangBinhLuan = function (banTinId, binhLuan) {
-            return $http.post("/BanTin/DangBinhLuan", { "banTinId": banTinId, "binhLuan": binhLuan });
+        this.dangBinhLuan = function (banTinId, thanhVienId, binhLuan) {
+            return $http.post("/BanTin/DangBinhLuan", { "banTinId": banTinId, "thanhVienId" : thanhVienId, "binhLuan": binhLuan });
         }
 
         this.getTopBinhLuanMoiNhat = function (banTinId) {

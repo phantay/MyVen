@@ -121,7 +121,7 @@ namespace SEN.WebUI.Controllers
         }
 
         [HttpPost]
-        public JsonResult DangBinhLuan(int banTinId, string binhLuan)
+        public JsonResult DangBinhLuan(int banTinId, int thanhVienId, string binhLuan)
         {
            try
             {
@@ -134,7 +134,7 @@ namespace SEN.WebUI.Controllers
                     {
                         BanTinId = banTinId,
                         NoiDung = binhLuan,
-                        ThanhVienId = 1,
+                        ThanhVienId = thanhVienId,
                         ThoiGian = DateTime.Now,                        
                     };
                     data.BinhLuans.Add(bl);
