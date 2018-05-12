@@ -24,7 +24,7 @@ namespace SEN.Data
             //    new SqlParameter("@Password",Password),
             //};
 
-            var dataLogin = context.ThanhViens.Where(x => x.Email == Email && x.Password == Password).FirstOrDefault();
+            var dataLogin = context.ThanhViens.Where(tv => tv.Email == Email && tv.Password == Password).FirstOrDefault();
 
             return dataLogin;
             //var res = context.Sp_ThanhViens_Login(Email, Password);

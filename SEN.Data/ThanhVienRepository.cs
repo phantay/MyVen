@@ -7,7 +7,7 @@ namespace SEN.Data
     {
         public ThanhVien Get(int id)
         {
-            return Db.ThanhViens.FirstOrDefault(_ => _.ThanhVienId == id);
+            return Db.ThanhViens.FirstOrDefault(tv => tv.ThanhVienId == id);
         }
 
         public void Create(ThanhVien thanhVien)

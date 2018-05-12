@@ -16,7 +16,7 @@ namespace SEN.Data
 
         public BanTin Get(int id)
         {
-            return Db.BanTins.FirstOrDefault(_ => _.BanTinId == id);
+            return Db.BanTins.FirstOrDefault(bt => bt.BanTinId == id);
         }
 
         public List<BanTin> GetList(int thanhVienId)
@@ -26,7 +26,7 @@ namespace SEN.Data
 
         public List<BanTin> GetList(int thanhVienId, DateTime startDate, DateTime endDate)
         {
-            return Db.BanTins.Where(_ => _.ThanhVienId == thanhVienId && startDate <= _.ThoiGian && _.ThoiGian <= endDate).ToList();
+            return Db.BanTins.Where(bt => bt.ThanhVienId == thanhVienId && startDate <= bt.ThoiGian && bt.ThoiGian <= endDate).ToList();
         }
 
         public void Create(BinhLuan binhLuan)

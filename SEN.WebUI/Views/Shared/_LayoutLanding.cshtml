@@ -7,12 +7,11 @@
     <title>VEN - Đăng nhập hoặc đăng ký</title>
     <link href="~/Assets/css/style.css" rel="stylesheet" />
     <link href="~/Assets/css/bootstrap.min.css" rel="stylesheet" />
-    @*<script src="~/Scripts/jquery-3.1.1.min.js"></script>*@
     <script src="~/Scripts/angular.min.js"></script>
     <script src="~/Scripts/angular-cookies.min.js"></script>
     <script src="~/App/services/app.js"></script>
 </head>
-<body style="background-image: url('/images/pexels-photo2.jpg'); padding: 50px;" ng-app="app">
+<body style="background-image: url('/images/pexels-photo2.jpg'); padding: 50px; background-size: 100%;" ng-app="app">
 
     <div class="container">
         <div class="row">
@@ -34,42 +33,9 @@
         </div>
         <div class="row">
             <footer class="text-center">
-                <h4>Đồ án chuyên ngành, dự án WAPP 2017</h4>
+                <h4>Đồ án tốt nghiệp, dự án VEN 2018</h4>
             </footer>
         </div>
     </div>
-    <!--
-    <script type="text/javascript">
-        function dangKy() {
-            var data = {
-                FirstName: $("#FirstName").val(),
-                LastName: $("#LastName").val(),
-                NgaySinh: new Date("10/20/1995"),
-                Email: $("#email").val(),
-                Mobile: $("#mobile").val(),
-                Password: $("#password").val(),
-                GioiTinh: 1,
-            };
-            $.ajax({
-                method: "POST",
-                url: "/DangKy",
-                data: data,
-                success: function (response) {
-                    
-                },
-                error: function (error) {
-                    
-                }
-            });
-            return false
-        }
-        $(document).ready(function () {
-            $("#login-nav").submit(function (e) {
-                
-                e.preventDefault();
-                dangKy();
-            });
-        });
-    </script> -->
 </body>
 </html>

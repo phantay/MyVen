@@ -112,7 +112,7 @@
                         <li>
                             <div id="formComment" class="col-sm-12">
                                 <input id="comment" type="text" class="input-comment text-muted" ng-model="binhLuanMoi" placeholder="Viết bình luận...">
-                                <button class="form-control-feedback btn btn-lg btn-emotion" ng-click="dangBinhLuan()"><i class="icon-emotsmile"></i></button>
+                                <button id="myBtn" class="form-control-feedback btn btn-lg btn-emotion" ng-click="dangBinhLuan()"><i class="icon-emotsmile"></i></button>
                             </div>
                         </li>
                     </ul>
@@ -201,7 +201,7 @@
                                                     </li>
                                                     <li>
                                                         <div class="col-sm-12">
-                                                            <input id="myInput" type="text" class="input-comment text-muted" row="5" ng-model="binhLuanMoi" placeholder="Viết bình luận...">
+                                                            <input id="comment" type="text" class="input-comment text-muted" row="5" ng-model="binhLuanMoi" placeholder="Viết bình luận...">
                                                             <button id="myBtn" class="form-control-feedback btn btn-lg btn-emotion" ng-click="dangBinhLuan()"><i class="icon-emotsmile"></i></button>
                                                         </div>
                                                     </li>
@@ -328,7 +328,7 @@
     }
 </script>
 <script>
-    var input = document.getElementById("myInput");
+    var input = document.getElementById("comment");
     input.addEventListener("keyup", function (event) {
         event.preventDefault();
         if (event.keyCode === 13) {

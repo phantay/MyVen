@@ -356,7 +356,7 @@
 
 @media (min-width: 960px) {
     .modal-dialog {
-        width: 606px;
+        width: 46%;
         margin: 80px auto;
         margin-left: 250px;
     }
@@ -4588,7 +4588,7 @@ fieldset {
 }
 
 .cropper .docs-diagram .modal-dialog {
-    max-width: 352px
+    max-width: 50%
 }
 
 .cropper .docs-cropped canvas {

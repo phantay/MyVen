@@ -15,16 +15,16 @@ namespace SEN.Data
         }
         public BinhLuan Get(int id)
         {
-            return Db.BinhLuans.FirstOrDefault(_ => _.BinhLuanId == id);
+            return Db.BinhLuans.FirstOrDefault(bl => bl.BinhLuanId == id);
         }
         public List<BinhLuan> GetList(int banTinId)
         {
-            return Db.BinhLuans.Include("BinhLuan").Where(_ => _.BanTinId == banTinId).OrderByDescending(_ => _.ThoiGian).ToList();
+            return Db.BinhLuans.Include("BinhLuan").Where(bl => bl.BanTinId == banTinId).OrderByDescending(bl => bl.ThoiGian).ToList();
         }
 
         public List<BinhLuan> GetList(int thanhVienId, DateTime startDate, DateTime endDate)
         {
-            return Db.BinhLuans.Where(_ => _.ThanhVienId == thanhVienId && startDate <= _.ThoiGian && _.ThoiGian <= endDate).ToList();
+            return Db.BinhLuans.Where(bl => bl.ThanhVienId == thanhVienId && startDate <= bl.ThoiGian && bl.ThoiGian <= endDate).ToList();
         }
 
     }

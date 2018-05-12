@@ -81,16 +81,6 @@ namespace SEN.Service
             if (binhLuan.ThanhVienId != binhLuanDb.ThanhVienId)
                 throw new Exception("Bạn không có quyền sửa bản tin này");
 
-            //if (banTinDb.ThoiGianSua != null)
-            //{
-            //    if (Math.Abs((DateTime.UtcNow - banTinDb.ThoiGianSua.Value).TotalMinutes) < 3)
-            //        throw new Exception("Bản tin chỉ được sửa lại sau 3 phút");
-            //}
-
-            //banTinDb.ThoiGianSua = DateTime.UtcNow;
-            //banTinDb.NoiDung = banTin.NoiDung;
-
-            //
             // TODO: Cần lưu lại lịch sử sửa bản tin
             try
             {
