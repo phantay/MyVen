@@ -13,10 +13,7 @@
         }
 
         this.xoaTin = function (banTin) {
-            return $http({
-                method: "delete",
-                url: "/BanTin/XoaTin?banTinId=" + banTin.BanTinId
-            });
+            return $http.delete("/BanTin/XoaTin?banTinId=" + banTin.BanTinId)
         }
     });
 })();

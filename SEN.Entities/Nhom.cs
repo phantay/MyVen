@@ -23,7 +23,7 @@ namespace SEN.Entities
         public int NhomId { get; set; }
         public string TenNhom { get; set; }
         public string HinhThuc { get; set; }
-        public int UserId { get; set; }
+        public int ThanhVienId { get; set; }
         public System.DateTime ThoiGianThamGia { get; set; }
         public System.DateTime ThoiGianXacNhan { get; set; }
         public System.DateTime ThoiGianRoi { get; set; }

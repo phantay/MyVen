@@ -15,10 +15,10 @@ namespace SEN.Entities
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class VenEntities : DbContext
+    public partial class VenDatabaseEntities : DbContext
     {
-        public VenEntities()
-            : base("name=VenEntities")
+        public VenDatabaseEntities()
+            : base("name=VenDatabaseEntities")
         {
         }
     
@@ -33,11 +33,14 @@ namespace SEN.Entities
         public virtual DbSet<ChiaS> ChiaSes { get; set; }
         public virtual DbSet<DiaDiem> DiaDiems { get; set; }
         public virtual DbSet<KetBan> KetBans { get; set; }
+        public virtual DbSet<Like> Likes { get; set; }
         public virtual DbSet<Nhom> Nhoms { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<ThanhVienNhom> ThanhVienNhoms { get; set; }
         public virtual DbSet<ThanhVien> ThanhViens { get; set; }
         public virtual DbSet<ThongBao> ThongBaos { get; set; }
         public virtual DbSet<ThuMuc_Anh_> ThuMuc_Anh_ { get; set; }
+        public virtual DbSet<TuKhoa> TuKhoas { get; set; }
     
         public virtual ObjectResult<Nullable<bool>> Sp_ThanhViens_Login(string email, string password)
         {
@@ -51,6 +54,5 @@ namespace SEN.Entities
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<bool>>("Sp_ThanhViens_Login", emailParameter, passwordParameter);
         }
-
     }
 }

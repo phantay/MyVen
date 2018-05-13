@@ -15,7 +15,7 @@ namespace SEN.Entities
     public partial class KetBan
     {
         public int KetBanId { get; set; }
-        public int UserId { get; set; }
+        public int ThanhVienId { get; set; }
         public System.DateTime ThoiGianKetBan { get; set; }
         public System.DateTime ThoiGianDongY { get; set; }
         public System.DateTime ThoiGianHuyKetBan { get; set; }

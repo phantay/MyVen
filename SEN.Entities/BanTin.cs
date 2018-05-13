@@ -20,6 +20,8 @@ namespace SEN.Entities
             this.BanTinAnhs = new HashSet<BanTinAnh>();
             this.BinhLuans = new HashSet<BinhLuan>();
             this.ChiaSes = new HashSet<ChiaS>();
+            this.Likes = new HashSet<Like>();
+            this.TuKhoas = new HashSet<TuKhoa>();
         }
     
         public int BanTinId { get; set; }
@@ -38,5 +40,9 @@ namespace SEN.Entities
         public virtual ICollection<BinhLuan> BinhLuans { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiaS> ChiaSes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Like> Likes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TuKhoa> TuKhoas { get; set; }
     }
 }

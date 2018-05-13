@@ -17,7 +17,7 @@
                             <div class="modal-content ">
                                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span><span class="sr-only">Close</span></button>
                                 <div class="modal-body">
-                                    <textarea style="width:50%; margin-bottom: 10px;" rows="1" placeholder="Từ khóa"></textarea>
+                                    <textarea style="width:50%; margin-bottom: 10px;" rows="1" placeholder="#TuKhoa" ></textarea>
                                     <textarea rows="3" ng-model="noiDungBanTin" placeholder="Nội dung"></textarea>
                                     <input type="file" class="upload btn btn-default" accept="image/*" data-ak-file-model="imageFile" id="fileImage">
                                 </div>
@@ -36,7 +36,7 @@
                 <ul class="pull-right">
                     <li><button type="button" class="btn-upload"><i class="fa fa-file-photo-o"></i> Ảnh</button></li>
                     <li><button type="button" class="btn-upload"><i class="fa fa-map-marker"></i> Địa điểm</button></li>
-                    <li><button type="button" class="btn-upload"><i class=""></i>! Thẻ</button></li>
+                    <li><button type="button" class="btn-upload"><i class=""></i>#TuKhoa</button></li>
                 </ul>
             </div>
         </div>
@@ -53,7 +53,7 @@
                             <div class="media-body">
                                 <a class="title" href="#"><span>{{thanhVien.FirstName}} {{thanhVien.LastName}}</span></a><span> đã thêm một sự kiện</span>
                                 <p class="hour">{{chuyenGio(bt.ThoiGian)}}</p>
-                                <a href="#" title="" class="hashtag">!music</a>
+                                <a href="#" title="" class="hashtag">#music</a>
                             </div>
                         </article>
                     </div>
@@ -76,6 +76,14 @@
                     <div class="nf_caption">
                         <p ng-bind="bt.NoiDung"></p>
                     </div>
+                    <div class="nf_sameword">
+                        <ul class="list-inline list-unstyled">
+                            <li><a href="#" class="btn btn-link"><small>#lulut2016</small></a></li>
+                            <li><a href="#" class="btn btn-link"><small>#lulutmientrung</small></a></li>
+                            <li><a href="#" class="btn btn-link"><small>#cuutrolulut</small></a></li>
+                            <li><a href="#" class="btn btn-link"><small>#unghomientrung</small></a></li>
+                        </ul>
+                    </div>
                     <div class="gallery">
                         <!--<img class="img" src="~/images/excel.jpg" alt="" data-toggle="modal" data-target="#myModal1">-->
                         <img class="img" alt="" ng-src="/images/BanTin/{{bt.BanTinId}}.jpg" ng-click="open_modal(bt)" data-toggle="modal" data-target="#openmodal" />
@@ -83,14 +91,6 @@
                 </div>
                 <!-- /div noi dung bai viet -->
                 <!-- div like -->
-                <div class="nf_sameword">
-                    <ul class="list-inline list-unstyled">
-                        <li><a href="#" class="btn btn-link"><small>!lu_lut_2016</small></a></li>
-                        <li><a href="#" class="btn btn-link"><small>!lu_lut_mien_trung</small></a></li>
-                        <li><a href="#" class="btn btn-link"><small>!cuu_tro_lu_lut</small></a></li>
-                        <li><a href="#" class="btn btn-link"><small>!ung_ho_mien_trung</small></a></li>
-                    </ul>
-                </div>
                 <div class="nf_action">
                     <ul>
                         <li><button type="button" class="btn-like"><i class="fa fa-angellist"></i><span>50</span> </button></li>
@@ -178,9 +178,9 @@
                                                         <div class="dropup">
                                                             <a href="" class="btn btn-sm waves-effect btn-white" data-toggle="dropdown">Từ khóa liên quan</a>
                                                             <ul class="dropdown-menu dropdown-menu-right">
-                                                                <li><a href="#">!cit</a></li>
-                                                                <li><a href="#">!cit</a></li>
-                                                                <li><a href="#">!cit</a></li>
+                                                                <li><a href="#">#cit</a></li>
+                                                                <li><a href="#">#cit</a></li>
+                                                                <li><a href="#">#cit</a></li>
                                                                 <li class="divider"></li>
                                                                 <li><a href="#">Xem thêm...</a></li>
                                                             </ul>
@@ -233,25 +233,25 @@
             <h4 class="m-t-0 m-b-20 header-title"><b>Top từ khóa</b></h4>
             <ul class="list-unstyled">
                 <li>
-                    <a href="#"><span><strong>!</strong>ngap_ung_quan_11</span></a>
+                    <a href="#"><span><strong>#</strong>ngap_ung_quan_11</span></a>
                 </li>
                 <li>
-                    <a href="#"><span><strong>!</strong>ngap_ung_quan_11</span></a>
+                    <a href="#"><span><strong>#</strong>ngap_ung_quan_11</span></a>
                 </li>
                 <li>
-                    <a href="#"><span><strong>!</strong>ngap_ung_quan_11</span></a>
+                    <a href="#"><span><strong>#</strong>ngap_ung_quan_11</span></a>
                 </li>
                 <li>
-                    <a href="#"><span><strong>!</strong>ngap_ung_quan_11</span></a>
+                    <a href="#"><span><strong>#</strong>ngap_ung_quan_11</span></a>
                 </li>
                 <li>
-                    <a href="#"><span><strong>!</strong>ngap_ung_quan_11</span></a>
+                    <a href="#"><span><strong>#</strong>ngap_ung_quan_11</span></a>
                 </li>
                 <li>
-                    <a href="#"><span><strong>!</strong>ngap_ung_quan_11</span></a>
+                    <a href="#"><span><strong>#</strong>ngap_ung_quan_11</span></a>
                 </li>
                 <li>
-                    <a href="#"><span><strong>!</strong>ngap_ung_quan_11</span></a>
+                    <a href="#"><span><strong>#</strong>ngap_ung_quan_11</span></a>
                 </li>
             </ul>
         </div>

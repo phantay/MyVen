@@ -17,7 +17,7 @@ namespace SEN.Entities
         public int IdAnh { get; set; }
         public int BanTinId { get; set; }
         public int TMAnhId { get; set; }
-        public Nullable<int> ThanhVien_UserId { get; set; }
+        public Nullable<int> ThanhVien_ThanhVienId { get; set; }
     
         public virtual BanTin BanTin { get; set; }
         public virtual ThanhVien ThanhVien { get; set; }

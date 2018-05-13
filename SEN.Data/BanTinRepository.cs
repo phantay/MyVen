@@ -29,6 +29,11 @@ namespace SEN.Data
             return Db.BanTins.Where(bt => bt.ThanhVienId == thanhVienId && startDate <= bt.ThoiGian && bt.ThoiGian <= endDate).ToList();
         }
 
+        public void CreateTuKhoa(TuKhoa tuKhoa)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Create(BinhLuan binhLuan)
         {
             throw new NotImplementedException();

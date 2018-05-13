@@ -37,7 +37,7 @@
         };
 
         $scope.xoaTin = function (bantin) {
-            banTinService.xoaTin(bantin).then(function (response) {
+            banTinService.xoaTin(bantin).then(function (response) { 
                 var btIndex = $scope.dsBanTin.indexOf(bantin);
                 $scope.dsBanTin.splice(btIndex, 1);
             });

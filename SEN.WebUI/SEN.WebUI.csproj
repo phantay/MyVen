@@ -1802,7 +1802,6 @@
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Views\Shared\favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="App\services\app.js" />
     <Content Include="Assets\fonts\fontawesome-webfont.eot" />
     <Content Include="Assets\fonts\fontawesome-webfont.ttf" />
     <Content Include="Assets\fonts\fontawesome-webfont.woff" />

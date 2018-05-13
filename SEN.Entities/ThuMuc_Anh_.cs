@@ -16,7 +16,7 @@ namespace SEN.Entities
     {
         public int TMAnhId { get; set; }
         public string TenThuMuc { get; set; }
-        public int UserId { get; set; }
+        public int ThanhVienId { get; set; }
         public string KieuDuLieu { get; set; }
         public int KichThuoc { get; set; }
         public int ThuTu { get; set; }
