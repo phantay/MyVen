@@ -15,10 +15,10 @@ namespace SEN.Entities
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class VenDatabaseEntities : DbContext
+    public partial class VenEntities : DbContext
     {
-        public VenDatabaseEntities()
-            : base("name=VenDatabaseEntities")
+        public VenEntities()
+            : base("name=VenEntities")
         {
         }
     
@@ -29,6 +29,7 @@ namespace SEN.Entities
     
         public virtual DbSet<BanTinAnh> BanTinAnhs { get; set; }
         public virtual DbSet<BanTin> BanTins { get; set; }
+        public virtual DbSet<BanTinTuKhoa> BanTinTuKhoas { get; set; }
         public virtual DbSet<BinhLuan> BinhLuans { get; set; }
         public virtual DbSet<ChiaS> ChiaSes { get; set; }
         public virtual DbSet<DiaDiem> DiaDiems { get; set; }

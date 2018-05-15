@@ -33,10 +33,10 @@ namespace SEN.Service
             set { _thanhVienStore = value; }
         }
 
-        public List<TuKhoa> GetList(int thanhVienId)
-        {
-            return TuKhoaStore.GetList(thanhVienId);
-        }
+        //public List<TuKhoa> GetList(int thanhVienId)
+        //{
+        //    return TuKhoaStore.GetList(thanhVienId);
+        //}
         public void TaoTuKhoa(TuKhoa tuKhoa)
         {
             if (tuKhoa == null)

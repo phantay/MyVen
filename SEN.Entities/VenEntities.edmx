@@ -28,11 +28,11 @@
         </EntityType>
         <EntityType Name="BanTinTuKhoa">
           <Key>
-            <PropertyRef Name="BanTinId" />
-            <PropertyRef Name="TuKhoaId" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="BanTinId" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TuKhoaId" Type="int" Nullable="false" />
+          <Property Name="BanTinId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="BinhLuans">
           <Key>
@@ -167,6 +167,30 @@
           <Property Name="NoiDung" Type="nvarchar(max)" />
           <Property Name="CountView" Type="int" />
         </EntityType>
+        <Association Name="FK_BanTinTuKhoa_BanTins">
+          <End Role="BanTins" Type="Self.BanTins" Multiplicity="1" />
+          <End Role="BanTinTuKhoa" Type="Self.BanTinTuKhoa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BanTins">
+              <PropertyRef Name="BanTinId" />
+            </Principal>
+            <Dependent Role="BanTinTuKhoa">
+              <PropertyRef Name="BanTinId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BanTinTuKhoa_TuKhoas">
+          <End Role="TuKhoas" Type="Self.TuKhoas" Multiplicity="1" />
+          <End Role="BanTinTuKhoa" Type="Self.BanTinTuKhoa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TuKhoas">
+              <PropertyRef Name="TuKhoaId" />
+            </Principal>
+            <Dependent Role="BanTinTuKhoa">
+              <PropertyRef Name="TuKhoaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_dbo_BanTinAnhs_dbo_BanTins_BanTinId">
           <End Role="BanTins" Type="Self.BanTins" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -218,30 +242,6 @@
             </Principal>
             <Dependent Role="BanTins">
               <PropertyRef Name="ThanhVienId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_dbo_BanTinTuKhoa_dbo_BanTins_BanTinId">
-          <End Role="BanTins" Type="Self.BanTins" Multiplicity="1" />
-          <End Role="BanTinTuKhoa" Type="Self.BanTinTuKhoa" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="BanTins">
-              <PropertyRef Name="BanTinId" />
-            </Principal>
-            <Dependent Role="BanTinTuKhoa">
-              <PropertyRef Name="BanTinId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_dbo_BanTinTuKhoa_dbo_TuKhoas_TuKhoaId">
-          <End Role="TuKhoas" Type="Self.TuKhoas" Multiplicity="1" />
-          <End Role="BanTinTuKhoa" Type="Self.BanTinTuKhoa" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TuKhoas">
-              <PropertyRef Name="TuKhoaId" />
-            </Principal>
-            <Dependent Role="BanTinTuKhoa">
-              <PropertyRef Name="TuKhoaId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -377,6 +377,14 @@
           <EntitySet Name="ThongBaos" EntityType="Self.ThongBaos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ThuMuc_Anh_" EntityType="Self.ThuMuc_Anh_" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TuKhoas" EntityType="Self.TuKhoas" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_BanTinTuKhoa_BanTins" Association="Self.FK_BanTinTuKhoa_BanTins">
+            <End Role="BanTins" EntitySet="BanTins" />
+            <End Role="BanTinTuKhoa" EntitySet="BanTinTuKhoa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BanTinTuKhoa_TuKhoas" Association="Self.FK_BanTinTuKhoa_TuKhoas">
+            <End Role="TuKhoas" EntitySet="TuKhoas" />
+            <End Role="BanTinTuKhoa" EntitySet="BanTinTuKhoa" />
+          </AssociationSet>
           <AssociationSet Name="FK_dbo_BanTinAnhs_dbo_BanTins_BanTinId" Association="Self.FK_dbo_BanTinAnhs_dbo_BanTins_BanTinId">
             <End Role="BanTins" EntitySet="BanTins" />
             <End Role="BanTinAnhs" EntitySet="BanTinAnhs" />
@@ -392,14 +400,6 @@
           <AssociationSet Name="FK_dbo_BanTins_dbo_ThanhViens_ThanhVienId" Association="Self.FK_dbo_BanTins_dbo_ThanhViens_ThanhVienId">
             <End Role="ThanhViens" EntitySet="ThanhViens" />
             <End Role="BanTins" EntitySet="BanTins" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_BanTinTuKhoa_dbo_BanTins_BanTinId" Association="Self.FK_dbo_BanTinTuKhoa_dbo_BanTins_BanTinId">
-            <End Role="BanTins" EntitySet="BanTins" />
-            <End Role="BanTinTuKhoa" EntitySet="BanTinTuKhoa" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_BanTinTuKhoa_dbo_TuKhoas_TuKhoaId" Association="Self.FK_dbo_BanTinTuKhoa_dbo_TuKhoas_TuKhoaId">
-            <End Role="TuKhoas" EntitySet="TuKhoas" />
-            <End Role="BanTinTuKhoa" EntitySet="BanTinTuKhoa" />
           </AssociationSet>
           <AssociationSet Name="FK_dbo_BinhLuans_dbo_BanTins_BanTinId" Association="Self.FK_dbo_BinhLuans_dbo_BanTins_BanTinId">
             <End Role="BanTins" EntitySet="BanTins" />
@@ -462,12 +462,22 @@
           <Property Name="DiaDiemId" Type="Int32" />
           <Property Name="QuyenRiengTu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="BanTinAnhs" Relationship="Self.FK_dbo_BanTinAnhs_dbo_BanTins_BanTinId" FromRole="BanTins" ToRole="BanTinAnhs" />
+          <NavigationProperty Name="BanTinTuKhoas" Relationship="Self.FK_BanTinTuKhoa_BanTins" FromRole="BanTins" ToRole="BanTinTuKhoa" />
           <NavigationProperty Name="DiaDiem" Relationship="Self.FK_dbo_BanTins_dbo_DiaDiems_DiaDiemId" FromRole="BanTins" ToRole="DiaDiems" />
           <NavigationProperty Name="ThanhVien" Relationship="Self.FK_dbo_BanTins_dbo_ThanhViens_ThanhVienId" FromRole="BanTins" ToRole="ThanhViens" />
           <NavigationProperty Name="BinhLuans" Relationship="Self.FK_dbo_BinhLuans_dbo_BanTins_BanTinId" FromRole="BanTins" ToRole="BinhLuans" />
           <NavigationProperty Name="ChiaSes" Relationship="Self.FK_dbo_ChiaSes_dbo_BanTins_BanTinId" FromRole="BanTins" ToRole="ChiaSes" />
           <NavigationProperty Name="Likes" Relationship="Self.FK_dbo_Likes_dbo_BanTins_BanTinId" FromRole="BanTins" ToRole="Likes" />
-          <NavigationProperty Name="TuKhoas" Relationship="Self.BanTinTuKhoa" FromRole="BanTins" ToRole="TuKhoas" />
+        </EntityType>
+        <EntityType Name="BanTinTuKhoa">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TuKhoaId" Type="Int32" Nullable="false" />
+          <Property Name="BanTinId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="BanTin" Relationship="Self.FK_BanTinTuKhoa_BanTins" FromRole="BanTinTuKhoa" ToRole="BanTins" />
+          <NavigationProperty Name="TuKhoa" Relationship="Self.FK_BanTinTuKhoa_TuKhoas" FromRole="BanTinTuKhoa" ToRole="TuKhoas" />
         </EntityType>
         <EntityType Name="BinhLuan">
           <Key>
@@ -617,7 +627,7 @@
           <Property Name="ThanhVienId" Type="Int32" Nullable="false" />
           <Property Name="NoiDung" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CountView" Type="Int32" />
-          <NavigationProperty Name="BanTins" Relationship="Self.BanTinTuKhoa" FromRole="TuKhoas" ToRole="BanTins" />
+          <NavigationProperty Name="BanTinTuKhoas" Relationship="Self.FK_BanTinTuKhoa_TuKhoas" FromRole="TuKhoas" ToRole="BanTinTuKhoa" />
         </EntityType>
         <Association Name="FK_dbo_BanTinAnhs_dbo_BanTins_BanTinId">
           <End Role="BanTins" Type="Self.BanTin" Multiplicity="1">
@@ -642,6 +652,18 @@
             </Principal>
             <Dependent Role="BanTinAnhs">
               <PropertyRef Name="ThanhVien_ThanhVienId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BanTinTuKhoa_BanTins">
+          <End Role="BanTins" Type="Self.BanTin" Multiplicity="1" />
+          <End Role="BanTinTuKhoa" Type="Self.BanTinTuKhoa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BanTins">
+              <PropertyRef Name="BanTinId" />
+            </Principal>
+            <Dependent Role="BanTinTuKhoa">
+              <PropertyRef Name="BanTinId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -715,6 +737,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_BanTinTuKhoa_TuKhoas">
+          <End Role="TuKhoas" Type="Self.TuKhoa" Multiplicity="1" />
+          <End Role="BanTinTuKhoa" Type="Self.BanTinTuKhoa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TuKhoas">
+              <PropertyRef Name="TuKhoaId" />
+            </Principal>
+            <Dependent Role="BanTinTuKhoa">
+              <PropertyRef Name="TuKhoaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_dbo_KetBans_dbo_ThanhViens_ThanhVienId">
           <End Role="ThanhViens" Type="Self.ThanhVien" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -785,13 +819,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="BanTinTuKhoa">
-          <End Role="BanTins" Type="Self.BanTin" Multiplicity="*" />
-          <End Role="TuKhoas" Type="Self.TuKhoa" Multiplicity="*" />
-        </Association>
-        <EntityContainer Name="VenDatabaseEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="VenEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="BanTinAnhs" EntityType="Self.BanTinAnh" />
           <EntitySet Name="BanTins" EntityType="Self.BanTin" />
+          <EntitySet Name="BanTinTuKhoas" EntityType="Self.BanTinTuKhoa" />
           <EntitySet Name="BinhLuans" EntityType="Self.BinhLuan" />
           <EntitySet Name="ChiaSes" EntityType="Self.ChiaS" />
           <EntitySet Name="DiaDiems" EntityType="Self.DiaDiem" />
@@ -811,6 +842,10 @@
           <AssociationSet Name="FK_dbo_BanTinAnhs_dbo_ThanhViens_ThanhVien_ThanhVienId" Association="Self.FK_dbo_BanTinAnhs_dbo_ThanhViens_ThanhVien_ThanhVienId">
             <End Role="ThanhViens" EntitySet="ThanhViens" />
             <End Role="BanTinAnhs" EntitySet="BanTinAnhs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BanTinTuKhoa_BanTins" Association="Self.FK_BanTinTuKhoa_BanTins">
+            <End Role="BanTins" EntitySet="BanTins" />
+            <End Role="BanTinTuKhoa" EntitySet="BanTinTuKhoas" />
           </AssociationSet>
           <AssociationSet Name="FK_dbo_BanTins_dbo_DiaDiems_DiaDiemId" Association="Self.FK_dbo_BanTins_dbo_DiaDiems_DiaDiemId">
             <End Role="DiaDiems" EntitySet="DiaDiems" />
@@ -832,6 +867,10 @@
             <End Role="BanTins" EntitySet="BanTins" />
             <End Role="Likes" EntitySet="Likes" />
           </AssociationSet>
+          <AssociationSet Name="FK_BanTinTuKhoa_TuKhoas" Association="Self.FK_BanTinTuKhoa_TuKhoas">
+            <End Role="TuKhoas" EntitySet="TuKhoas" />
+            <End Role="BanTinTuKhoa" EntitySet="BanTinTuKhoas" />
+          </AssociationSet>
           <AssociationSet Name="FK_dbo_KetBans_dbo_ThanhViens_ThanhVienId" Association="Self.FK_dbo_KetBans_dbo_ThanhViens_ThanhVienId">
             <End Role="ThanhViens" EntitySet="ThanhViens" />
             <End Role="KetBans" EntitySet="KetBans" />
@@ -852,10 +891,6 @@
             <End Role="ThanhViens" EntitySet="ThanhViens" />
             <End Role="ThuMuc_Anh_" EntitySet="ThuMuc_Anh_" />
           </AssociationSet>
-          <AssociationSet Name="BanTinTuKhoa" Association="Self.BanTinTuKhoa">
-            <End Role="BanTins" EntitySet="BanTins" />
-            <End Role="TuKhoas" EntitySet="TuKhoas" />
-          </AssociationSet>
           <FunctionImport Name="Sp_ThanhViens_Login" ReturnType="Collection(Boolean)">
             <Parameter Name="Email" Mode="In" Type="String" />
             <Parameter Name="Password" Mode="In" Type="String" />
@@ -866,7 +901,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="VenDatabaseModelStoreContainer" CdmEntityContainer="VenDatabaseEntities">
+        <EntityContainerMapping StorageEntityContainer="VenDatabaseModelStoreContainer" CdmEntityContainer="VenEntities">
           <EntitySetMapping Name="BanTinAnhs">
             <EntityTypeMapping TypeName="VenDatabaseModel.BanTinAnh">
               <MappingFragment StoreEntitySet="BanTinAnhs">
@@ -887,6 +922,15 @@
                 <ScalarProperty Name="The" ColumnName="The" />
                 <ScalarProperty Name="DiaDiemId" ColumnName="DiaDiemId" />
                 <ScalarProperty Name="QuyenRiengTu" ColumnName="QuyenRiengTu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BanTinTuKhoas">
+            <EntityTypeMapping TypeName="VenDatabaseModel.BanTinTuKhoa">
+              <MappingFragment StoreEntitySet="BanTinTuKhoa">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TuKhoaId" ColumnName="TuKhoaId" />
+                <ScalarProperty Name="BanTinId" ColumnName="BanTinId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1035,14 +1079,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="BanTinTuKhoa" TypeName="VenDatabaseModel.BanTinTuKhoa" StoreEntitySet="BanTinTuKhoa">
-            <EndProperty Name="BanTins">
-              <ScalarProperty Name="BanTinId" ColumnName="BanTinId" />
-            </EndProperty>
-            <EndProperty Name="TuKhoas">
-              <ScalarProperty Name="TuKhoaId" ColumnName="TuKhoaId" />
-            </EndProperty>
-          </AssociationSetMapping>
           <FunctionImportMapping FunctionImportName="Sp_ThanhViens_Login" FunctionName="VenDatabaseModel.Store.Sp_ThanhViens_Login" />
         </EntityContainerMapping>
       </Mapping>

@@ -17,7 +17,7 @@ namespace SEN.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TuKhoa()
         {
-            this.BanTins = new HashSet<BanTin>();
+            this.BanTinTuKhoas = new HashSet<BanTinTuKhoa>();
         }
     
         public int TuKhoaId { get; set; }
@@ -26,6 +26,6 @@ namespace SEN.Entities
         public Nullable<int> CountView { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BanTin> BanTins { get; set; }
+        public virtual ICollection<BanTinTuKhoa> BanTinTuKhoas { get; set; }
     }
 }

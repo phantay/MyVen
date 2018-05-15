@@ -18,10 +18,10 @@ namespace SEN.Entities
         public BanTin()
         {
             this.BanTinAnhs = new HashSet<BanTinAnh>();
+            this.BanTinTuKhoas = new HashSet<BanTinTuKhoa>();
             this.BinhLuans = new HashSet<BinhLuan>();
             this.ChiaSes = new HashSet<ChiaS>();
             this.Likes = new HashSet<Like>();
-            this.TuKhoas = new HashSet<TuKhoa>();
         }
     
         public int BanTinId { get; set; }
@@ -34,6 +34,8 @@ namespace SEN.Entities
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BanTinAnh> BanTinAnhs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BanTinTuKhoa> BanTinTuKhoas { get; set; }
         public virtual DiaDiem DiaDiem { get; set; }
         public virtual ThanhVien ThanhVien { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -42,7 +44,5 @@ namespace SEN.Entities
         public virtual ICollection<ChiaS> ChiaSes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Like> Likes { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TuKhoa> TuKhoas { get; set; }
     }
 }

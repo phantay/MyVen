@@ -19,10 +19,10 @@ namespace SEN.Data
             return Db.TuKhoas.FirstOrDefault(tk => tk.TuKhoaId == id);
         }
 
-        public List<TuKhoa> GetList(int banTinId)
-        {
-            return Db.TuKhoas.Include("TuKhoa").Where(tk => tk.BanTinId == banTinId).ToList();
-        }
+        //public List<BanTinTuKhoa> GetList(int banTinId)
+        //{
+        //    return Db.TuKhoas.Include("TuKhoas").Where(tk => tk.BanTinId == banTinId).ToList();
+        //}
 
         public List<TuKhoa> GetList(int thanhVienId, DateTime startDate, DateTime endDate)
         {

@@ -62,6 +62,9 @@
     <Compile Include="BanTinAnh.cs">
       <DependentUpon>VenEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="BanTinTuKhoa.cs">
+      <DependentUpon>VenEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="BinhLuan.cs">
       <DependentUpon>VenEntities.tt</DependentUpon>
     </Compile>
@@ -119,7 +122,6 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
     <EntityDeploy Include="VenEntities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
