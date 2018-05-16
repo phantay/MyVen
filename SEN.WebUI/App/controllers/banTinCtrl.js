@@ -5,6 +5,7 @@
 
     app.controller('banTinCtrl', function ($scope, $location, banTinService, thanhVienService, akFileUploaderService) {
         $scope.dsBanTin = [];
+        $scope.TuKhoa;
         $scope.imageFile;
         $scope.thanhVien = {
             Id: "",
@@ -27,6 +28,7 @@
             // Dang Tin
             var model = {
                 NoiDung: $scope.noiDungBanTin,
+                NoiDungTuKhoa: $scope.noiDungTuKhoa,
                 attachment: $scope.imageFile
             };
             akFileUploaderService.saveModel(model, "/BanTin/DangTin").then(function (data) {

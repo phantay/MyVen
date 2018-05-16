@@ -60,6 +60,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ThanhVienModel.cs" />
     <Compile Include="ThanhVienRepository.cs" />
+    <Compile Include="BanTinTuKhoaRepository.cs" />
     <Compile Include="TuKhoaRepository.cs" />
   </ItemGroup>
   <ItemGroup>

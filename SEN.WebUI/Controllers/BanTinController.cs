@@ -121,6 +121,37 @@ namespace SEN.WebUI.Controllers
         }
 
         [HttpPost]
+        public JsonResult DangTuKhoa(int banTinId, int tuKhoaId, string noiDung,int countView)
+        {
+            try
+            {
+                using (VenEntities data = new VenEntities())
+                {
+                    var tukhoa = data.BanTinTuKhoas.Where(x => x.BanTinId == banTinId && x.TuKhoaId == tuKhoaId).FirstOrDefault();
+                    if (tukhoa == null)
+                        throw new Exception("ban tin khong ton tai");
+                    var tk = new TuKhoa
+                    {
+                        TuKhoaId = tuKhoaId,
+                        NoiDung = noiDung,
+                        CountView = countView
+                    };
+                    data.TuKhoas.Add(tk);
+                    data.SaveChanges();
+
+                    return Json(new { success = true, tuKhoaId = tk.TuKhoaId }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                //
+                //TODO: Cần lưu lại lỗi
+                throw new Exception(ex.Message);
+            }
+        }
+
+
+        [HttpPost]
         public JsonResult DangBinhLuan(int banTinId, int thanhVienId, string binhLuan)
         {
            try
