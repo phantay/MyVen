@@ -304,6 +304,7 @@
     <Content Include="Assets\js\jquery.nicescroll.js" />
     <Content Include="Assets\js\jquery.scrollTo.min.js" />
     <Content Include="Assets\js\jquery.slimscroll.js" />
+    <Content Include="Assets\js\like-dislike.js" />
     <Content Include="Assets\js\modernizr.min.js" />
     <Content Include="Assets\js\pace.min.js" />
     <Content Include="Assets\js\waves.js" />

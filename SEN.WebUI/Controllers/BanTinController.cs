@@ -5,12 +5,15 @@ using SEN.WebUI.Models;
 using SEN.Entities;
 using System.IO;
 using SEN.Service;
+using SEN.Data.Infrastructure;
+using SEN.Data.Interfaces;
 
 namespace SEN.WebUI.Controllers
 {
     public class BanTinController : BaseController
     {
         private readonly BanTinService _banTinService;
+        UnitOfWork unitOfWork = new UnitOfWork(new DbContextFactory<VenEntities>());
 
         public BanTinController()
         {

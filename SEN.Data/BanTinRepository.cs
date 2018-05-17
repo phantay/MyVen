@@ -19,6 +19,16 @@ namespace SEN.Data
             return Db.BanTins.FirstOrDefault(bt => bt.BanTinId == id);
         }
 
+        //public List<BanTin> GetList(int thanhVienId)
+        //{
+        //    var result = from bt in Db.BanTins
+        //                 join bttk in Db.BanTinTuKhoas on bt.BanTinId equals bttk.BanTinId
+        //                 join tk in Db.TuKhoas on bttk.TuKhoaId equals tk.TuKhoaId
+        //                 where bt.ThanhVienId == thanhVienId
+        //                 select new { BanTin = bt, TuKhoa = tk };
+        //    return result.ToList();
+        //}
+
         public List<BanTin> GetList(int thanhVienId)
         {
             return Db.BanTins.Include("ThanhVien").Where(b => b.ThanhVienId == thanhVienId).OrderByDescending(b => b.ThoiGian).ToList();
