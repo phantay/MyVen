@@ -1,19 +1,17 @@
-﻿using System;
+﻿using SEN.Entities;
+using SEN.Service;
+using SEN.WebUI.Models;
+using System;
+using System.IO;
 using System.Linq;
 using System.Web.Mvc;
-using SEN.WebUI.Models;
-using SEN.Entities;
-using System.IO;
-using SEN.Service;
-using SEN.Data.Infrastructure;
-using SEN.Data.Interfaces;
 
 namespace SEN.WebUI.Controllers
 {
     public class BanTinController : BaseController
     {
+
         private readonly BanTinService _banTinService;
-        UnitOfWork unitOfWork = new UnitOfWork(new DbContextFactory<VenEntities>());
 
         public BanTinController()
         {
@@ -31,7 +29,7 @@ namespace SEN.WebUI.Controllers
             var listBanTin = banTins.Select(b=> new BanTinModel {
                 BanTinId = b.BanTinId,
                 NoiDung = b.NoiDung,
-                ThoiGian = b.ThoiGian,               
+                ThoiGian = b.ThoiGian,
             }).ToList();
             return Json(listBanTin, JsonRequestBehavior.AllowGet);
         }
@@ -46,7 +44,6 @@ namespace SEN.WebUI.Controllers
             }
             catch (Exception ex)
             {
-                //
                 //TODO: Cần lưu lại lỗi
                 throw new Exception(ex.Message);
             }

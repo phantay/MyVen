@@ -30,6 +30,17 @@ namespace SEN.Service
             return BanTinStore.GetList(thanhVienId);
         }
 
+        //public List<BanTinTuKhoa> GetListTuKhoas(int tuKhoaId)
+        //{
+        //    var Db = new VenEntities();
+        //    var result = (from bt in Db.BanTins
+        //                  join bttk in Db.BanTinTuKhoas on bt.BanTinId equals bttk.BanTinId
+        //                  join tk in Db.TuKhoas on bttk.TuKhoaId equals tk.TuKhoaId
+        //                  where bt.TuKhoa == tuKhoaId
+        //                  select new { BanTin = bt, TuKhoa = tk, NoiDung = tk.NoiDung });
+        //    return result.ToList();
+        //}
+
         public void DangTin(BanTin banTin)
         {
             if (banTin == null)
@@ -43,7 +54,7 @@ namespace SEN.Service
                 throw new Exception("Bản tin phải có nội dung");
 
             banTin.BanTinId = 1;
-            banTin.ThoiGian = DateTime.UtcNow;
+            banTin.ThoiGian = DateTime.Now;
 
             try
             {

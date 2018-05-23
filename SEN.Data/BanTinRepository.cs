@@ -2,29 +2,27 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SEN.Data
 {
     public class BanTinRepository : BaseRepository
-    {
-        public void Create(BanTin banTin)
+    {public void Create(BanTin banTin)
         {
             Db.BanTins.Add(banTin);
         }
 
+        
         public BanTin Get(int id)
         {
             return Db.BanTins.FirstOrDefault(bt => bt.BanTinId == id);
         }
 
-        //public List<BanTin> GetList(int thanhVienId)
+        //public List<BanTin> GetList(int tuKhoaId)
         //{
         //    var result = from bt in Db.BanTins
         //                 join bttk in Db.BanTinTuKhoas on bt.BanTinId equals bttk.BanTinId
         //                 join tk in Db.TuKhoas on bttk.TuKhoaId equals tk.TuKhoaId
-        //                 where bt.ThanhVienId == thanhVienId
+        //                 where bt.TuKhoa == tuKhoaId
         //                 select new { BanTin = bt, TuKhoa = tk };
         //    return result.ToList();
         //}
