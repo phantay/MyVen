@@ -24,11 +24,20 @@
             });
         });
 
+            //banTinService.getDanhSachTuKhoa().then(function (response) {
+            //    $scope.tuKhoa.Id = response.data.TuKhoaId;
+            //    $scope.tuKhoa.NoiDung = response.data.NoiDung;
+            //    //
+            //    banTinService.getDanhSachBanTin($scope.tuKhoa.Id).then(function (response) {
+            //        $scope.dsBanTin = response.data;
+            //    });
+            //});
+
         $scope.dangTin = function () {
             // Dang Tin
             var model = {
                 NoiDung: $scope.noiDungBanTin,
-                NoiDungTuKhoa: $scope.noiDungTuKhoa,
+                TuKhoa: $scope.noiDungTuKhoa,
                 attachment: $scope.imageFile
             };
             akFileUploaderService.saveModel(model, "/BanTin/DangTin").then(function (data) {
@@ -37,6 +46,7 @@
                 });
             });
         };
+
 
         $scope.xoaTin = function (bantin) {
             banTinService.xoaTin(bantin).then(function (response) { 

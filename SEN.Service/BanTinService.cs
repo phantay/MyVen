@@ -1,5 +1,6 @@
 ﻿using SEN.Data;
 using SEN.Entities;
+using SEN.Entities.BanTinModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,14 +31,14 @@ namespace SEN.Service
             return BanTinStore.GetList(thanhVienId);
         }
 
-        //public List<BanTinTuKhoa> GetListTuKhoas(int tuKhoaId)
+        //public List<BanTinTuKhoaModel> GetListTuKhoas(int tuKhoaId)
         //{
         //    var Db = new VenEntities();
-        //    var result = (from bt in Db.BanTins
+        //    var result = from bt in Db.BanTins
         //                  join bttk in Db.BanTinTuKhoas on bt.BanTinId equals bttk.BanTinId
         //                  join tk in Db.TuKhoas on bttk.TuKhoaId equals tk.TuKhoaId
-        //                  where bt.TuKhoa == tuKhoaId
-        //                  select new { BanTin = bt, TuKhoa = tk, NoiDung = tk.NoiDung });
+        //                  where tk.TuKhoa == tuKhoaId
+        //                  select new { BanTin = bt, TuKhoa = tk};
         //    return result.ToList();
         //}
 

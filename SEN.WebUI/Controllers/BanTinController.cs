@@ -1,4 +1,5 @@
 ﻿using SEN.Entities;
+using SEN.Entities.BanTinModels;
 using SEN.Service;
 using SEN.WebUI.Models;
 using System;
@@ -41,6 +42,33 @@ namespace SEN.WebUI.Controllers
                 var listBanTin = _banTinService.GetList(thanhVienId);
 
                 return Json(listBanTin, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                //TODO: Cần lưu lại lỗi
+                throw new Exception(ex.Message);
+            }
+        }
+
+        //public JsonResult ListTuKhoa(int tuKhoaId)
+        //{
+        //    var tuKhoas = _banTinService.GetList(tuKhoaId);
+        //    var listTuKhoa = tuKhoas.Select(tk => new BanTinTuKhoaModel
+        //    {
+        //        Tu = tk.TuKhoaId,
+        //        TuKhoa = tk.NoiDung,
+        //        ThoiGian = tk.ThoiGian,
+        //    }).ToList();
+        //    return Json(listTuKhoa, JsonRequestBehavior.AllowGet);
+        //}
+
+        public JsonResult GetListTuKhoaById(int tuKhoaId)
+        {
+            try
+            {
+                var listTuKhoa = _banTinService.GetList(tuKhoaId);
+
+                return Json(listTuKhoa, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -117,6 +145,67 @@ namespace SEN.WebUI.Controllers
                 //
                 //TODO: Cần lưu lại lỗi
                 throw new Exception(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult TaoTuKhoa(int banTinId, int tuKhoaId, string noiDung, int countView)
+        {
+            try
+            {
+                using (VenEntities data = new VenEntities())
+                {
+                    var tukhoa = data.BanTinTuKhoas.Where(x => x.BanTinId == banTinId && x.TuKhoaId == tuKhoaId).FirstOrDefault();
+                    if (tukhoa == null)
+                        throw new Exception("ban tin khong ton tai");
+                    var tk = new TuKhoa
+                    {
+                        TuKhoaId = tuKhoaId,
+                        NoiDung = noiDung,
+                        CountView = countView
+                    };
+                    data.TuKhoas.Add(tk);
+                    data.SaveChanges();
+
+                    return Json(new { success = true, tuKhoaId = tk.TuKhoaId }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                //
+                //TODO: Cần lưu lại lỗi
+                throw new Exception(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        public JsonResult GetTuKhoaById(int tuKhoaId)
+        {
+            if (tuKhoaId <= 0)
+            {
+                return Json(new { success = false, error = "từ khóa không hợp lệ!" }, JsonRequestBehavior.AllowGet);
+            }
+
+            try
+            {
+                using (VenEntities data = new VenEntities())
+                {
+                    var tuKhoa = data.TuKhoas.Where(tk => tk.TuKhoaId == tuKhoaId)
+                        .ToList()
+                        .Select(tk => new TuKhoa
+                        {
+                            TuKhoaId = tk.TuKhoaId,
+                            NoiDung = tk.NoiDung,
+                            CountView = tk.CountView
+                        }).FirstOrDefault();
+
+                    return Json(tuKhoa, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                //TODO: Cần lưu lại lỗi
+                return Json(new { success = false, error = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
 

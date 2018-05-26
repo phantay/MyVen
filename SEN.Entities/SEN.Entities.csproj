@@ -65,6 +65,7 @@
     <Compile Include="BanTinTuKhoa.cs">
       <DependentUpon>VenEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="BanTinModels\BanTinTuKhoaModel.cs" />
     <Compile Include="BinhLuan.cs">
       <DependentUpon>VenEntities.tt</DependentUpon>
     </Compile>
