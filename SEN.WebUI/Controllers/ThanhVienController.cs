@@ -18,6 +18,7 @@ namespace SEN.WebUI.Controllers
             try
             {
                 var thanhVien = (ThanhVien)Session["user_login"];
+
                 return Json(new {thanhVien.ThanhVienId, thanhVien.FirstName, thanhVien.LastName }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

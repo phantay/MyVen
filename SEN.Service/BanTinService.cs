@@ -12,12 +12,19 @@ namespace SEN.Service
     public class BanTinService
     {
         private BanTinRepository _banTinStore;
+        private TuKhoaRepository _tuKhoaRepository;
         private ThanhVienRepository _thanhVienStore;
 
         protected BanTinRepository BanTinStore
         {
             get { return _banTinStore ?? (_banTinStore = new BanTinRepository()); }
             set { _banTinStore = value; }
+        }
+
+        protected TuKhoaRepository TuKhoaStore
+        {
+            get { return _tuKhoaRepository ?? (_tuKhoaRepository = new TuKhoaRepository()); }
+            set { _tuKhoaRepository = value; }
         }
 
         protected ThanhVienRepository ThanhVienStore
@@ -31,16 +38,21 @@ namespace SEN.Service
             return BanTinStore.GetList(thanhVienId);
         }
 
-        //public List<BanTinTuKhoaModel> GetListTuKhoas(int tuKhoaId)
-        //{
-        //    var Db = new VenEntities();
-        //    var result = from bt in Db.BanTins
-        //                  join bttk in Db.BanTinTuKhoas on bt.BanTinId equals bttk.BanTinId
-        //                  join tk in Db.TuKhoas on bttk.TuKhoaId equals tk.TuKhoaId
-        //                  where tk.TuKhoa == tuKhoaId
-        //                  select new { BanTin = bt, TuKhoa = tk};
-        //    return result.ToList();
-        //}
+        public BanTin Get(int banTinId)
+        {
+            return BanTinStore.Get(banTinId);
+        }
+
+        public TuKhoaChiTietModel GetTuKhoaChiTiet(int tuKhoaId)
+        {
+            var tuKhoa = TuKhoaStore.Get(tuKhoaId);
+            if (tuKhoa == null)
+                throw new Exception("");
+
+            var banTins = BanTinStore.GetListByTuKhoa(tuKhoaId);
+
+            return new TuKhoaChiTietModel { TuKhoa = tuKhoa, BanTins = banTins };
+        }
 
         public void DangTin(BanTin banTin)
         {
@@ -100,6 +112,7 @@ namespace SEN.Service
                 throw new Exception("Chúng tôi đang gặp vấn đề khó về kỹ thuật khi đăng tin", ex);
             }
         }
+
         public void XoaTin(BanTin banTin)
         {
             try
@@ -109,8 +122,31 @@ namespace SEN.Service
             }
             catch (Exception)
             {
-                throw new Exception("Chúng tôi đang gặp vấn đề khó về kỹ thuật khi đăng tin");
+                throw new Exception("Chúng tôi đang gặp vấn đề khó về kỹ thuật khi xóa tin");
             }
+        }
+
+        public void XoaTin(int banTinId)
+        {
+            try
+            {
+                var bantin = BanTinStore.Get(banTinId);
+                if (bantin == null)
+                    throw new Exception("Bản tin không tồn tại");
+
+                BanTinStore.Remove(bantin);
+
+                BanTinStore.SaveChanges();
+            }
+            catch (Exception)
+            {
+                throw new Exception("Chúng tôi đang gặp vấn đề khó về kỹ thuật khi xóa tin");
+            }
+        }
+
+        public List<TuKhoa> GetTopTuKhoa()
+        {
+            return TuKhoaStore.GetTopTuKhoa();
         }
     }
 }

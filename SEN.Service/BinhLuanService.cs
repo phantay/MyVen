@@ -49,8 +49,7 @@ namespace SEN.Service
             if (string.IsNullOrWhiteSpace(binhLuan.NoiDung))
                 throw new Exception("Bình luận phải có nội dung");
 
-            binhLuan.BinhLuanId = 1;
-            binhLuan.ThoiGian = DateTime.UtcNow;
+            binhLuan.ThoiGian = DateTime.Now;
 
             try
             {
@@ -94,6 +93,21 @@ namespace SEN.Service
             {
                 throw new Exception("Chúng tôi đang gặp vấn đề khó về kỹ thuật khi đăng tin", ex);
             }
+        }
+
+        public List<BinhLuan> GetTopBinhLuans(int banTinId, int count)
+        {
+            return BinhLuanStore.GetList(banTinId, count);
+        }
+
+        public BinhLuan Get(int binhLuanId)
+        {
+            return BinhLuanStore.Get(binhLuanId);
+        }
+
+        public List<BinhLuan> GetMoreBinhLuan(int banTinId, int minBinhLuanId)
+        {
+            return BinhLuanStore.GetMoreBinhLuan(banTinId, minBinhLuanId);
         }
     }
 }

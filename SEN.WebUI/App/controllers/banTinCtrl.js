@@ -6,6 +6,7 @@
     app.controller('banTinCtrl', function ($scope, $location, banTinService, thanhVienService, akFileUploaderService) {
         $scope.dsBanTin = [];
         $scope.TuKhoa;
+        $scope.dsTuKhoa = [];
         $scope.imageFile;
         $scope.thanhVien = {
             Id: "",
@@ -18,20 +19,20 @@
             $scope.thanhVien.FirstName = response.data.FirstName;
             $scope.thanhVien.LastName = response.data.LastName;
 
-            //
             banTinService.getDanhSachBanTin($scope.thanhVien.Id).then(function (response) {
                 $scope.dsBanTin = response.data;
             });
         });
 
-            //banTinService.getDanhSachTuKhoa().then(function (response) {
-            //    $scope.tuKhoa.Id = response.data.TuKhoaId;
-            //    $scope.tuKhoa.NoiDung = response.data.NoiDung;
-            //    //
-            //    banTinService.getDanhSachBanTin($scope.tuKhoa.Id).then(function (response) {
-            //        $scope.dsBanTin = response.data;
-            //    });
-            //});
+        banTinService.getTopTuKhoa().then(function (response) {
+            $scope.dsTuKhoa = response.data;
+        });
+
+        //$scope.getTopListTuKhoa = function () {
+        //    banTinService.GetTopTuKhoa($scope.tuKhoaId).then(function (response) {
+        //        $scope.dsTuKhoa = response.data;
+        //    });
+        //};
 
         $scope.dangTin = function () {
             // Dang Tin
@@ -49,13 +50,13 @@
 
 
         $scope.xoaTin = function (bantin) {
-            banTinService.xoaTin(bantin).then(function (response) { 
+            banTinService.xoaTin(bantin).then(function (response) {
                 var btIndex = $scope.dsBanTin.indexOf(bantin);
                 $scope.dsBanTin.splice(btIndex, 1);
             });
         }
 
-        $scope.chuyenGio = function (date) {            
+        $scope.chuyenGio = function (date) {
             if (!date)
                 return null;
             date = new Date(date);

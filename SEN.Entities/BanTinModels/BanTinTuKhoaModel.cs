@@ -8,7 +8,7 @@ namespace SEN.Entities.BanTinModels
 {
     public class BanTinTuKhoaModel
     {
-        BanTin BanTin { get; set; }
-        TuKhoa TuKhoa { get; set; }
+        public BanTin BanTin { get; set; }
+        public TuKhoa TuKhoa { get; set; }
     }
 }

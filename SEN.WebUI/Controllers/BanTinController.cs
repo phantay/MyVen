@@ -3,6 +3,7 @@ using SEN.Entities.BanTinModels;
 using SEN.Service;
 using SEN.WebUI.Models;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web.Mvc;
@@ -11,12 +12,13 @@ namespace SEN.WebUI.Controllers
 {
     public class BanTinController : BaseController
     {
-
         private readonly BanTinService _banTinService;
+        private readonly BinhLuanService _binhLuanService;
 
         public BanTinController()
         {
             _banTinService = new BanTinService();
+            _binhLuanService = new BinhLuanService();
         }
 
         public ActionResult Index()
@@ -25,9 +27,11 @@ namespace SEN.WebUI.Controllers
             return View();
         }
 
-        public JsonResult ListBanTin(int thanhVienId) {
+        public JsonResult ListBanTin(int thanhVienId)
+        {
             var banTins = _banTinService.GetList(thanhVienId);
-            var listBanTin = banTins.Select(b=> new BanTinModel {
+            var listBanTin = banTins.Select(b => new BanTinModel
+            {
                 BanTinId = b.BanTinId,
                 NoiDung = b.NoiDung,
                 ThoiGian = b.ThoiGian,
@@ -50,23 +54,11 @@ namespace SEN.WebUI.Controllers
             }
         }
 
-        //public JsonResult ListTuKhoa(int tuKhoaId)
-        //{
-        //    var tuKhoas = _banTinService.GetList(tuKhoaId);
-        //    var listTuKhoa = tuKhoas.Select(tk => new BanTinTuKhoaModel
-        //    {
-        //        Tu = tk.TuKhoaId,
-        //        TuKhoa = tk.NoiDung,
-        //        ThoiGian = tk.ThoiGian,
-        //    }).ToList();
-        //    return Json(listTuKhoa, JsonRequestBehavior.AllowGet);
-        //}
-
         public JsonResult GetListTuKhoaById(int tuKhoaId)
         {
             try
             {
-                var listTuKhoa = _banTinService.GetList(tuKhoaId);
+                var listTuKhoa = _banTinService.GetTuKhoaChiTiet(tuKhoaId);
 
                 return Json(listTuKhoa, JsonRequestBehavior.AllowGet);
             }
@@ -86,7 +78,7 @@ namespace SEN.WebUI.Controllers
                 banTin.ThanhVienId = thanhVien.ThanhVienId;
                 _banTinService.DangTin(banTin);
 
-                if(banTin != null && Request.Files != null && Request.Files.Count > 0)
+                if (banTin != null && Request.Files != null && Request.Files.Count > 0)
                 {
                     var fileContent = Request.Files[0];
                     if (fileContent != null && fileContent.ContentLength > 0)
@@ -128,47 +120,11 @@ namespace SEN.WebUI.Controllers
         [HttpDelete]
         public JsonResult XoaTin(int banTinId)
         {
-           try
-            {
-                using (VenEntities data = new VenEntities())
-                {                    
-                    var bantin = data.BanTins.Where(x => x.BanTinId == banTinId).FirstOrDefault();
-                    if (bantin == null)
-                        throw new Exception("Ban tin khong ton tai");
-                    data.BanTins.Remove(bantin);
-                    data.SaveChanges();
-                    return Json(true);
-                }
-            }
-            catch (Exception ex)
-            {
-                //
-                //TODO: Cần lưu lại lỗi
-                throw new Exception(ex.Message);
-            }
-        }
-
-        [HttpPost]
-        public JsonResult TaoTuKhoa(int banTinId, int tuKhoaId, string noiDung, int countView)
-        {
             try
             {
-                using (VenEntities data = new VenEntities())
-                {
-                    var tukhoa = data.BanTinTuKhoas.Where(x => x.BanTinId == banTinId && x.TuKhoaId == tuKhoaId).FirstOrDefault();
-                    if (tukhoa == null)
-                        throw new Exception("ban tin khong ton tai");
-                    var tk = new TuKhoa
-                    {
-                        TuKhoaId = tuKhoaId,
-                        NoiDung = noiDung,
-                        CountView = countView
-                    };
-                    data.TuKhoas.Add(tk);
-                    data.SaveChanges();
+                _banTinService.XoaTin(banTinId);
 
-                    return Json(new { success = true, tuKhoaId = tk.TuKhoaId }, JsonRequestBehavior.AllowGet);
-                }
+                return Json(true);
             }
             catch (Exception ex)
             {
@@ -179,7 +135,7 @@ namespace SEN.WebUI.Controllers
         }
 
         [HttpGet]
-        public JsonResult GetTuKhoaById(int tuKhoaId)
+        public JsonResult GetTuKhoaChiTiet(int tuKhoaId)
         {
             if (tuKhoaId <= 0)
             {
@@ -188,19 +144,9 @@ namespace SEN.WebUI.Controllers
 
             try
             {
-                using (VenEntities data = new VenEntities())
-                {
-                    var tuKhoa = data.TuKhoas.Where(tk => tk.TuKhoaId == tuKhoaId)
-                        .ToList()
-                        .Select(tk => new TuKhoa
-                        {
-                            TuKhoaId = tk.TuKhoaId,
-                            NoiDung = tk.NoiDung,
-                            CountView = tk.CountView
-                        }).FirstOrDefault();
+                var model = _banTinService.GetTuKhoaChiTiet(tuKhoaId);
 
-                    return Json(tuKhoa, JsonRequestBehavior.AllowGet);
-                }
+                return Json(model, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -210,58 +156,24 @@ namespace SEN.WebUI.Controllers
         }
 
         [HttpPost]
-        public JsonResult DangTuKhoa(int banTinId, int tuKhoaId, string noiDung,int countView)
+        public JsonResult DangBinhLuan(int banTinId, int thanhVienId, string binhLuan)
         {
             try
             {
-                using (VenEntities data = new VenEntities())
+                var bantin = _banTinService.Get(banTinId);
+                if (bantin == null)
+                    throw new Exception("Ban tin khong ton tai");
+
+                var bl = new BinhLuan
                 {
-                    var tukhoa = data.BanTinTuKhoas.Where(x => x.BanTinId == banTinId && x.TuKhoaId == tuKhoaId).FirstOrDefault();
-                    if (tukhoa == null)
-                        throw new Exception("ban tin khong ton tai");
-                    var tk = new TuKhoa
-                    {
-                        TuKhoaId = tuKhoaId,
-                        NoiDung = noiDung,
-                        CountView = countView
-                    };
-                    data.TuKhoas.Add(tk);
-                    data.SaveChanges();
+                    BanTinId = banTinId,
+                    ThanhVienId = thanhVienId,
+                    NoiDung = binhLuan,
+                };
 
-                    return Json(new { success = true, tuKhoaId = tk.TuKhoaId }, JsonRequestBehavior.AllowGet);
-                }
-            }
-            catch (Exception ex)
-            {
-                //
-                //TODO: Cần lưu lại lỗi
-                throw new Exception(ex.Message);
-            }
-        }
+                _binhLuanService.DangBinhLuan(bl);
 
-
-        [HttpPost]
-        public JsonResult DangBinhLuan(int banTinId, int thanhVienId, string binhLuan)
-        {
-           try
-            {
-                using (VenEntities data = new VenEntities())
-                {                    
-                    var bantin = data.BanTins.Where(x => x.BanTinId == banTinId).FirstOrDefault();
-                    if (bantin == null)
-                        throw new Exception("Ban tin khong ton tai");
-                    var bl = new BinhLuan
-                    {
-                        BanTinId = banTinId,
-                        NoiDung = binhLuan,
-                        ThanhVienId = thanhVienId,
-                        ThoiGian = DateTime.Now,                        
-                    };
-                    data.BinhLuans.Add(bl);
-                    data.SaveChanges();
-
-                    return Json(new { success = true, binhLuanId = bl.BinhLuanId }, JsonRequestBehavior.AllowGet);
-                }
+                return Json(new { success = true, binhLuanId = bl.BinhLuanId }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -274,7 +186,7 @@ namespace SEN.WebUI.Controllers
         [HttpGet]
         public JsonResult GetTopBinhLuanMoiNhat(int banTinId)
         {
-            int pageSize = 5;
+            int count = 5;
 
             if (banTinId <= 0)
             {
@@ -283,21 +195,9 @@ namespace SEN.WebUI.Controllers
 
             try
             {
-                using (VenEntities data = new VenEntities())
-                {
-                    var binhLuans = data.BinhLuans.Where(b => b.BanTinId == banTinId)
-                        .OrderByDescending(b => b.ThoiGian)
-                        .Take(pageSize)
-                        .ToList()
-                        .Select(b => new BinhLuan {
-                            BinhLuanId = b.BinhLuanId,
-                            BanTinId = b.BanTinId,
-                            NoiDung = b.NoiDung,
-                            ThoiGian = b.ThoiGian
-                        }).ToList();
+                var binhLuans = _binhLuanService.GetTopBinhLuans(banTinId, count);
 
-                    return Json(binhLuans, JsonRequestBehavior.AllowGet);
-                }
+                return Json(binhLuans, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -316,20 +216,9 @@ namespace SEN.WebUI.Controllers
 
             try
             {
-                using (VenEntities data = new VenEntities())
-                {
-                    var binhLuan = data.BinhLuans.Where(b => b.BinhLuanId == binhLuanId)
-                        .ToList()
-                        .Select(b => new BinhLuan
-                        {
-                            BinhLuanId = b.BinhLuanId,
-                            BanTinId = b.BanTinId,
-                            NoiDung = b.NoiDung,
-                            ThoiGian = b.ThoiGian
-                        }).FirstOrDefault();
+                var binhLuan = _binhLuanService.Get(binhLuanId);
 
-                    return Json(binhLuan, JsonRequestBehavior.AllowGet);
-                }
+                return Json(binhLuan, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -341,8 +230,6 @@ namespace SEN.WebUI.Controllers
         [HttpGet]
         public JsonResult GetMoreBinhLuan(int banTinId, int minBinhLuanId)
         {
-            int pageSize = 5;
-
             if (banTinId <= 0)
             {
                 return Json(new { success = false, error = "banTinId không hợp lệ!" }, JsonRequestBehavior.AllowGet);
@@ -355,22 +242,26 @@ namespace SEN.WebUI.Controllers
 
             try
             {
-                using (VenEntities data = new VenEntities())
-                {
-                    var binhLuans = data.BinhLuans.Where(b => b.BanTinId == banTinId && b.BinhLuanId < minBinhLuanId)
-                        .OrderByDescending(b => b.ThoiGian)
-                        .Take(pageSize)
-                        .ToList()
-                        .Select(b => new BinhLuan
-                        {
-                            BinhLuanId = b.BinhLuanId,
-                            BanTinId = b.BanTinId,
-                            NoiDung = b.NoiDung,
-                            ThoiGian = b.ThoiGian
-                        }).ToList();
+                var binhLuans = _binhLuanService.GetMoreBinhLuan(banTinId, minBinhLuanId);
 
-                    return Json(binhLuans, JsonRequestBehavior.AllowGet);
-                }
+                return Json(binhLuans, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                //TODO: Cần lưu lại lỗi
+                return Json(new { success = false, error = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
+        [HttpGet]
+        public JsonResult GetTopTuKhoa()
+        {            
+            try
+            {
+                List<TuKhoa> tuKhoas = _banTinService.GetTopTuKhoa();
+
+                return Json(tuKhoas, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {

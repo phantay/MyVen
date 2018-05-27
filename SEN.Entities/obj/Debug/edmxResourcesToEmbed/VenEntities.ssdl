@@ -15,11 +15,10 @@
     </Key>
     <Property Name="BanTinId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ThanhVienId" Type="int" Nullable="false" />
-    <Property Name="NoiDung" Type="nvarchar(max)" />
+    <Property Name="NoiDung" Type="nvarchar" MaxLength="1024" Nullable="false" />
     <Property Name="ThoiGian" Type="datetime" Nullable="false" />
-    <Property Name="The" Type="nvarchar(max)" />
     <Property Name="DiaDiemId" Type="int" />
-    <Property Name="QuyenRiengTu" Type="nvarchar(max)" />
+    <Property Name="QuyenRiengTu" Type="nvarchar" MaxLength="100" />
   </EntityType>
   <EntityType Name="BanTinTuKhoa">
     <Key>

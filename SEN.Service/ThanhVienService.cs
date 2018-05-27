@@ -22,5 +22,15 @@ namespace SEN.Service
         {
             return ThanhVienStore.Get(thanhVienId);
         }
+
+        public ThanhVien GetByEmail(string email)
+        {
+            return ThanhVienStore.GetByEmail(email);
+        }
+
+        public void Create(ThanhVien thanhVien)
+        {
+            ThanhVienStore.Create(thanhVien);
+        }
     }
 }

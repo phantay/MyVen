@@ -3,11 +3,12 @@
 (function (app) {
     'use strict';
 
-    app.controller('binhLuanCtrl', function ($scope, $location, binhLuanService) {
+    app.controller('binhLuanCtrl', function ($scope, $location, $window, binhLuanService) {
         $scope.thanhVienId;
         $scope.banTinId;
-        $scope.dsBinhLuan = [];
+        $scope.dsBinhLuan = null;
         $scope.binhLuanMoi;
+        $scope.anXemThem = false;
 
         $scope.Init = function (banTinId, thanhVienId) {
             $scope.banTinId = banTinId;
@@ -21,6 +22,11 @@
             this.modalData.NoiDung = bt.NoiDung;
             this.modalData.TenNguoiDang = bt.ThanhVienId;
             $scope.getTopBinhLuanMoiNhat();
+
+            var input = $window.document.getElementById('inlineComment_' + bt.BanTinId);
+            if (input) {
+                input.focus();
+            }
         };
 
         $scope.dangBinhLuan = function () {
@@ -37,7 +43,6 @@
 
         $scope.getTopBinhLuanMoiNhat = function () {
             binhLuanService.getTopBinhLuanMoiNhat($scope.banTinId).then(function (response) {
-                console.log(response);
                 $scope.dsBinhLuan = response.data;
             });
         }
@@ -46,8 +51,10 @@
         $scope.loadMoreBinhLuan = function () {
             var minBinhLuanId = $scope.dsBinhLuan[$scope.dsBinhLuan.length - 1].BinhLuanId;
             binhLuanService.getMoreBinhLuan($scope.banTinId, minBinhLuanId).then(function (response) {
-                console.log(response);
                 $scope.dsBinhLuan = [].concat($scope.dsBinhLuan, response.data);
+                if (!response.data || response.data.length < 5) {
+                    $scope.anXemThem = true;
+                }
             });
         }
     });

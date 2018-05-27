@@ -1,20 +1,27 @@
-﻿using System.Web.Mvc;
-using SEN.WebUI.Code;
-using SEN.WebUI.Models;
+﻿using SEN.Data;
 using SEN.Entities;
-using SEN.Data;
+using SEN.Service;
+using SEN.WebUI.Models;
+using System.Web.Mvc;
 using System.Web.Security;
 
 namespace SEN.WebUI.Controllers
 {
     public class HomeController : BaseController
     {
+        ThanhVienService thanhVienService;
+
+        public HomeController()
+        {
+            thanhVienService = new ThanhVienService();
+        }
+
         public ActionResult Index()
         {
-            ViewBag.Title = "Home Page";
             return View();
         }
 
+        [AllowAnonymous]
         public ActionResult DangNhap()
         {
             return View();
@@ -22,56 +29,54 @@ namespace SEN.WebUI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public ActionResult DangNhap(LoginModel model)
-        {   
+        {
             if (!ModelState.IsValid)
             {
                 ModelState.AddModelError("", "Thiếu tên đăng nhập hoặc mật khẩu chưa đúng");
                 return View(model);
             }
-            //Login
-            var result = new ThanhVienModel().Login(model.Email, model.Password);
 
-            if (result != null)
+            // Get ThanhVien by email
+            var thanhVien = thanhVienService.GetByEmail(model.Email);
+
+            if (thanhVien != null && thanhVien.Password == model.Password)
             {
-                Session["user_login"] = result;
-                return RedirectToAction("Index", "Home");
-            } else {
+                FormsAuthentication.SetAuthCookie(model.Email, true);
+                Session["user_login"] = thanhVien;
+
+                return RedirectToAction("Index");
+            }
+            else
+            {
                 ModelState.AddModelError("", "Tên đăng nhập hoặc mật khẩu chưa đúng");
             }
-            //Check login and redirect to page.
-            //if (result)
-            //{
-            //    SessionHelper.SetEmailSession(model.Email);
-            //    return RedirectToAction("Index", "Home");
-            //}
-            //else
-            //{
-            //    ModelState.AddModelError("", "Tên đăng nhập hoặc mật khẩu chưa đúng");
-            //}
+
             return View(model);
         }
 
+        [AllowAnonymous]
         public ActionResult DangKy()
         {
             return View();
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public ActionResult DangKy(ThanhVien thanhVien)
         {
             if (ModelState.IsValid)
             {
-                VenEntities db = new VenEntities();
-                db.ThanhViens.Add(thanhVien);
-                db.SaveChanges();
+                thanhVienService.Create(thanhVien);
+
                 return View(thanhVien);
             }
-            return RedirectToAction("DangKy");
 
+            return RedirectToAction("DangKy");
         }
-        
+
         public ActionResult LogOut()
         {
             Session.Clear();

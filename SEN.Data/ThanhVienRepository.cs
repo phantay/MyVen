@@ -1,4 +1,5 @@
 ﻿using SEN.Entities;
+using System;
 using System.Linq;
 
 namespace SEN.Data
@@ -14,6 +15,11 @@ namespace SEN.Data
         {
             Db.ThanhViens.Add(thanhVien);
             Db.SaveChanges();
+        }
+
+        public ThanhVien GetByEmail(string email)
+        {
+            return Db.ThanhViens.FirstOrDefault(tv => tv != null && tv.Email.ToLower() == email.ToLower());
         }
     }
 }

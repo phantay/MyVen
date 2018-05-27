@@ -6,30 +6,29 @@ using System.Linq;
 namespace SEN.Data
 {
     public class BanTinRepository : BaseRepository
-    {public void Create(BanTin banTin)
+    {
+        public void Create(BanTin banTin)
         {
             Db.BanTins.Add(banTin);
         }
 
-        
+
         public BanTin Get(int id)
         {
             return Db.BanTins.FirstOrDefault(bt => bt.BanTinId == id);
         }
 
-        //public List<BanTin> GetList(int tuKhoaId)
-        //{
-        //    var result = from bt in Db.BanTins
-        //                 join bttk in Db.BanTinTuKhoas on bt.BanTinId equals bttk.BanTinId
-        //                 join tk in Db.TuKhoas on bttk.TuKhoaId equals tk.TuKhoaId
-        //                 where bt.TuKhoa == tuKhoaId
-        //                 select new { BanTin = bt, TuKhoa = tk };
-        //    return result.ToList();
-        //}
-
         public List<BanTin> GetList(int thanhVienId)
         {
             return Db.BanTins.Include("ThanhVien").Where(b => b.ThanhVienId == thanhVienId).OrderByDescending(b => b.ThoiGian).ToList();
+        }
+
+        public List<BanTin> GetListByTuKhoa(int tuKhoaId)
+        {
+            return (from bt in Db.BanTins
+                    join bttk in Db.BanTinTuKhoas on bt.BanTinId equals bttk.BanTinId
+                    where bttk.TuKhoaId == tuKhoaId
+                    select bt).ToList();
         }
 
         public List<BanTin> GetList(int thanhVienId, DateTime startDate, DateTime endDate)

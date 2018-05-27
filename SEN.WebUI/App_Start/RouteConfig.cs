@@ -13,10 +13,11 @@ namespace SEN.WebUI
             routes.MapRoute(name: "DangNhap", url: "DangNhap", defaults: new { controller = "Home", action = "DangNhap" });
 
             routes.MapRoute(
-                name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                "Default",                                              // Route name
+                "{controller}/{action}/{id}",                           // URL with parameters
+                new { controller = "Home", action = "Index", id = "" }  // Parameter defaults
             );
+            
         }
     }
 }

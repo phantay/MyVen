@@ -1,0 +1,78 @@
+﻿<div class="right">
+    <div class="card-box top-keyword">
+        <h4 class="m-t-0 m-b-20 header-title"><b>Top từ khóa</b></h4>
+        <ul class="list-unstyled">
+            <li ng-repeat="tk in dsTuKhoa track by $index">
+                <a href="/#/tukhoa/{{tk.TuKhoaId}}">
+                    <span><strong>#</strong>{{ tk.NoiDung }}</span>
+                    <span class="badge">{{ tk.CountView }}</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="card-box recommend-follower">
+        <h4 class="m-t-0 m-b-20 header-title"><b>Gợi ý theo dõi</b></h4>
+        <ul class="list-unstyled">
+            <li>
+                <div class="contact-card">
+                    <a class="pull-left" href="#">
+                        <img class="img-circle" src="assets/images/users/avatar-8.jpg" alt="">
+                    </a>
+                    <div class="member-info">
+                        <h4 class="m-t-0 m-b-5 header-title"><a href="#"><b>Phan Tay</b></a></h4>
+                        <p class="text-muted">500 theo dõi</p>
+                        <p class="text-dark"><i class="md md-business m-r-10"></i><small>ABC company Pvt Ltd.</small></p>
+                        <div class="contact-action">
+                            <a href="#" class="btn btn-default"><i class=" icon-user-follow"> Theo dõi</i></a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="contact-card">
+                    <a class="pull-left" href="#">
+                        <img class="img-circle" src="assets/images/users/avatar-8.jpg" alt="">
+                    </a>
+                    <div class="member-info">
+                        <h4 class="m-t-0 m-b-5 header-title"><a href="#"><b>Phan Tay</b></a></h4>
+                        <p class="text-muted">500 theo dõi</p>
+                        <p class="text-dark"><i class="md md-business m-r-10"></i><small>ABC company Pvt Ltd.</small></p>
+                        <div class="contact-action">
+                            <a href="#" class="btn btn-default"><i class=" icon-user-follow"> Theo dõi</i></a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="contact-card">
+                    <a class="pull-left" href="#">
+                        <img class="img-circle" src="assets/images/users/avatar-8.jpg" alt="">
+                    </a>
+                    <div class="member-info">
+                        <h4 class="m-t-0 m-b-5 header-title"><a href="#"><b>Phan Tay</b></a></h4>
+                        <p class="text-muted">500 theo dõi</p>
+                        <p class="text-dark"><i class="md md-business m-r-10"></i><small>ABC company Pvt Ltd.</small></p>
+                        <div class="contact-action">
+                            <a href="#" class="btn btn-default"><i class=" icon-user-follow"> Theo giõi</i></a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="contact-card">
+                    <a class="pull-left" href="#">
+                        <img class="img-circle" src="assets/images/users/avatar-8.jpg" alt="">
+                    </a>
+                    <div class="member-info">
+                        <h4 class="m-t-0 m-b-5 header-title"><a href="#"><b>Phan Tay</b></a></h4>
+                        <p class="text-muted">500 theo giõi</p>
+                        <p class="text-dark"><i class="md md-business m-r-10"></i><small>ABC company Pvt Ltd.</small></p>
+                        <div class="contact-action">
+                            <a href="#" class="btn btn-default"><i class=" icon-user-follow"> Theo giõi</i></a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
