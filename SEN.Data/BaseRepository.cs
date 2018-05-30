@@ -14,7 +14,7 @@ namespace SEN.Data
                     return _db;
 
                 _db = new VenEntities();
-                _db.Configuration.LazyLoadingEnabled = false;
+                //_db.Configuration.LazyLoadingEnabled = false;
 
                 return _db;
             }

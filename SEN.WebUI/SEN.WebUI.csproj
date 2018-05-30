@@ -1895,6 +1895,10 @@
       <Project>{402c7efa-c758-4eee-8c98-92584cde717f}</Project>
       <Name>SEN.Service</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SEN.Web\SEN.Web.csproj">
+      <Project>{c74edf6d-541d-4274-9044-a0eca77f10ed}</Project>
+      <Name>SEN.Web</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

@@ -9,7 +9,7 @@ namespace SEN.WebUI.Controllers
     [Authorize]
     public class BaseController : Controller
     {
-        protected  bool CheckLogin()
+        protected bool CheckLogin()
         {
             var isCheck = false;
             return isCheck;

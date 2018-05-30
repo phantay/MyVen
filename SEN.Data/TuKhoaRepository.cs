@@ -28,7 +28,7 @@ namespace SEN.Data
 
             var tuKhoaIds = tuKhoaGroups.Select(_ => _.TuKhoaId);
 
-               var tuKhoas = Db.TuKhoas.Where(_ => tuKhoaIds.Contains(_.TuKhoaId)).ToList();
+            var tuKhoas = Db.TuKhoas.Where(_ => tuKhoaIds.Contains(_.TuKhoaId)).ToList();
 
             foreach (var t in tuKhoas)
             {
@@ -36,6 +36,17 @@ namespace SEN.Data
             }
 
             return tuKhoas.OrderByDescending(_ => _.CountView).ToList();
+        }
+
+        public List<TuKhoa> GetByBanTinId(int banTinId)
+        {
+            var tuKhoas = from tk in Db.TuKhoas
+                          join bttk in Db.BanTinTuKhoas on tk.TuKhoaId equals bttk.TuKhoaId
+                          join bt in Db.BanTins on bttk.BanTinId equals bt.BanTinId
+                          where bt.BanTinId == banTinId
+                          select tk;
+
+            return tuKhoas.ToList();
         }
     }
 }

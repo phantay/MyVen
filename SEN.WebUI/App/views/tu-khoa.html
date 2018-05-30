@@ -1,5 +1,37 @@
 ﻿<div>
     <div ng-repeat="bt in tuKhoa.BanTins">
-        <p ng-bind="bt.NoiDung"></p>
+        <div class="col-md-11 user_title" style="width: 100%;">
+            <article class="media event">
+                <a href="#" title="">
+                    <img src="../../images/img.jpg" class="pull-left avata" alt="">
+                </a>
+                <div class="media-body">
+                    <a class="title" href="#"><span>{{thanhVien.FirstName}} {{thanhVien.LastName}}</span></a><span> đã thêm một sự kiện</span>
+                    <p class="hour">{{chuyenGio(bt.ThoiGian)}}</p>
+                    <p>
+                        <a style="margin-right:8px" ng-repeat="tk in bt.TuKhoas" data-id="{{tk.TuKhoaId}}" href="#" title="" class="hashtag">#{{tk.NoiDung}}</a>
+                    </p>
+                </div>
+            </article>
+        </div>
+        <div class="nf_content" style="margin-bottom:10px;">
+            <div class="nf_caption" style="line-height: 16px;">
+                <p ng-bind="bt.NoiDung"></p>
+            </div>
+            <div class="nf_sameword">
+                <ul class="list-inline list-unstyled">
+                    <li><a href="#" class="btn btn-link"><small>#lulut2016</small></a></li>
+                    <li><a href="#" class="btn btn-link"><small>#lulutmientrung</small></a></li>
+                    <li><a href="#" class="btn btn-link"><small>#cuutrolulut</small></a></li>
+                    <li><a href="#" class="btn btn-link"><small>#unghomientrung</small></a></li>
+                </ul>
+            </div>
+            <div class="gallery">
+                <!--<img class="img" src="~/images/excel.jpg" alt="" data-toggle="modal" data-target="#myModal1">-->
+                <img class="img" alt="" ng-src="/images/BanTin/{{bt.BanTinId}}.jpg" ng-click="open_modal(bt)" data-toggle="modal" data-target="#openmodal" />
+            </div>
+            <div style="margin:10px 0px;"></div>
+        </div>
+
     </div>
 </div>

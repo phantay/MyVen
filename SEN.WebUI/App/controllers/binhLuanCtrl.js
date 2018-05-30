@@ -8,7 +8,7 @@
         $scope.banTinId;
         $scope.dsBinhLuan = null;
         $scope.binhLuanMoi;
-        $scope.anXemThem = false;
+        $scope.anXemThem = true;
 
         $scope.Init = function (banTinId, thanhVienId) {
             $scope.banTinId = banTinId;
@@ -44,6 +44,10 @@
         $scope.getTopBinhLuanMoiNhat = function () {
             binhLuanService.getTopBinhLuanMoiNhat($scope.banTinId).then(function (response) {
                 $scope.dsBinhLuan = response.data;
+
+                if ($scope.dsBinhLuan.length == 5) {
+                    $scope.anXemThem = false;
+                }
             });
         }
 
@@ -52,7 +56,8 @@
             var minBinhLuanId = $scope.dsBinhLuan[$scope.dsBinhLuan.length - 1].BinhLuanId;
             binhLuanService.getMoreBinhLuan($scope.banTinId, minBinhLuanId).then(function (response) {
                 $scope.dsBinhLuan = [].concat($scope.dsBinhLuan, response.data);
-                if (!response.data || response.data.length < 5) {
+
+                if ($scope.dsBinhLuan.length >= 5 && response.data.length < 5) {
                     $scope.anXemThem = true;
                 }
             });

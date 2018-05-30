@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace SEN.Entities.BanTinModels
 {
-    public class BanTinTuKhoaModel
+    public class BanTinWithTuKhoa
     {
         public BanTin BanTin { get; set; }
-        public TuKhoa TuKhoa { get; set; }
+        public List<TuKhoa> TuKhoas { get; set; }
     }
 }

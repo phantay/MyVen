@@ -43,6 +43,7 @@
             };
             akFileUploaderService.saveModel(model, "/BanTin/DangTin").then(function (data) {
                 banTinService.getDanhSachBanTin($scope.thanhVien.Id).then(function (response) {
+                    console.log(response);
                     $scope.dsBanTin = response.data;
                 });
             });

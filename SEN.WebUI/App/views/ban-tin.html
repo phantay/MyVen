@@ -8,7 +8,7 @@
             <!-- Modal -->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
-                    <div class="modal-content ">
+                    <div class="modal-content " style="width: 94%;float: right;left: 125px;">
                         <button type="button" class="close" data-dismiss="modal"><span>&times;</span><span class="sr-only">Close</span></button>
                         <div class="modal-body">
                             <textarea style="width:50%; margin-bottom: 10px;" ng-model="noiDungTuKhoa" rows="1" placeholder="#TuKhoa"></textarea>
@@ -47,7 +47,9 @@
                     <div class="media-body">
                         <a class="title" href="#"><span>{{thanhVien.FirstName}} {{thanhVien.LastName}}</span></a><span> đã thêm một sự kiện</span>
                         <p class="hour">{{chuyenGio(bt.ThoiGian)}}</p>
-                        <a href="#" title="" class="hashtag">#music</a>
+                        <p>
+                            <a style="margin-right:8px" ng-repeat="tk in bt.TuKhoas" data-id="{{tk.TuKhoaId}}" href="#" title="" class="hashtag">#{{tk.NoiDung}}</a>
+                        </p>
                     </div>
                 </article>
             </div>
@@ -87,10 +89,31 @@
         <!-- div like -->
         <div class="nf_action">
             <ul>
-                <li><button type="button" class="like btn-like"><i class="fa fa-angellist"></i><span>0</span> </button></li>
+                <li>
+                    <div class="rating" id="rating2" style="display: inline;">
+                        <button class="btn btn-default like">Like</button>
+                        <span class="likes">0</span>
+                    </div>
+                </li>
                 <li><button type="button" data-id="{{bt.BanTinId}}" class="btn-like" ng-click="open_modal(bt)"><i class="fa fa-comments-o"></i></button></li>
                 <li><button type="button" class="btn-like"><i class="fa fa-retweet"></i></button></li>
             </ul>
+            <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+            <script src="../../Assets/js/like-dislike.js"></script>
+            <script>
+	            $('#rating2').likeDislike({
+                    reverseMode: true,
+                    disabledClass: 'disable',
+                    click: function (value, l, d, event) {
+                        var likes = $(this.element).find('.likes');
+                        var dislikes =  $(this.element).find('.dislikes');
+
+                        likes.text(parseInt(likes.text()) + l);
+                        dislikes.text(parseInt(dislikes.text()) + d);
+                    }
+                });
+            </script>
         </div>
         <div class="modal-post-comment">
             <ul class="list-unstyled modal-list-comment">
@@ -132,9 +155,8 @@
                                             <a href="#">
                                                 <h4 class="text-overflow m-t-0">{{thanhVien.FirstName}} {{thanhVien.LastName}}</h4>
                                             </a>
-                                            <a href="#" class="post-keyword">
-                                                <h4 class="text-overflow m-t-0">!cit</h4>
-                                            </a>
+                                            <a style="margin-right:8px" ng-repeat="tk in bt.TuKhoas" data-id="{{tk.TuKhoaId}}" href="#" title="" class="hashtag">#{{tk.NoiDung}}</a>
+
                                             <h4 class="text-muted pull-right dropdown">
                                                 <span class="fa fa-angle-down dropdown-toggle waves-effect" data-toggle="dropdown" aria-expanded="false"></span>
                                                 <ul class="dropdown-menu drop-menu-right" role="menu">

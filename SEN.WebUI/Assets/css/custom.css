@@ -182,11 +182,11 @@
 	transition: 0.2s;
 }
 .post-image-modal{
-	max-width: 85%;
+	max-width: 100%;
 	border-radius: 5px;
 	margin: 0 auto;
-    height:100%;
 }
+
 .post-image-full-modal{
 	max-width: 100%;
 	max-height: 80vh;

@@ -35,45 +35,25 @@
                     <a href="javascript:void(0);" class="waves-effect"><i class="md-list">!</i> <span> Từ khóa </span></a>
                 </li>
                 <li class="text-muted menu-title">Danh sách từ khóa</li>
-                <ul class="list-keyword display-ili">
-                    <li class="has_sub">
-                        <a href="javascript:void(0);" class="waves-effect"><strong>#</strong> <span> baoso1 </span><span class="badge">3</span></a>
+                @*<ul>
+                    <li ng-repeat="tk in dsTuKhoa track by $index">
+                        <a href="/#/tukhoa/{{tk.TuKhoaId}}">
+                            <span><strong>#</strong>{{ tk.NoiDung }}</span>
+                            <span class="badge">{{ tk.CountView }}</span>
+                        </a>
                     </li>
-                    <li class="has_sub">
-                        <a href="javascript:void(0);" class="waves-effect"><strong>#</strong> <span> cit </span></a>
-                    </li>
-                    <li class="has_sub">
-                        <a href="javascript:void(0);" class="waves-effect"><strong>#</strong> <span> phaohoa2017 </span><span class="badge">12</span></a>
-                    </li>
-                    <li class="has_sub">
-                        <a href="javascript:void(0);" class="waves-effect"><strong>#</strong> <span> ngap_ung_quan_thu_duc </span><span class="badge">5</span></a>
-                    </li>
-                    <li class="has_sub">
-                        <a href="javascript:void(0);" class="waves-effect"><strong>#</strong> <span> bao_so_1 </span><span class="badge">3</span></a>
-                    </li>
-                    <li class="has_sub">
-                        <a href="javascript:void(0);" class="waves-effect"><strong>#</strong> <span> cit </span></a>
-                    </li>
-                    <li class="has_sub">
-                        <a href="javascript:void(0);" class="waves-effect"><strong>#</strong> <span> phao_hoa_2017 </span><span class="badge">12</span></a>
-                    </li>
-                    <li class="has_sub">
-                        <a href="javascript:void(0);" class="waves-effect"><strong>#</strong> <span> ngap_ung_quan_thu_duc </span><span class="badge">5</span></a>
-                    </li>
-                    <li class="has_sub">
-                        <a href="javascript:void(0);" class="waves-effect"><strong>#</strong> <span> bao_so_1 </span><span class="badge">3</span></a>
-                    </li>
-                    <li class="has_sub">
-                        <a href="javascript:void(0);" class="waves-effect"><strong>#</strong> <span> cit </span></a>
-                    </li>
-                    <li class="has_sub">
-                        <a href="javascript:void(0);" class="waves-effect"><strong>#</strong> <span> phao_hoa_2017 </span><span class="badge">12</span></a>
-                    </li>
-                    <li class="has_sub">
-                        <a href="javascript:void(0);" class="waves-effect"><strong>#</strong> <span> ngap_ung_quan_thu_duc </span><span class="badge">5</span></a>
+                </ul>*@
+            </ul>
+            <div class="card-box top-keyword">
+                <ul class="list-unstyled">
+                    <li ng-repeat="tk in dsTuKhoa track by $index">
+                        <a href="/#/tukhoa/{{tk.TuKhoaId}}">
+                            <span><strong>#</strong>{{ tk.NoiDung }}</span>
+                            <span class="badge">{{ tk.CountView }}</span>
+                        </a>
                     </li>
                 </ul>
-            </ul>
+            </div>
             <div class="clearfix"></div>
         </div>
         <div class="clearfix"></div>

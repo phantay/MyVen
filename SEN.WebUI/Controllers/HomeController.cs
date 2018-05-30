@@ -1,5 +1,4 @@
-﻿using SEN.Data;
-using SEN.Entities;
+﻿using SEN.Entities;
 using SEN.Service;
 using SEN.WebUI.Models;
 using System.Web.Mvc;
@@ -79,7 +78,7 @@ namespace SEN.WebUI.Controllers
 
         public ActionResult LogOut()
         {
-            Session.Clear();
+            Session.Abandon();
             FormsAuthentication.SignOut();
             return RedirectToAction("DangNhap", "Home");
         }

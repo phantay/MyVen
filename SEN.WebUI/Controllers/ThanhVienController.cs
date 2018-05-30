@@ -13,6 +13,7 @@ namespace SEN.WebUI.Controllers
         {
             _thanhVienService= new ThanhVienService();
         }
+
         public JsonResult GetThanhVien()
         {
             try

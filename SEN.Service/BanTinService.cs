@@ -1,78 +1,113 @@
 ﻿using SEN.Data;
 using SEN.Entities;
 using SEN.Entities.BanTinModels;
+using SEN.Web.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SEN.Service
 {
     public class BanTinService
     {
-        private BanTinRepository _banTinStore;
+        private BanTinRepository _banTinRepository;
         private TuKhoaRepository _tuKhoaRepository;
-        private ThanhVienRepository _thanhVienStore;
+        private BanTinTuKhoaRepository _banTinTuKhoaRepository;
+        private ThanhVienRepository _thanhVienRepository;
 
-        protected BanTinRepository BanTinStore
+        protected BanTinRepository BanTinRepository
         {
-            get { return _banTinStore ?? (_banTinStore = new BanTinRepository()); }
-            set { _banTinStore = value; }
+            get { return _banTinRepository ?? (_banTinRepository = new BanTinRepository()); }
+            set { _banTinRepository = value; }
         }
 
-        protected TuKhoaRepository TuKhoaStore
+        protected TuKhoaRepository TuKhoaRepository
         {
             get { return _tuKhoaRepository ?? (_tuKhoaRepository = new TuKhoaRepository()); }
             set { _tuKhoaRepository = value; }
         }
 
-        protected ThanhVienRepository ThanhVienStore
+        protected BanTinTuKhoaRepository BanTinTuKhoaRepository
         {
-            get { return _thanhVienStore ?? (_thanhVienStore = new ThanhVienRepository()); }
-            set { _thanhVienStore = value; }
+            get { return _banTinTuKhoaRepository ?? (_banTinTuKhoaRepository = new BanTinTuKhoaRepository()); }
+            set { _banTinTuKhoaRepository = value; }
         }
 
-        public List<BanTin> GetList(int thanhVienId)
+        protected ThanhVienRepository ThanhVienRepository
         {
-            return BanTinStore.GetList(thanhVienId);
+            get { return _thanhVienRepository ?? (_thanhVienRepository = new ThanhVienRepository()); }
+            set { _thanhVienRepository = value; }
+        }
+
+        public List<BanTinViewModel> GetList(int thanhVienId)
+        {
+            var result = new List<BanTinViewModel>();
+            var banTins = BanTinRepository.GetList(thanhVienId);
+
+            foreach (var banTin in banTins)
+            {
+                var banTinVM = new BanTinViewModel();
+                var tuKhoas = TuKhoaRepository.GetByBanTinId(banTin.BanTinId);
+
+                banTinVM.BanTinId = banTin.BanTinId;
+                banTinVM.NoiDung = banTin.NoiDung;
+                banTinVM.ThanhVienId = banTin.ThanhVienId;
+                banTinVM.ThoiGian = banTin.ThoiGian;
+
+                foreach (var tuKhoa in tuKhoas)
+                {
+                    banTinVM.TuKhoas.Add(tuKhoa);
+                }
+
+                result.Add(banTinVM);
+            }
+
+            return result;
         }
 
         public BanTin Get(int banTinId)
         {
-            return BanTinStore.Get(banTinId);
+            return BanTinRepository.Get(banTinId);
         }
 
         public TuKhoaChiTietModel GetTuKhoaChiTiet(int tuKhoaId)
         {
-            var tuKhoa = TuKhoaStore.Get(tuKhoaId);
+            var tuKhoa = TuKhoaRepository.Get(tuKhoaId);
             if (tuKhoa == null)
                 throw new Exception("");
 
-            var banTins = BanTinStore.GetListByTuKhoa(tuKhoaId);
+            var banTins = BanTinRepository.GetListByTuKhoa(tuKhoaId);
 
             return new TuKhoaChiTietModel { TuKhoa = tuKhoa, BanTins = banTins };
         }
 
-        public void DangTin(BanTin banTin)
+        public void DangTin(BanTin banTin, TuKhoa tuKhoa)
         {
             if (banTin == null)
                 throw new ArgumentNullException("banTin", "Bản tin rỗng");
 
-            var thanhVien = ThanhVienStore.Get(banTin.ThanhVienId);
+            var thanhVien = ThanhVienRepository.Get(banTin.ThanhVienId);
             if (thanhVien == null)
                 throw new Exception("Thành viên không tồn tại");
 
             if (string.IsNullOrWhiteSpace(banTin.NoiDung))
                 throw new Exception("Bản tin phải có nội dung");
 
-            banTin.BanTinId = 1;
             banTin.ThoiGian = DateTime.Now;
 
             try
             {
-                BanTinStore.Create(banTin);
-                BanTinStore.SaveChanges();
+                BanTinRepository.Create(banTin);
+                BanTinRepository.SaveChanges();
+
+                TuKhoaRepository.Create(tuKhoa);
+                TuKhoaRepository.SaveChanges();
+
+                var banTinTuKhoa = new BanTinTuKhoa();
+                banTinTuKhoa.BanTinId = banTin.BanTinId;
+                banTinTuKhoa.TuKhoaId = tuKhoa.TuKhoaId;
+
+                BanTinTuKhoaRepository.Create(banTinTuKhoa);
+                BanTinTuKhoaRepository.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -85,14 +120,14 @@ namespace SEN.Service
             if (banTin == null)
                 throw new ArgumentNullException("banTin", "Bản tin rỗng");
 
-            var thanhVien = ThanhVienStore.Get(banTin.ThanhVienId);
+            var thanhVien = ThanhVienRepository.Get(banTin.ThanhVienId);
             if (thanhVien == null)
                 throw new Exception("Thành viên không tồn tại");
 
             if (string.IsNullOrWhiteSpace(banTin.NoiDung))
                 throw new Exception("Bản tin phải có nội dung");
 
-            var banTinDb = BanTinStore.Get(banTin.BanTinId);
+            var banTinDb = BanTinRepository.Get(banTin.BanTinId);
             if (banTinDb == null)
                 throw new Exception("Bản tin không tồn tại");
 
@@ -102,8 +137,8 @@ namespace SEN.Service
             // TODO: Cần lưu lại lịch sử sửa bản tin
             try
             {
-                BanTinStore.Create(banTin);
-                BanTinStore.SaveChanges();
+                BanTinRepository.Create(banTin);
+                BanTinRepository.SaveChanges();
 
                 return banTinDb;
             }
@@ -117,8 +152,8 @@ namespace SEN.Service
         {
             try
             {
-                BanTinStore.Remove(banTin);
-                BanTinStore.SaveChanges();
+                BanTinRepository.Remove(banTin);
+                BanTinRepository.SaveChanges();
             }
             catch (Exception)
             {
@@ -130,13 +165,13 @@ namespace SEN.Service
         {
             try
             {
-                var bantin = BanTinStore.Get(banTinId);
+                var bantin = BanTinRepository.Get(banTinId);
                 if (bantin == null)
                     throw new Exception("Bản tin không tồn tại");
 
-                BanTinStore.Remove(bantin);
+                BanTinRepository.Remove(bantin);
 
-                BanTinStore.SaveChanges();
+                BanTinRepository.SaveChanges();
             }
             catch (Exception)
             {
@@ -146,7 +181,7 @@ namespace SEN.Service
 
         public List<TuKhoa> GetTopTuKhoa()
         {
-            return TuKhoaStore.GetTopTuKhoa();
+            return TuKhoaRepository.GetTopTuKhoa();
         }
     }
 }

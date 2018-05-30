@@ -1,6 +1,6 @@
 ﻿using SEN.Entities;
-using SEN.Entities.BanTinModels;
 using SEN.Service;
+using SEN.Web.ViewModels;
 using SEN.WebUI.Models;
 using System;
 using System.Collections.Generic;
@@ -29,14 +29,9 @@ namespace SEN.WebUI.Controllers
 
         public JsonResult ListBanTin(int thanhVienId)
         {
-            var banTins = _banTinService.GetList(thanhVienId);
-            var listBanTin = banTins.Select(b => new BanTinModel
-            {
-                BanTinId = b.BanTinId,
-                NoiDung = b.NoiDung,
-                ThoiGian = b.ThoiGian,
-            }).ToList();
-            return Json(listBanTin, JsonRequestBehavior.AllowGet);
+            List<BanTinViewModel> banTins = _banTinService.GetList(thanhVienId);
+
+            return Json(banTins, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetListBanTin(int thanhVienId)
@@ -70,13 +65,18 @@ namespace SEN.WebUI.Controllers
         }
 
         [HttpPost]
-        public JsonResult DangTin(BanTin banTin)
+        public JsonResult DangTin(BanTin banTin, string TuKhoa)
         {
             try
             {
                 var thanhVien = (ThanhVien)Session["user_login"];
+                var tuKhoa = new TuKhoa();
+
                 banTin.ThanhVienId = thanhVien.ThanhVienId;
-                _banTinService.DangTin(banTin);
+                tuKhoa.ThanhVienId = thanhVien.ThanhVienId;
+                tuKhoa.NoiDung = TuKhoa;
+
+                _banTinService.DangTin(banTin, tuKhoa);
 
                 if (banTin != null && Request.Files != null && Request.Files.Count > 0)
                 {

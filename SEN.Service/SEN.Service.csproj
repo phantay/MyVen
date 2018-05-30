@@ -69,10 +69,17 @@
       <Project>{df43c105-7059-4010-8135-5dfe37e3dc4e}</Project>
       <Name>SEN.Entities</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SEN.Web\SEN.Web.csproj">
+      <Project>{c74edf6d-541d-4274-9044-a0eca77f10ed}</Project>
+      <Name>SEN.Web</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
