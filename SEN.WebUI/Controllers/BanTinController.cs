@@ -65,16 +65,13 @@ namespace SEN.WebUI.Controllers
         }
 
         [HttpPost]
-        public JsonResult DangTin(BanTin banTin, string TuKhoa)
+        public JsonResult DangTin(BanTin banTin, string tuKhoa)
         {
             try
             {
                 var thanhVien = (ThanhVien)Session["user_login"];
-                var tuKhoa = new TuKhoa();
 
                 banTin.ThanhVienId = thanhVien.ThanhVienId;
-                tuKhoa.ThanhVienId = thanhVien.ThanhVienId;
-                tuKhoa.NoiDung = TuKhoa;
 
                 _banTinService.DangTin(banTin, tuKhoa);
 

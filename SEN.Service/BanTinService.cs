@@ -80,31 +80,40 @@ namespace SEN.Service
             return new TuKhoaChiTietModel { TuKhoa = tuKhoa, BanTins = banTins };
         }
 
-        public void DangTin(BanTin banTin, TuKhoa tuKhoa)
+        public void DangTin(BanTin banTin, string noiDungTuKhoa)
         {
             if (banTin == null)
                 throw new ArgumentNullException("banTin", "Bản tin rỗng");
 
-            var thanhVien = ThanhVienRepository.Get(banTin.ThanhVienId);
-            if (thanhVien == null)
-                throw new Exception("Thành viên không tồn tại");
-
             if (string.IsNullOrWhiteSpace(banTin.NoiDung))
                 throw new Exception("Bản tin phải có nội dung");
 
-            banTin.ThoiGian = DateTime.Now;
-
+            var thanhVien = ThanhVienRepository.Get(banTin.ThanhVienId);
+            if (thanhVien == null)
+                throw new Exception("Thành viên không tồn tại");
             try
             {
+                var tuKhoa = TuKhoaRepository.GetTuKhoaByNoiDung(noiDungTuKhoa);
+                if (tuKhoa == null)
+                {
+                    tuKhoa = new TuKhoa
+                    {
+                        NoiDung = noiDungTuKhoa
+                    };
+                    TuKhoaRepository.Create(tuKhoa);
+                    TuKhoaRepository.SaveChanges();
+                }
+
+                banTin.ThoiGian = DateTime.Now;
+
                 BanTinRepository.Create(banTin);
                 BanTinRepository.SaveChanges();
 
-                TuKhoaRepository.Create(tuKhoa);
-                TuKhoaRepository.SaveChanges();
-
-                var banTinTuKhoa = new BanTinTuKhoa();
-                banTinTuKhoa.BanTinId = banTin.BanTinId;
-                banTinTuKhoa.TuKhoaId = tuKhoa.TuKhoaId;
+                var banTinTuKhoa = new BanTinTuKhoa
+                {
+                    BanTinId = banTin.BanTinId,
+                    TuKhoaId = tuKhoa.TuKhoaId
+                };
 
                 BanTinTuKhoaRepository.Create(banTinTuKhoa);
                 BanTinTuKhoaRepository.SaveChanges();

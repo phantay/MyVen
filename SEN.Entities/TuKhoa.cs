@@ -29,11 +29,11 @@ public partial class TuKhoa
 
     public int TuKhoaId { get; set; }
 
-    public int ThanhVienId { get; set; }
+    public int ThanhVienId { get; set; } 
 
     public string NoiDung { get; set; }
 
-    public Nullable<int> CountView { get; set; }
+    public Nullable<int> CountView { get; set; } 
 
 
 
