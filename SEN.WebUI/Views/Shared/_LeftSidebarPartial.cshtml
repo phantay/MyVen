@@ -35,19 +35,11 @@
                     <a href="javascript:void(0);" class="waves-effect"><i class="md-list">!</i> <span> Từ khóa </span></a>
                 </li>
                 <li class="text-muted menu-title">Danh sách từ khóa</li>
-                @*<ul>
-                    <li ng-repeat="tk in dsTuKhoa track by $index">
-                        <a href="/#/tukhoa/{{tk.TuKhoaId}}">
-                            <span><strong>#</strong>{{ tk.NoiDung }}</span>
-                            <span class="badge">{{ tk.CountView }}</span>
-                        </a>
-                    </li>
-                </ul>*@
             </ul>
             <div class="card-box top-keyword">
                 <ul class="list-unstyled">
-                    <li ng-repeat="tk in dsTuKhoa track by $index">
-                        <a href="/#/tukhoa/{{tk.TuKhoaId}}">
+                    <li ng-repeat="tk in dsTuKhoaByThanhVien track by $index">
+                        <a href="/#/tukhoa/{{tk.thanhVienId}}">
                             <span><strong>#</strong>{{ tk.NoiDung }}</span>
                             <span class="badge">{{ tk.CountView }}</span>
                         </a>

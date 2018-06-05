@@ -266,5 +266,21 @@ namespace SEN.WebUI.Controllers
                 return Json(new { success = false, error = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        [HttpGet]
+        public JsonResult GetTuKhoaByThanhVienId(int thanhVienId)
+        {
+            try
+            {
+                List<BanTinTuKhoa> tuKhoabythanhviens = _banTinService.GetTuKhoaByThanhVienId(thanhVienId);
+
+                return Json(tuKhoabythanhviens, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                //TODO: Cần lưu lại lỗi
+                return Json(new { success = false, error = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

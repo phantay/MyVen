@@ -1,9 +1,6 @@
 ﻿using SEN.Entities;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SEN.Data
 {
@@ -43,6 +40,16 @@ namespace SEN.Data
 
             return tuKhoas.OrderByDescending(tk => tk.CountView).ToList();
         }
+
+        public List<BanTinTuKhoa> GetTuKhoaByThanhVienId(int thanhVienId)
+        {
+            return (from bttk in Db.BanTinTuKhoas
+                    join bt in Db.BanTins on bttk.BanTinId equals bt.BanTinId
+                    where bt.ThanhVienId == thanhVienId
+                    select bttk).ToList();
+        }
+
+        // tu bang BanTinTuKhoa da lay dc roi  join them bang bai viet where baiViet.ThanhVienId 
 
         public List<TuKhoa> GetByBanTinId(int banTinId)
         {

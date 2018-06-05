@@ -23,5 +23,9 @@
         this.getTopTuKhoa = function () {
             return $http.get("/BanTin/GetTopTuKhoa");
         }
+
+        this.getTuKhoaByThanhVien = function (thanhVienId) {
+            return $http.get("/BanTin/GetTuKhoaByThanhVienId" + thanhVienId);
+        }
     });
 })();

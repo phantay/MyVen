@@ -3,6 +3,7 @@ var app = angular.module('venApp');
 
 app.controller('trangChuCtrl', function ($scope, $location, thanhVienService, banTinService) {
     $scope.dsTuKhoa = [];
+    $scope.dsTuKhoaByThanhVien = [];
     $scope.thanhVien = {};
 
     thanhVienService.getThanhVien().then(function (response) {
@@ -13,5 +14,9 @@ app.controller('trangChuCtrl', function ($scope, $location, thanhVienService, ba
 
     banTinService.getTopTuKhoa().then(function (response) {
         $scope.dsTuKhoa = response.data;
+    });
+
+    banTinService.getTuKhoaByThanhVien(thanhVienId).then(function (response) {
+        $scope.dsTuKhoaByThanhVien = response.data;
     });
 });

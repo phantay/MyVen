@@ -192,5 +192,10 @@ namespace SEN.Service
         {
             return TuKhoaRepository.GetTopTuKhoa();
         }
+
+        public List<BanTinTuKhoa> GetTuKhoaByThanhVienId(int thanhVienId)
+        {
+            return TuKhoaRepository.GetTuKhoaByThanhVienId(thanhVienId);
+        }
     }
 }
