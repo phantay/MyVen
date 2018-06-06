@@ -9,3 +9,14 @@ E:\Asp_Tranning\myven\SEN.Web\obj\Debug\SEN.Web.csprojResolveAssemblyReference.c
 E:\Asp_Tranning\myven\SEN.Web\obj\Debug\SEN.Web.csproj.CoreCompileInputs.cache
 E:\Asp_Tranning\myven\SEN.Web\obj\Debug\SEN.Web.dll
 E:\Asp_Tranning\myven\SEN.Web\obj\Debug\SEN.Web.pdb
+D:\myven\SEN.Web\bin\Debug\SEN.Web.dll
+D:\myven\SEN.Web\bin\Debug\SEN.Web.pdb
+D:\myven\SEN.Web\bin\Debug\SEN.Entities.dll
+D:\myven\SEN.Web\bin\Debug\EntityFramework.dll
+D:\myven\SEN.Web\bin\Debug\SEN.Entities.pdb
+D:\myven\SEN.Web\bin\Debug\SEN.Entities.dll.config
+D:\myven\SEN.Web\bin\Debug\EntityFramework.xml
+D:\myven\SEN.Web\obj\Debug\SEN.Web.csprojResolveAssemblyReference.cache
+D:\myven\SEN.Web\obj\Debug\SEN.Web.csproj.CoreCompileInputs.cache
+D:\myven\SEN.Web\obj\Debug\SEN.Web.dll
+D:\myven\SEN.Web\obj\Debug\SEN.Web.pdb

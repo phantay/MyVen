@@ -41,12 +41,13 @@ namespace SEN.Data
             return tuKhoas.OrderByDescending(tk => tk.CountView).ToList();
         }
 
-        public List<BanTinTuKhoa> GetTuKhoaByThanhVienId(int thanhVienId)
+        public List<TuKhoa> GetTuKhoaByThanhVienId(int thanhVienId)
         {
-            return (from bttk in Db.BanTinTuKhoas
+            return (from tk in Db.TuKhoas
+                    join bttk in Db.BanTinTuKhoas on tk.TuKhoaId equals bttk.TuKhoaId
                     join bt in Db.BanTins on bttk.BanTinId equals bt.BanTinId
                     where bt.ThanhVienId == thanhVienId
-                    select bttk).ToList();
+                    select tk).ToList();
         }
 
         // tu bang BanTinTuKhoa da lay dc roi  join them bang bai viet where baiViet.ThanhVienId 

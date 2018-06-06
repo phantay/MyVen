@@ -47,7 +47,7 @@
                     <div class="media-body">
                         <a class="title" href="#"><span>{{thanhVien.FirstName}} {{thanhVien.LastName}}</span></a><span> đã thêm một sự kiện</span>
                         <p class="hour">{{chuyenGio(bt.ThoiGian)}}</p>
-                        <p>
+                        <p ng-hide="bt.TuKhoas.length == 0">
                             <a style="margin-right:8px" ng-repeat="tk in bt.TuKhoas" data-id="{{tk.TuKhoaId}}" href="#" title="" class="hashtag">#{{tk.NoiDung}}</a>
                         </p>
                     </div>

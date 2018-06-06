@@ -7,16 +7,26 @@ app.controller('trangChuCtrl', function ($scope, $location, thanhVienService, ba
     $scope.thanhVien = {};
 
     thanhVienService.getThanhVien().then(function (response) {
-        $scope.thanhVien.Id = response.data.ThanhVienId;
-        $scope.thanhVien.FirstName = response.data.FirstName;
-        $scope.thanhVien.LastName = response.data.LastName;
+        if (response.data.StatusCode == 403) {
+            alert("Đã hết session, vui lòng đăng nhập lại!");
+            window.location = "/Home/DangNhap";
+            return;
+        }
+        else if (response.data.StatusCode == 500) {
+            alert("Đã có lỗi xảy ra, vui lòng thử lại sau!<br>Thông điệp lỗi: " + response.data.Message);
+            return;
+        }
+
+        $scope.thanhVien.Id = response.data.ThanhVien.ThanhVienId;
+        $scope.thanhVien.FirstName = response.data.ThanhVien.FirstName;
+        $scope.thanhVien.LastName = response.data.ThanhVien.LastName;
+
+        banTinService.getTuKhoaByThanhVien($scope.thanhVien.Id).then(function (response) {
+            $scope.dsTuKhoaByThanhVien = response.data;
+        });
     });
 
     banTinService.getTopTuKhoa().then(function (response) {
         $scope.dsTuKhoa = response.data;
-    });
-
-    banTinService.getTuKhoaByThanhVien(thanhVienId).then(function (response) {
-        $scope.dsTuKhoaByThanhVien = response.data;
     });
 });

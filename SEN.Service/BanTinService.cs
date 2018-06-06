@@ -88,20 +88,22 @@ namespace SEN.Service
             if (string.IsNullOrWhiteSpace(banTin.NoiDung))
                 throw new Exception("Bản tin phải có nội dung");
 
-            var thanhVien = ThanhVienRepository.Get(banTin.ThanhVienId);
-            if (thanhVien == null)
-                throw new Exception("Thành viên không tồn tại");
             try
             {
-                var tuKhoa = TuKhoaRepository.GetTuKhoaByNoiDung(noiDungTuKhoa);
-                if (tuKhoa == null)
+                var thanhVien = ThanhVienRepository.Get(banTin.ThanhVienId);
+                if (thanhVien == null)
+                    throw new Exception("Thành viên không tồn tại");
+
+                TuKhoa tuKhoa = new TuKhoa();
+                if (!string.IsNullOrWhiteSpace(noiDungTuKhoa))
                 {
-                    tuKhoa = new TuKhoa
+                    tuKhoa = TuKhoaRepository.GetTuKhoaByNoiDung(noiDungTuKhoa);
+                    if (tuKhoa == null)
                     {
-                        NoiDung = noiDungTuKhoa
-                    };
-                    TuKhoaRepository.Create(tuKhoa);
-                    TuKhoaRepository.SaveChanges();
+                        tuKhoa.NoiDung = noiDungTuKhoa;
+                        TuKhoaRepository.Create(tuKhoa);
+                        TuKhoaRepository.SaveChanges();
+                    }
                 }
 
                 banTin.ThoiGian = DateTime.Now;
@@ -193,7 +195,7 @@ namespace SEN.Service
             return TuKhoaRepository.GetTopTuKhoa();
         }
 
-        public List<BanTinTuKhoa> GetTuKhoaByThanhVienId(int thanhVienId)
+        public List<TuKhoa> GetTuKhoaByThanhVienId(int thanhVienId)
         {
             return TuKhoaRepository.GetTuKhoaByThanhVienId(thanhVienId);
         }

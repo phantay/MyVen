@@ -272,7 +272,7 @@ namespace SEN.WebUI.Controllers
         {
             try
             {
-                List<BanTinTuKhoa> tuKhoabythanhviens = _banTinService.GetTuKhoaByThanhVienId(thanhVienId);
+                List<TuKhoa> tuKhoabythanhviens = _banTinService.GetTuKhoaByThanhVienId(thanhVienId);
 
                 return Json(tuKhoabythanhviens, JsonRequestBehavior.AllowGet);
             }

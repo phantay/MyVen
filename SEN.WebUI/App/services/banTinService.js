@@ -25,7 +25,7 @@
         }
 
         this.getTuKhoaByThanhVien = function (thanhVienId) {
-            return $http.get("/BanTin/GetTuKhoaByThanhVienId" + thanhVienId);
+            return $http.get("/BanTin/GetTuKhoaByThanhVienId?thanhVienId=" + thanhVienId);
         }
     });
 })();

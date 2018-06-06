@@ -11,7 +11,7 @@ namespace SEN.WebUI.Controllers
 
         public ThanhVienController()
         {
-            _thanhVienService= new ThanhVienService();
+            _thanhVienService = new ThanhVienService();
         }
 
         public JsonResult GetThanhVien()
@@ -20,13 +20,17 @@ namespace SEN.WebUI.Controllers
             {
                 var thanhVien = (ThanhVien)Session["user_login"];
 
-                return Json(new {thanhVien.ThanhVienId, thanhVien.FirstName, thanhVien.LastName }, JsonRequestBehavior.AllowGet);
+                if (thanhVien == null)
+                {
+                    return Json(new { StatusCode = 403, ThanhVien = "" }, JsonRequestBehavior.AllowGet);
+                }
+
+                return Json(new { StatusCode = 200, ThanhVien = new { thanhVien.ThanhVienId, thanhVien.FirstName, thanhVien.LastName } },
+                                  JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
-                //
-                //TODO: Cần lưu lại lỗi
-                throw new Exception(ex.Message);
+                return Json(new { StatusCode = 500, ThanhVien = "",  ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
     }
