@@ -1,4 +1,5 @@
 ﻿using SEN.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -18,7 +19,7 @@ namespace SEN.Data
 
         public TuKhoa GetTuKhoaByNoiDung(string noiDung)
         {
-            return Db.TuKhoas.FirstOrDefault(tk => tk.NoiDung != null && tk.NoiDung.ToLower() == noiDung.ToLower());
+            return Db.TuKhoas.FirstOrDefault(tk => tk.NoiDung.Equals(noiDung, StringComparison.OrdinalIgnoreCase));
         }
 
         public List<TuKhoa> GetTopTuKhoa()

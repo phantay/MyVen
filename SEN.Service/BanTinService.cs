@@ -97,12 +97,17 @@ namespace SEN.Service
                 TuKhoa tuKhoa = new TuKhoa();
                 if (!string.IsNullOrWhiteSpace(noiDungTuKhoa))
                 {
-                    tuKhoa = TuKhoaRepository.GetTuKhoaByNoiDung(noiDungTuKhoa);
-                    if (tuKhoa == null)
+                    noiDungTuKhoa = noiDungTuKhoa.Trim();
+                    var tk = TuKhoaRepository.GetTuKhoaByNoiDung(noiDungTuKhoa);
+                    if (tk == null)
                     {
                         tuKhoa.NoiDung = noiDungTuKhoa;
                         TuKhoaRepository.Create(tuKhoa);
                         TuKhoaRepository.SaveChanges();
+                    }
+                    else
+                    {
+                        tuKhoa = tk;
                     }
                 }
 

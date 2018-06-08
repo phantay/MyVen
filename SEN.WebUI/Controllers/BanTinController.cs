@@ -65,7 +65,7 @@ namespace SEN.WebUI.Controllers
         }
 
         [HttpPost]
-        public JsonResult DangTin(BanTin banTin, string tuKhoa)
+        public JsonResult DangTin(BanTin banTin, string TuKhoa)
         {
             try
             {
@@ -73,7 +73,7 @@ namespace SEN.WebUI.Controllers
 
                 banTin.ThanhVienId = thanhVien.ThanhVienId;
 
-                _banTinService.DangTin(banTin, tuKhoa);
+                _banTinService.DangTin(banTin, TuKhoa);
 
                 if (banTin != null && Request.Files != null && Request.Files.Count > 0)
                 {

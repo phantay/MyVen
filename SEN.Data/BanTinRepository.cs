@@ -30,7 +30,7 @@ namespace SEN.Data
                     where bttk.TuKhoaId == tuKhoaId
                     select bt).ToList();
         }
-
+        
         public List<BanTin> GetList(int thanhVienId, DateTime startDate, DateTime endDate)
         {
             return Db.BanTins.Where(bt => bt.ThanhVienId == thanhVienId && startDate <= bt.ThoiGian && bt.ThoiGian <= endDate).ToList();
