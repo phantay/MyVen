@@ -62,11 +62,12 @@
     <Compile Include="BanTinAnh.cs">
       <DependentUpon>VenEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="BanTinModels\BanTinAnhModel.cs" />
     <Compile Include="BanTinModels\TuKhoaChiTietModel.cs" />
+    <Compile Include="BanTinModels\BanTinTuKhoaModel.cs" />
     <Compile Include="BanTinTuKhoa.cs">
       <DependentUpon>VenEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="BanTinModels\BanTinTuKhoaModel.cs" />
     <Compile Include="BinhLuan.cs">
       <DependentUpon>VenEntities.tt</DependentUpon>
     </Compile>
@@ -86,9 +87,6 @@
       <DependentUpon>VenEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="sysdiagram.cs">
-      <DependentUpon>VenEntities.tt</DependentUpon>
-    </Compile>
     <Compile Include="ThanhVien.cs">
       <DependentUpon>VenEntities.tt</DependentUpon>
     </Compile>

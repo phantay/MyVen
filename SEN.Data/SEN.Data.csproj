@@ -54,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BanTinAnhRepository.cs" />
     <Compile Include="BanTinRepository.cs" />
     <Compile Include="BaseRepository.cs" />
     <Compile Include="BinhLuanRepository.cs" />

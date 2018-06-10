@@ -6,8 +6,7 @@
     </Key>
     <Property Name="IdAnh" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="BanTinId" Type="int" Nullable="false" />
-    <Property Name="TMAnhId" Type="int" Nullable="false" />
-    <Property Name="ThanhVien_ThanhVienId" Type="int" />
+    <Property Name="FileName" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="BanTins">
     <Key>
@@ -15,10 +14,11 @@
     </Key>
     <Property Name="BanTinId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ThanhVienId" Type="int" Nullable="false" />
-    <Property Name="NoiDung" Type="nvarchar" MaxLength="1024" Nullable="false" />
+    <Property Name="NoiDung" Type="nvarchar(max)" />
     <Property Name="ThoiGian" Type="datetime" Nullable="false" />
+    <Property Name="The" Type="nvarchar(max)" />
     <Property Name="DiaDiemId" Type="int" />
-    <Property Name="QuyenRiengTu" Type="nvarchar" MaxLength="100" />
+    <Property Name="QuyenRiengTu" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="BanTinTuKhoa">
     <Key>
@@ -92,16 +92,6 @@
     <Property Name="ThoiGianRoi" Type="datetime" Nullable="false" />
     <Property Name="ThongBaoId" Type="int" Nullable="false" />
   </EntityType>
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="principal_id" Type="int" Nullable="false" />
-    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="version" Type="int" />
-    <Property Name="definition" Type="varbinary(max)" />
-  </EntityType>
   <EntityType Name="ThanhVienNhoms">
     <Key>
       <PropertyRef Name="ThanhVienId" />
@@ -157,12 +147,13 @@
       <PropertyRef Name="TuKhoaId" />
     </Key>
     <Property Name="TuKhoaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="ThanhVienId" Type="int" Nullable="false" />
     <Property Name="NoiDung" Type="nvarchar(max)" />
     <Property Name="CountView" Type="int" />
   </EntityType>
   <Association Name="FK_BanTinTuKhoa_BanTins">
-    <End Role="BanTins" Type="Self.BanTins" Multiplicity="1" />
+    <End Role="BanTins" Type="Self.BanTins" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="BanTinTuKhoa" Type="Self.BanTinTuKhoa" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="BanTins">
@@ -196,18 +187,6 @@
       </Principal>
       <Dependent Role="BanTinAnhs">
         <PropertyRef Name="BanTinId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_dbo_BanTinAnhs_dbo_ThanhViens_ThanhVien_ThanhVienId">
-    <End Role="ThanhViens" Type="Self.ThanhViens" Multiplicity="0..1" />
-    <End Role="BanTinAnhs" Type="Self.BanTinAnhs" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="ThanhViens">
-        <PropertyRef Name="ThanhVienId" />
-      </Principal>
-      <Dependent Role="BanTinAnhs">
-        <PropertyRef Name="ThanhVien_ThanhVienId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -365,7 +344,6 @@
     <EntitySet Name="KetBans" EntityType="Self.KetBans" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Likes" EntityType="Self.Likes" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Nhoms" EntityType="Self.Nhoms" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ThanhVienNhoms" EntityType="Self.ThanhVienNhoms" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ThanhViens" EntityType="Self.ThanhViens" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ThongBaos" EntityType="Self.ThongBaos" Schema="dbo" store:Type="Tables" />
@@ -381,10 +359,6 @@
     </AssociationSet>
     <AssociationSet Name="FK_dbo_BanTinAnhs_dbo_BanTins_BanTinId" Association="Self.FK_dbo_BanTinAnhs_dbo_BanTins_BanTinId">
       <End Role="BanTins" EntitySet="BanTins" />
-      <End Role="BanTinAnhs" EntitySet="BanTinAnhs" />
-    </AssociationSet>
-    <AssociationSet Name="FK_dbo_BanTinAnhs_dbo_ThanhViens_ThanhVien_ThanhVienId" Association="Self.FK_dbo_BanTinAnhs_dbo_ThanhViens_ThanhVien_ThanhVienId">
-      <End Role="ThanhViens" EntitySet="ThanhViens" />
       <End Role="BanTinAnhs" EntitySet="BanTinAnhs" />
     </AssociationSet>
     <AssociationSet Name="FK_dbo_BanTins_dbo_DiaDiems_DiaDiemId" Association="Self.FK_dbo_BanTins_dbo_DiaDiems_DiaDiemId">

@@ -42,10 +42,11 @@
 
         $scope.dangTin = function () {
             // Dang Tin
+            debugger;
             var model = {
                 NoiDung: $scope.noiDungBanTin,
-                TuKhoa: $scope.noiDungTuKhoa,
-                attachment: $scope.imageFile
+                TuKhoa: $scope.noiDungTuKhoa ? $scope.noiDungTuKhoa : "",
+                attachment: $scope.imageFile ? $scope.imageFile : null
             };
             akFileUploaderService.saveModel(model, "/BanTin/DangTin").then(function (data) {
                 banTinService.getDanhSachBanTin($scope.thanhVien.Id).then(function (response) {
@@ -56,7 +57,8 @@
         };
 
         $scope.xoaTin = function (bantin) {
-            banTinService.xoaTin(bantin).then(function (response) {
+            debugger;
+            banTinService.xoaTin(bantin.BanTinId).then(function (response) {
                 var btIndex = $scope.dsBanTin.indexOf(bantin);
                 $scope.dsBanTin.splice(btIndex, 1);
             });

@@ -4,24 +4,22 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="6f8fa27ac93c48dca01747b9e282901d" Name="Diagram1" ZoomLevel="60">
-        <EntityTypeShape EntityType="VenDatabaseModel.BanTinAnh" Width="1.5" PointX="3" PointY="13.125" />
-        <EntityTypeShape EntityType="VenDatabaseModel.BanTin" Width="1.5" PointX="6" PointY="13.5" />
-        <EntityTypeShape EntityType="VenDatabaseModel.BanTinTuKhoa" Width="1.5" PointX="11.25" PointY="14.25" />
-        <EntityTypeShape EntityType="VenDatabaseModel.BinhLuan" Width="1.5" PointX="8.25" PointY="16.5" />
-        <EntityTypeShape EntityType="VenDatabaseModel.ChiaS" Width="1.5" PointX="8.25" PointY="19.75" />
-        <EntityTypeShape EntityType="VenDatabaseModel.DiaDiem" Width="1.5" PointX="3.75" PointY="16.375" />
-        <EntityTypeShape EntityType="VenDatabaseModel.KetBan" Width="1.5" PointX="3" PointY="28.75" />
-        <EntityTypeShape EntityType="VenDatabaseModel.Like" Width="1.5" PointX="8.25" PointY="13" />
-        <EntityTypeShape EntityType="VenDatabaseModel.Nhom" Width="1.5" PointX="5.25" PointY="9.5" />
-        <EntityTypeShape EntityType="VenDatabaseModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="VenDatabaseModel.ThanhVienNhom" Width="1.5" PointX="7.5" PointY="9.625" />
-        <EntityTypeShape EntityType="VenDatabaseModel.ThanhVien" Width="1.5" PointX="0.75" PointY="12.5" />
-        <EntityTypeShape EntityType="VenDatabaseModel.ThongBao" Width="1.5" PointX="3" PointY="9.5" />
-        <EntityTypeShape EntityType="VenDatabaseModel.ThuMuc_Anh_" Width="1.5" PointX="3" PointY="25.25" />
-        <EntityTypeShape EntityType="VenDatabaseModel.TuKhoa" Width="1.5" PointX="9" PointY="6.25" />
+      <Diagram DiagramId="6745b40c887f4d5ab9736b325d8d9393" Name="Diagram1">
+        <EntityTypeShape EntityType="VenDatabaseModel.BanTinAnh" Width="1.5" PointX="5.25" PointY="12.625" />
+        <EntityTypeShape EntityType="VenDatabaseModel.BanTin" Width="1.5" PointX="3" PointY="13.125" />
+        <EntityTypeShape EntityType="VenDatabaseModel.BanTinTuKhoa" Width="1.5" PointX="8.25" PointY="14" />
+        <EntityTypeShape EntityType="VenDatabaseModel.BinhLuan" Width="1.5" PointX="5.25" PointY="17.875" />
+        <EntityTypeShape EntityType="VenDatabaseModel.ChiaS" Width="1.5" PointX="5.25" PointY="9.5" />
+        <EntityTypeShape EntityType="VenDatabaseModel.DiaDiem" Width="1.5" PointX="0.75" PointY="17.125" />
+        <EntityTypeShape EntityType="VenDatabaseModel.KetBan" Width="1.5" PointX="3" PointY="24.375" />
+        <EntityTypeShape EntityType="VenDatabaseModel.Like" Width="1.5" PointX="5.25" PointY="21.25" />
+        <EntityTypeShape EntityType="VenDatabaseModel.Nhom" Width="1.5" PointX="5.25" PointY="27.5" />
+        <EntityTypeShape EntityType="VenDatabaseModel.ThanhVienNhom" Width="1.5" PointX="7.5" PointY="27.75" />
+        <EntityTypeShape EntityType="VenDatabaseModel.ThanhVien" Width="1.5" PointX="0.75" PointY="12.375" />
+        <EntityTypeShape EntityType="VenDatabaseModel.ThongBao" Width="1.5" PointX="3" PointY="27.625" />
+        <EntityTypeShape EntityType="VenDatabaseModel.ThuMuc_Anh_" Width="1.5" PointX="3" PointY="9.25" />
+        <EntityTypeShape EntityType="VenDatabaseModel.TuKhoa" Width="1.5" PointX="6" PointY="6.125" />
         <AssociationConnector Association="VenDatabaseModel.FK_dbo_BanTinAnhs_dbo_BanTins_BanTinId" />
-        <AssociationConnector Association="VenDatabaseModel.FK_dbo_BanTinAnhs_dbo_ThanhViens_ThanhVien_ThanhVienId" />
         <AssociationConnector Association="VenDatabaseModel.FK_BanTinTuKhoa_BanTins" />
         <AssociationConnector Association="VenDatabaseModel.FK_dbo_BanTins_dbo_DiaDiems_DiaDiemId" />
         <AssociationConnector Association="VenDatabaseModel.FK_dbo_BanTins_dbo_ThanhViens_ThanhVienId" />

@@ -77,17 +77,24 @@ namespace SEN.WebUI.Controllers
 
                 if (banTin != null && Request.Files != null && Request.Files.Count > 0)
                 {
-                    var fileContent = Request.Files[0];
-                    if (fileContent != null && fileContent.ContentLength > 0)
+                    var fileIndex = 1;
+                    for (var i = 0; i < Request.Files.Keys.Count; i++)
                     {
-                        var inputStream = fileContent.InputStream;
-                        var fileName = banTin.BanTinId + Path.GetExtension(fileContent.FileName);
-                        var path = Path.Combine(Server.MapPath("~/Images/BanTin"), fileName);
-                        using (var fileStream = System.IO.File.Create(path))
+                        var fileContent = Request.Files[i];
+                        if (fileContent != null && fileContent.ContentLength > 0)
                         {
-                            inputStream.CopyTo(fileStream);
+                            var inputStream = fileContent.InputStream;
+                            var extension = Path.GetExtension(fileContent.FileName);
+                            var fileName = $"{banTin.BanTinId}_{i}{extension}";
+                            var path = Path.Combine(Server.MapPath("~/Images/BanTin"), fileName);
+                            using (var fileStream = System.IO.File.Create(path))
+                            {
+                                inputStream.CopyTo(fileStream);
+                                _banTinService.DangAnh(banTin, fileName);
+                            }
                         }
                     }
+                    
                 }
                 return Json(banTin);
             }
@@ -125,7 +132,6 @@ namespace SEN.WebUI.Controllers
             }
             catch (Exception ex)
             {
-                //
                 //TODO: Cần lưu lại lỗi
                 throw new Exception(ex.Message);
             }

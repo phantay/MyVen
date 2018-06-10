@@ -11,8 +11,7 @@
           </Key>
           <Property Name="IdAnh" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="BanTinId" Type="int" Nullable="false" />
-          <Property Name="TMAnhId" Type="int" Nullable="false" />
-          <Property Name="ThanhVien_ThanhVienId" Type="int" />
+          <Property Name="FileName" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="BanTins">
           <Key>
@@ -20,10 +19,11 @@
           </Key>
           <Property Name="BanTinId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ThanhVienId" Type="int" Nullable="false" />
-          <Property Name="NoiDung" Type="nvarchar" MaxLength="1024" Nullable="false" />
+          <Property Name="NoiDung" Type="nvarchar(max)" />
           <Property Name="ThoiGian" Type="datetime" Nullable="false" />
+          <Property Name="The" Type="nvarchar(max)" />
           <Property Name="DiaDiemId" Type="int" />
-          <Property Name="QuyenRiengTu" Type="nvarchar" MaxLength="100" />
+          <Property Name="QuyenRiengTu" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="BanTinTuKhoa">
           <Key>
@@ -97,16 +97,6 @@
           <Property Name="ThoiGianRoi" Type="datetime" Nullable="false" />
           <Property Name="ThongBaoId" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
-        </EntityType>
         <EntityType Name="ThanhVienNhoms">
           <Key>
             <PropertyRef Name="ThanhVienId" />
@@ -162,12 +152,13 @@
             <PropertyRef Name="TuKhoaId" />
           </Key>
           <Property Name="TuKhoaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ThanhVienId" Type="int" Nullable="false" />
           <Property Name="NoiDung" Type="nvarchar(max)" />
           <Property Name="CountView" Type="int" />
         </EntityType>
         <Association Name="FK_BanTinTuKhoa_BanTins">
-          <End Role="BanTins" Type="Self.BanTins" Multiplicity="1" />
+          <End Role="BanTins" Type="Self.BanTins" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="BanTinTuKhoa" Type="Self.BanTinTuKhoa" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="BanTins">
@@ -201,18 +192,6 @@
             </Principal>
             <Dependent Role="BanTinAnhs">
               <PropertyRef Name="BanTinId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_dbo_BanTinAnhs_dbo_ThanhViens_ThanhVien_ThanhVienId">
-          <End Role="ThanhViens" Type="Self.ThanhViens" Multiplicity="0..1" />
-          <End Role="BanTinAnhs" Type="Self.BanTinAnhs" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ThanhViens">
-              <PropertyRef Name="ThanhVienId" />
-            </Principal>
-            <Dependent Role="BanTinAnhs">
-              <PropertyRef Name="ThanhVien_ThanhVienId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -370,7 +349,6 @@
           <EntitySet Name="KetBans" EntityType="Self.KetBans" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Likes" EntityType="Self.Likes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Nhoms" EntityType="Self.Nhoms" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ThanhVienNhoms" EntityType="Self.ThanhVienNhoms" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ThanhViens" EntityType="Self.ThanhViens" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ThongBaos" EntityType="Self.ThongBaos" Schema="dbo" store:Type="Tables" />
@@ -386,10 +364,6 @@
           </AssociationSet>
           <AssociationSet Name="FK_dbo_BanTinAnhs_dbo_BanTins_BanTinId" Association="Self.FK_dbo_BanTinAnhs_dbo_BanTins_BanTinId">
             <End Role="BanTins" EntitySet="BanTins" />
-            <End Role="BanTinAnhs" EntitySet="BanTinAnhs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_BanTinAnhs_dbo_ThanhViens_ThanhVien_ThanhVienId" Association="Self.FK_dbo_BanTinAnhs_dbo_ThanhViens_ThanhVien_ThanhVienId">
-            <End Role="ThanhViens" EntitySet="ThanhViens" />
             <End Role="BanTinAnhs" EntitySet="BanTinAnhs" />
           </AssociationSet>
           <AssociationSet Name="FK_dbo_BanTins_dbo_DiaDiems_DiaDiemId" Association="Self.FK_dbo_BanTins_dbo_DiaDiems_DiaDiemId">
@@ -437,7 +411,7 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="VenDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="VenEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="VenDatabaseEntities" annotation:LazyLoadingEnabled="true">
           <FunctionImport Name="Sp_ThanhViens_Login" ReturnType="Collection(Boolean)">
             <Parameter Name="Email" Mode="In" Type="String" />
             <Parameter Name="Password" Mode="In" Type="String" />
@@ -451,7 +425,6 @@
           <EntitySet Name="KetBans" EntityType="VenDatabaseModel.KetBan" />
           <EntitySet Name="Likes" EntityType="VenDatabaseModel.Like" />
           <EntitySet Name="Nhoms" EntityType="VenDatabaseModel.Nhom" />
-          <EntitySet Name="sysdiagrams" EntityType="VenDatabaseModel.sysdiagram" />
           <EntitySet Name="ThanhVienNhoms" EntityType="VenDatabaseModel.ThanhVienNhom" />
           <EntitySet Name="ThanhViens" EntityType="VenDatabaseModel.ThanhVien" />
           <EntitySet Name="ThongBaos" EntityType="VenDatabaseModel.ThongBao" />
@@ -459,10 +432,6 @@
           <EntitySet Name="TuKhoas" EntityType="VenDatabaseModel.TuKhoa" />
           <AssociationSet Name="FK_dbo_BanTinAnhs_dbo_BanTins_BanTinId" Association="VenDatabaseModel.FK_dbo_BanTinAnhs_dbo_BanTins_BanTinId">
             <End Role="BanTin" EntitySet="BanTins" />
-            <End Role="BanTinAnh" EntitySet="BanTinAnhs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_BanTinAnhs_dbo_ThanhViens_ThanhVien_ThanhVienId" Association="VenDatabaseModel.FK_dbo_BanTinAnhs_dbo_ThanhViens_ThanhVien_ThanhVienId">
-            <End Role="ThanhVien" EntitySet="ThanhViens" />
             <End Role="BanTinAnh" EntitySet="BanTinAnhs" />
           </AssociationSet>
           <AssociationSet Name="FK_BanTinTuKhoa_BanTins" Association="VenDatabaseModel.FK_BanTinTuKhoa_BanTins">
@@ -520,10 +489,8 @@
           </Key>
           <Property Name="IdAnh" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="BanTinId" Type="Int32" Nullable="false" />
-          <Property Name="TMAnhId" Type="Int32" Nullable="false" />
-          <Property Name="ThanhVien_ThanhVienId" Type="Int32" />
+          <Property Name="FileName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="BanTin" Relationship="VenDatabaseModel.FK_dbo_BanTinAnhs_dbo_BanTins_BanTinId" FromRole="BanTinAnh" ToRole="BanTin" />
-          <NavigationProperty Name="ThanhVien" Relationship="VenDatabaseModel.FK_dbo_BanTinAnhs_dbo_ThanhViens_ThanhVien_ThanhVienId" FromRole="BanTinAnh" ToRole="ThanhVien" />
         </EntityType>
         <EntityType Name="BanTin">
           <Key>
@@ -531,10 +498,11 @@
           </Key>
           <Property Name="BanTinId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ThanhVienId" Type="Int32" Nullable="false" />
-          <Property Name="NoiDung" Type="String" Nullable="false" MaxLength="1024" FixedLength="false" Unicode="true" />
+          <Property Name="NoiDung" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ThoiGian" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="The" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="DiaDiemId" Type="Int32" />
-          <Property Name="QuyenRiengTu" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="QuyenRiengTu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="BanTinAnhs" Relationship="VenDatabaseModel.FK_dbo_BanTinAnhs_dbo_BanTins_BanTinId" FromRole="BanTin" ToRole="BanTinAnh" />
           <NavigationProperty Name="BanTinTuKhoas" Relationship="VenDatabaseModel.FK_BanTinTuKhoa_BanTins" FromRole="BanTin" ToRole="BanTinTuKhoa" />
           <NavigationProperty Name="DiaDiem" Relationship="VenDatabaseModel.FK_dbo_BanTins_dbo_DiaDiems_DiaDiemId" FromRole="BanTin" ToRole="DiaDiem" />
@@ -624,16 +592,6 @@
           <NavigationProperty Name="ThongBao" Relationship="VenDatabaseModel.FK_dbo_Nhoms_dbo_ThongBaos_ThongBaoId" FromRole="Nhom" ToRole="ThongBao" />
           <NavigationProperty Name="ThanhVienNhoms" Relationship="VenDatabaseModel.FK_dbo_ThanhVienNhoms_dbo_Nhoms_NhomId" FromRole="Nhom" ToRole="ThanhVienNhom" />
         </EntityType>
-        <EntityType Name="sysdiagram">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
         <EntityType Name="ThanhVienNhom">
           <Key>
             <PropertyRef Name="ThanhVienId" />
@@ -659,7 +617,6 @@
           <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Mobile" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="BanTinAnhs" Relationship="VenDatabaseModel.FK_dbo_BanTinAnhs_dbo_ThanhViens_ThanhVien_ThanhVienId" FromRole="ThanhVien" ToRole="BanTinAnh" />
           <NavigationProperty Name="BanTins" Relationship="VenDatabaseModel.FK_dbo_BanTins_dbo_ThanhViens_ThanhVienId" FromRole="ThanhVien" ToRole="BanTin" />
           <NavigationProperty Name="KetBans" Relationship="VenDatabaseModel.FK_dbo_KetBans_dbo_ThanhViens_ThanhVienId" FromRole="ThanhVien" ToRole="KetBan" />
           <NavigationProperty Name="ThongBaos" Relationship="VenDatabaseModel.FK_dbo_ThongBaos_dbo_ThanhViens_ThanhVienId" FromRole="ThanhVien" ToRole="ThongBao" />
@@ -698,7 +655,6 @@
             <PropertyRef Name="TuKhoaId" />
           </Key>
           <Property Name="TuKhoaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ThanhVienId" Type="Int32" Nullable="false" />
           <Property Name="NoiDung" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CountView" Type="Int32" />
           <NavigationProperty Name="BanTinTuKhoas" Relationship="VenDatabaseModel.FK_BanTinTuKhoa_TuKhoas" FromRole="TuKhoa" ToRole="BanTinTuKhoa" />
@@ -717,20 +673,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_BanTinAnhs_dbo_ThanhViens_ThanhVien_ThanhVienId">
-          <End Type="VenDatabaseModel.ThanhVien" Role="ThanhVien" Multiplicity="0..1" />
-          <End Type="VenDatabaseModel.BanTinAnh" Role="BanTinAnh" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ThanhVien">
-              <PropertyRef Name="ThanhVienId" />
-            </Principal>
-            <Dependent Role="BanTinAnh">
-              <PropertyRef Name="ThanhVien_ThanhVienId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_BanTinTuKhoa_BanTins">
-          <End Type="VenDatabaseModel.BanTin" Role="BanTin" Multiplicity="1" />
+          <End Type="VenDatabaseModel.BanTin" Role="BanTin" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Type="VenDatabaseModel.BanTinTuKhoa" Role="BanTinTuKhoa" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="BanTin">
@@ -898,13 +844,12 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="VenDatabaseModelStoreContainer" CdmEntityContainer="VenEntities">
+        <EntityContainerMapping StorageEntityContainer="VenDatabaseModelStoreContainer" CdmEntityContainer="VenDatabaseEntities">
           <FunctionImportMapping FunctionImportName="Sp_ThanhViens_Login" FunctionName="VenDatabaseModel.Store.Sp_ThanhViens_Login" />
           <EntitySetMapping Name="BanTinAnhs">
             <EntityTypeMapping TypeName="VenDatabaseModel.BanTinAnh">
               <MappingFragment StoreEntitySet="BanTinAnhs">
-                <ScalarProperty Name="ThanhVien_ThanhVienId" ColumnName="ThanhVien_ThanhVienId" />
-                <ScalarProperty Name="TMAnhId" ColumnName="TMAnhId" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
                 <ScalarProperty Name="BanTinId" ColumnName="BanTinId" />
                 <ScalarProperty Name="IdAnh" ColumnName="IdAnh" />
               </MappingFragment>
@@ -915,6 +860,7 @@
               <MappingFragment StoreEntitySet="BanTins">
                 <ScalarProperty Name="QuyenRiengTu" ColumnName="QuyenRiengTu" />
                 <ScalarProperty Name="DiaDiemId" ColumnName="DiaDiemId" />
+                <ScalarProperty Name="The" ColumnName="The" />
                 <ScalarProperty Name="ThoiGian" ColumnName="ThoiGian" />
                 <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
                 <ScalarProperty Name="ThanhVienId" ColumnName="ThanhVienId" />
@@ -1001,17 +947,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="VenDatabaseModel.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="definition" ColumnName="definition" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="ThanhVienNhoms">
             <EntityTypeMapping TypeName="VenDatabaseModel.ThanhVienNhom">
               <MappingFragment StoreEntitySet="ThanhVienNhoms">
@@ -1071,7 +1006,6 @@
               <MappingFragment StoreEntitySet="TuKhoas">
                 <ScalarProperty Name="CountView" ColumnName="CountView" />
                 <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
-                <ScalarProperty Name="ThanhVienId" ColumnName="ThanhVienId" />
                 <ScalarProperty Name="TuKhoaId" ColumnName="TuKhoaId" />
               </MappingFragment>
             </EntityTypeMapping>

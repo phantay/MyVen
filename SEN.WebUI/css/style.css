@@ -152,7 +152,6 @@
     }
 
     .x_title span {
-        color: #73879C;
         margin-right: 5px;
     }
 
@@ -187,7 +186,6 @@
 .nf_content {
     margin-top: -8px;
     padding-top: 3px;
-    background-color: #FAFAFA;
     border-radius: 3px;
     z-index: 1000;
 }
@@ -1516,9 +1514,6 @@ h2 {
         margin-left: 10px
     }
 
-.x_title span {
-    color: #BDBDBD
-}
 
 .x_content {
     padding: 0 5px 6px;

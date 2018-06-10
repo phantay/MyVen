@@ -12,8 +12,8 @@
             return $http.post("/BanTin/DangTin", banTin);
         }
 
-        this.xoaTin = function (banTin) {
-            return $http.delete("/BanTin/XoaTin?banTinId=" + banTin.BanTinId)
+        this.xoaTin = function (banTinId) {
+            return $http.delete("/BanTin/XoaTin?banTinId=" + banTinId)
         }
 
         this.getTuKhoaChiTiet = function(tuKhoaId) {
