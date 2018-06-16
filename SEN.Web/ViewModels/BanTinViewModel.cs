@@ -15,6 +15,7 @@ namespace SEN.Web.ViewModels
         public int BanTinId { get; set; }
         public string NoiDung { get; set; }
         public int ThanhVienId { get; set; }
+        public string ThanhVienFullName { get; set; }
         public List<TuKhoa> TuKhoas { get; set; }
         public DateTime ThoiGian { get; set; }
         public List<BanTinAnhModel> BanTinAnhs { get; set; }

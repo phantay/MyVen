@@ -1,4 +1,5 @@
-﻿using SEN.Entities;
+﻿using SEN.Data.Utilities;
+using SEN.Entities;
 using SEN.Service;
 using SEN.WebUI.Models;
 using System.Web.Mvc;
@@ -20,12 +21,14 @@ namespace SEN.WebUI.Controllers
             return View();
         }
 
+        // GET: Account/Login
         [AllowAnonymous]
         public ActionResult DangNhap()
         {
             return View();
         }
 
+        //POST: Account/Login
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
@@ -38,6 +41,7 @@ namespace SEN.WebUI.Controllers
             }
 
             // Get ThanhVien by email
+            model.Password = Common.ConvertToMD5(model.Password);
             var thanhVien = thanhVienService.GetByEmail(model.Email);
 
             if (thanhVien != null && thanhVien.Password == model.Password)
@@ -68,12 +72,19 @@ namespace SEN.WebUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                thanhVienService.Create(thanhVien);
+                if (thanhVienService.CheckEmailExist(thanhVien.Email))
+                {
+                    ModelState.AddModelError("", "Email is exist");
+                    return View(thanhVien);
+                }
 
+                thanhVien.Password = Common.ConvertToMD5(thanhVien.Password);
+                thanhVienService.Create(thanhVien);
+                //Common.SendMailToNewRegister(thanhVien.Email);
+                ModelState.AddModelError("", "Dang Ky Thanh Cong");
                 return View(thanhVien);
             }
-
-            return RedirectToAction("DangKy");
+            return RedirectToAction("DangKy","Index");
         }
 
         public ActionResult LogOut()

@@ -1,0 +1,29 @@
+﻿<div>
+    <div class="x_panel ng-scope" ng-repeat="bt in dsTuKhoaByThanhVien.BanTins">
+        <div class="col-md-11 user_title" style="width: 100%;">
+            <article class="media event">
+                <a href="#" title="">
+                    <img src="../../images/img.jpg" class="pull-left avata" alt="">
+                </a>
+                <div class="media-body">
+                    <a class="title" href="#"><span>{{thanhVien.FirstName}} {{thanhVien.LastName}}</span></a><span> đã thêm một sự kiện</span>
+                    <p class="hour">{{chuyenGio(bt.ThoiGian)}}</p>
+                </div>
+            </article>
+        </div>
+        <div class="nf_content" style="margin-bottom:10px;">
+            <div class="nf_caption" style="line-height: 16px;">
+                <p ng-bind="bt.NoiDung"></p>
+            </div>
+            <div class="nf_sameword">
+                <p>
+                    <a style="margin-right:8px" ng-repeat="tk in bt.TuKhoas" data-id="{{tk.ThanhVienId}}" href="#" title="" class="hashtag">#{{tk.NoiDung}}</a>
+                </p>
+            </div>
+            <div class="gallery">
+                <img class="img" alt="" ng-repeat="anh in bt.BanTinAnhs" ng-src="/images/BanTin/{{anh.FileName}}" />
+            </div>
+            <div style="margin:10px 0px;"></div>
+        </div>
+    </div>
+</div>

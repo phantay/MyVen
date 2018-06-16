@@ -4,10 +4,10 @@
     'use strict';
     app.controller('tuKhoaCtrl', function ($scope, $routeParams, banTinService, thanhVienService) {
         $scope.tuKhoaId = $routeParams.id;
-        $scope.tuKhoa = {};
+        $scope.tuKhoas = {};
 
         banTinService.getTuKhoaChiTiet($scope.tuKhoaId).then(function (response) {
-            $scope.tuKhoa = response.data;
+            $scope.tuKhoas = response.data;
         });
     });
 })(app);

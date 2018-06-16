@@ -1,12 +1,12 @@
 ﻿<div>
-    <div class="x_panel ng-scope" ng-repeat="bt in tuKhoa.BanTins">
+    <div class="x_panel ng-scope" ng-repeat="bt in tuKhoas">
         <div class="col-md-11 user_title" style="width: 100%;">
             <article class="media event">
                 <a href="#" title="">
                     <img src="../../images/img.jpg" class="pull-left avata" alt="">
                 </a>
                 <div class="media-body">
-                    <a class="title" href="#"><span>{{thanhVien.FirstName}} {{thanhVien.LastName}}</span></a><span> đã thêm một sự kiện</span>
+                    <a class="title" href="#"><span>{{bt.ThanhVienFullName}}</span></a><span> đã thêm một sự kiện</span>
                     <p class="hour">{{chuyenGio(bt.ThoiGian)}}</p>
                 </div>
             </article>
@@ -17,7 +17,7 @@
             </div>
             <div class="nf_sameword">
                 <p>
-                    <a style="margin-right:8px" ng-repeat="tk in bt.TuKhoas" data-id="{{tk.TuKhoaId}}" href="#" title="" class="hashtag">#{{tk.NoiDung}}</a>
+                    <a style="margin-right:8px" ng-repeat="tk in bt.TuKhoas" data-id="{{tk.TuKhoa.TuKhoaId}}"  title="" class="hashtag">#{{tk.TuKhoa.NoiDung}}</a>
                 </p>
             </div>
             <div class="gallery">

@@ -1,5 +1,4 @@
 ﻿using SEN.Entities;
-using System;
 using System.Linq;
 
 namespace SEN.Data
@@ -9,6 +8,11 @@ namespace SEN.Data
         public ThanhVien Get(int id)
         {
             return Db.ThanhViens.FirstOrDefault(tv => tv.ThanhVienId == id);
+        }
+
+        public bool CheckEmailExist(string email)
+        {
+            return Db.ThanhViens.Any(acc => acc.Email == email);
         }
 
         public void Create(ThanhVien thanhVien)

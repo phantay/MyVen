@@ -6,9 +6,11 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
+
     <div class="top text-center" id="toptext">
         <b>Đăng Ký</b>
     </div>
+    @Html.ValidationSummary(true, null, new { @class = "alert alert-danger" })
     <div id="formSignup" style="display:block;" ng-controller="dangKyCtrl">
         <form novalidate name="f1" class="form" role="form" method="post" action="/Home/DangNhap" accept-charset="UTF-8" id="login-nav" ng-submit="SaveData(ThanhVien)">
             <div class="row form-group">
@@ -30,10 +32,10 @@
                 <input type="password" class="form-control" name="password" placeholder="Password" ng-model="ThanhVien.Password" ng-class="submitted?'ng-dirty':''" required>
             </div>
             <div class="form-group">
-                <input type="password" class="form-control" name="ConfirmPassword" placeholder="Confirm Password" onkeyup='check();'  required>
+                <input type="password" class="form-control" name="ConfirmPassword" placeholder="Confirm Password" onkeyup="check();" required>
             </div>
             <div class="form-group">
-                <input type="date" class="form-control"  data-date="" data-date-format="DD MM YYYY" name="NgaySinh" ng-model="ThanhVien.NgaySinh" ng-class="submitted?'ng-dirty':''" required>
+                <input type="date" class="form-control" data-date="" data-date-format="DD MM YYYY" name="NgaySinh" ng-model="ThanhVien.NgaySinh" ng-class="submitted?'ng-dirty':''" required>
             </div>
             <div class="form-group">
                 <label class="radio-inline"><input type="radio" name="gioitinh" checked="checked" ng-model="ThanhVien.GioiTinh" value="Nam" required>Nam</label>

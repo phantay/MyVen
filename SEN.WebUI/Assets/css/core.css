@@ -28,6 +28,7 @@ body {
   margin: 0;
   overflow-x: hidden;
   color: #797979;
+  font-size:16px;
 }
 html {
   position: relative;
@@ -544,7 +545,7 @@ a:focus {
   color: #f05050;
 }
 .text-muted {
-  color: #98a6ad;
+  color: #000;
 }
 .text-primary {
   color: #5d9cec;
@@ -1307,7 +1308,7 @@ body.fixed-left > #wrapper > .right {
     position: absolute;
     top: 60px;
     bottom: 50px;
-    right: 160px;
+    right: 145px;
     height: 100%;
     margin-bottom: -70px;
     margin-top: 0px;
@@ -1341,6 +1342,10 @@ body.fixed-left > #wrapper > .right {
   padding: 0;
   position: relative;
   text-decoration: none;
+}
+#sidebar-menu li{
+    margin-top:15px;
+    font-size:14px;
 }
 #sidebar-menu {
   padding-bottom: 30px;

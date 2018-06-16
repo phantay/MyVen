@@ -67,6 +67,8 @@
     <Compile Include="ThanhVienRepository.cs" />
     <Compile Include="BanTinTuKhoaRepository.cs" />
     <Compile Include="TuKhoaRepository.cs" />
+    <Compile Include="Utilities\Common.cs" />
+    <Compile Include="Utilities\ConstantValues.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SEN.Entities\SEN.Entities.csproj">

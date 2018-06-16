@@ -16,7 +16,7 @@ namespace SEN.Data
 
         public BanTinAnh Get(int id)
         {
-            return Db.BanTinAnhs.FirstOrDefault(bt => bt.IdAnh == id);
+            return Db.BanTinAnhs.FirstOrDefault(bta => bta.IdAnh == id);
         }
 
         public BanTinAnh GetAnhByBanTin(int banTinId)

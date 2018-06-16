@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace SEN.WebUI.Models
 {
     public class RegisterViewModel
     {
-        [Display(Name = "Username ")]
+        [Display(Name = "Username")]
         [Required(ErrorMessage = "{0} is required")]
         [StringLength(50, MinimumLength = 4, ErrorMessage = "{0} must be between {2} and {1}")]
         [RegularExpression(pattern: @"^[\w ]+$", ErrorMessage = "This is invalid username")]
@@ -19,6 +16,7 @@ namespace SEN.WebUI.Models
         [StringLength(50, MinimumLength = 4, ErrorMessage = "{0} must be between {2} and {1}")]
         [RegularExpression(pattern: @"^[\w ]+$", ErrorMessage = "This is invalid username")]
         public string LastName { get; set; }
+
         public DateTime NgaySinh { get; set; }
         public string GioiTinh { get; set; }
 

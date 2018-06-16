@@ -51,7 +51,6 @@
             });
         }
 
-        //
         $scope.loadMoreBinhLuan = function () {
             var minBinhLuanId = $scope.dsBinhLuan[$scope.dsBinhLuan.length - 1].BinhLuanId;
             binhLuanService.getMoreBinhLuan($scope.banTinId, minBinhLuanId).then(function (response) {

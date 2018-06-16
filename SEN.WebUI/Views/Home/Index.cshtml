@@ -1,3 +1,29 @@
 ﻿@{ ViewBag.Title = "Trang chủ"; }
 
 <div ng-view></div>
+
+@section Scripts {
+    <script type="text/javascript">
+        //$('#rating2').likeDislike({
+        //    reverseMode: true,
+        //    disabledClass: 'disable',
+        //    click: function (value, l, d, event) {
+        //        var likes = $(this.element).find('.likes');
+        //        var dislikes =  $(this.element).find('.dislikes');
+
+        //        likes.text(parseInt(likes.text()) + l);
+        //        dislikes.text(parseInt(dislikes.text()) + d);
+        //    }
+        //});
+
+        function likeToggle(element) {
+            console.log(element);
+            if ($(element).attr('disabled') == undefined) {
+                $(element).attr('disabled', true);
+            }
+            else {
+                $(element).attr('disabled', false);
+            }
+        }
+    </script>
+}

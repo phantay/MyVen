@@ -165,12 +165,14 @@
     <Content Include="App\controllers\banTinCtrl.js" />
     <Content Include="App\controllers\binhLuanCtrl.js" />
     <Content Include="App\controllers\trangChuCtrl.js" />
+    <Content Include="App\controllers\tuKhoaByTvCtrl.js" />
     <Content Include="App\controllers\tuKhoaCtrl.js" />
     <Content Include="App\modules\akFileUploader.js" />
     <Content Include="App\services\banTinService.js" />
     <Content Include="App\services\binhLuanService.js" />
     <Content Include="App\services\thanhVienService.js" />
     <Content Include="App\views\ban-tin.html" />
+    <Content Include="App\views\tu-khoa-by-thanh-vien.html" />
     <Content Include="App\views\tu-khoa.html" />
     <Content Include="Assets\css\bootstrap.min.css" />
     <Content Include="Assets\css\components.css" />

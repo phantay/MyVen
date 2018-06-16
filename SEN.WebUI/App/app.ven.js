@@ -10,6 +10,10 @@ app.config(function ($routeProvider, $locationProvider) {
     .when("/tukhoa/:id", {
         templateUrl: "/app/views/tu-khoa.html",
         controller: "tuKhoaCtrl"
+    })
+    .when("/tukhoabythanhvien/:id", {
+        templateUrl: "/app/views/tu-khoa-by-thanh-vien.html",
+        controller: "tuKhoaByTvCtrl"
     }).otherwise({
         redirectTo: "/home"
     });

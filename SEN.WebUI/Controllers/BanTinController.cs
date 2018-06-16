@@ -1,11 +1,8 @@
 ﻿using SEN.Entities;
 using SEN.Service;
-using SEN.Web.ViewModels;
-using SEN.WebUI.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Web.Mvc;
 
 namespace SEN.WebUI.Controllers
@@ -29,7 +26,7 @@ namespace SEN.WebUI.Controllers
 
         public JsonResult ListBanTin(int thanhVienId)
         {
-            List<BanTinViewModel> banTins = _banTinService.GetList(thanhVienId);
+            List<Web.ViewModels.BanTinViewModel> banTins = _banTinService.GetList(thanhVienId);
 
             return Json(banTins, JsonRequestBehavior.AllowGet);
         }
@@ -65,7 +62,7 @@ namespace SEN.WebUI.Controllers
         }
 
         [HttpPost]
-        public JsonResult DangTin(BanTin banTin, string TuKhoa)
+        public JsonResult DangTin(Entities.BanTin banTin, string TuKhoa)
         {
             try
             {
@@ -106,7 +103,7 @@ namespace SEN.WebUI.Controllers
             }
         }
 
-        public JsonResult SuaTin(BanTin banTin)
+        public JsonResult SuaTin(Entities.BanTin banTin)
         {
             try
             {
@@ -157,6 +154,8 @@ namespace SEN.WebUI.Controllers
                 return Json(new { success = false, error = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+
+
 
         [HttpPost]
         public JsonResult DangBinhLuan(int banTinId, int thanhVienId, string binhLuan)
@@ -288,5 +287,26 @@ namespace SEN.WebUI.Controllers
                 return Json(new { success = false, error = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        //[HttpGet]
+        //public JsonResult GetTuKhoaChiTietByThanhVien(int tuKhoaId)
+        //{
+        //    if (tuKhoaId <= 0)
+        //    {
+        //        return Json(new { success = false, error = "từ khóa không hợp lệ!" }, JsonRequestBehavior.AllowGet);
+        //    }
+
+        //    try
+        //    {
+        //        var model = _banTinService.GetTuKhoaByThanhVien(tuKhoaId);
+
+        //        return Json(model, JsonRequestBehavior.AllowGet);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        //TODO: Cần lưu lại lỗi
+        //        return Json(new { success = false, error = ex.Message }, JsonRequestBehavior.AllowGet);
+        //    }
+        //}
     }
 }

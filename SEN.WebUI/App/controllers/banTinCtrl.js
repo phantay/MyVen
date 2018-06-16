@@ -42,7 +42,6 @@
 
         $scope.dangTin = function () {
             // Dang Tin
-            debugger;
             var model = {
                 NoiDung: $scope.noiDungBanTin,
                 TuKhoa: $scope.noiDungTuKhoa ? $scope.noiDungTuKhoa : "",
@@ -57,7 +56,6 @@
         };
 
         $scope.xoaTin = function (bantin) {
-            debugger;
             banTinService.xoaTin(bantin.BanTinId).then(function (response) {
                 var btIndex = $scope.dsBanTin.indexOf(bantin);
                 $scope.dsBanTin.splice(btIndex, 1);

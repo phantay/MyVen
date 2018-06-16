@@ -63,6 +63,7 @@
       <DependentUpon>VenEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="BanTinModels\BanTinAnhModel.cs" />
+    <Compile Include="BanTinModels\TuKhoaByThanhVienModel.cs" />
     <Compile Include="BanTinModels\TuKhoaChiTietModel.cs" />
     <Compile Include="BanTinModels\BanTinTuKhoaModel.cs" />
     <Compile Include="BanTinTuKhoa.cs">

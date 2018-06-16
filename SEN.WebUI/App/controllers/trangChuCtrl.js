@@ -1,7 +1,7 @@
 ﻿'use strict';
 var app = angular.module('venApp');
 
-app.controller('trangChuCtrl', function ($scope, $location, thanhVienService, banTinService) {
+app.controller('trangChuCtrl', function ($scope, $location, banTinService, thanhVienService) {
     $scope.dsTuKhoa = [];
     $scope.dsTuKhoaByThanhVien = [];
     $scope.thanhVien = {};
@@ -24,6 +24,7 @@ app.controller('trangChuCtrl', function ($scope, $location, thanhVienService, ba
         banTinService.getTuKhoaByThanhVien($scope.thanhVien.Id).then(function (response) {
             $scope.dsTuKhoaByThanhVien = response.data;
         });
+
     });
 
     banTinService.getTopTuKhoa().then(function (response) {

@@ -1,10 +1,5 @@
 ﻿using SEN.Data;
 using SEN.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SEN.Service
 {
@@ -16,6 +11,11 @@ namespace SEN.Service
         {
             get { return _thanhVienStore ?? (_thanhVienStore = new ThanhVienRepository()); }
             set { _thanhVienStore = value; }
+        }
+
+        public bool CheckEmailExist(string email)
+        {
+            return ThanhVienStore.CheckEmailExist(email);
         }
 
         public ThanhVien GetThanhVien(int thanhVienId)

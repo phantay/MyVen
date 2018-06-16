@@ -58,7 +58,6 @@
     <Compile Include="BinhLuanService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ThanhVienService.cs" />
-    <Compile Include="BanTinTuKhoaService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SEN.Data\SEN.Data.csproj">
