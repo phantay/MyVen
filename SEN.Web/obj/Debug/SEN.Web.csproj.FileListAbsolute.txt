@@ -16,7 +16,8 @@ E:\Asp_Tranning\myven\SEN.Web\bin\Debug\EntityFramework.dll
 E:\Asp_Tranning\myven\SEN.Web\bin\Debug\SEN.Entities.pdb
 E:\Asp_Tranning\myven\SEN.Web\bin\Debug\SEN.Entities.dll.config
 E:\Asp_Tranning\myven\SEN.Web\bin\Debug\EntityFramework.xml
-E:\Asp_Tranning\myven\SEN.Web\obj\Debug\SEN.Web.csprojResolveAssemblyReference.cache
 E:\Asp_Tranning\myven\SEN.Web\obj\Debug\SEN.Web.csproj.CoreCompileInputs.cache
 E:\Asp_Tranning\myven\SEN.Web\obj\Debug\SEN.Web.dll
 E:\Asp_Tranning\myven\SEN.Web\obj\Debug\SEN.Web.pdb
+E:\Asp_Tranning\myven\SEN.Web\obj\Debug\SEN.Web.csprojAssemblyReference.cache
+E:\Asp_Tranning\myven\SEN.Web\obj\Debug\SEN.Web.csproj.CopyComplete

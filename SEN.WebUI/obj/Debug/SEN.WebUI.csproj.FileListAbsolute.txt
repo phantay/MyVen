@@ -178,7 +178,8 @@ E:\Asp_Tranning\myven\SEN.WebUI\bin\ru\System.Spatial.resources.dll
 E:\Asp_Tranning\myven\SEN.WebUI\bin\zh-Hans\System.Spatial.resources.dll
 E:\Asp_Tranning\myven\SEN.WebUI\bin\zh-Hant\System.Spatial.resources.dll
 E:\Asp_Tranning\myven\SEN.WebUI\obj\Debug\SEN.WebUI.csproj.App.config
-E:\Asp_Tranning\myven\SEN.WebUI\obj\Debug\SEN.WebUI.csprojResolveAssemblyReference.cache
 E:\Asp_Tranning\myven\SEN.WebUI\obj\Debug\SEN.WebUI.csproj.CoreCompileInputs.cache
 E:\Asp_Tranning\myven\SEN.WebUI\obj\Debug\SEN.WebUI.dll
 E:\Asp_Tranning\myven\SEN.WebUI\obj\Debug\SEN.WebUI.pdb
+E:\Asp_Tranning\myven\SEN.WebUI\obj\Debug\SEN.WebUI.csprojAssemblyReference.cache
+E:\Asp_Tranning\myven\SEN.WebUI\obj\Debug\SEN.WebUI.csproj.CopyComplete

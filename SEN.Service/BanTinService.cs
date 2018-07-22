@@ -123,7 +123,7 @@ namespace SEN.Service
             return result;
         }
 
-        public void DangTin(Entities.BanTin banTin, string noiDungTuKhoa)
+        public void DangTin(BanTin banTin, string noiDungTuKhoa)
         {
             if (banTin == null)
                 throw new ArgumentNullException("banTin", "Bản tin rỗng");
@@ -178,7 +178,7 @@ namespace SEN.Service
             }
         }
 
-        public void DangAnh(Entities.BanTin banTin, string fileName)
+        public void DangAnh(BanTin banTin, string fileName)
         {
             if (banTin == null || banTin.BanTinId <= 0 || string.IsNullOrWhiteSpace(fileName))
             {
@@ -191,7 +191,7 @@ namespace SEN.Service
             BanTinAnhRepository.SaveChanges();
         }
 
-        public BanTin SuaTin(Entities.BanTin banTin)
+        public BanTin SuaTin(BanTin banTin)
         {
             if (banTin == null)
                 throw new ArgumentNullException("banTin", "Bản tin rỗng");

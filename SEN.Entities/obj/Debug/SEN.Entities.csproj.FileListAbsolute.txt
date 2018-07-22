@@ -45,4 +45,5 @@ E:\Asp_Tranning\myven\SEN.Entities\bin\Debug\zh-Hant\Microsoft.Data.Edm.resource
 E:\Asp_Tranning\myven\SEN.Entities\obj\Debug\SEN.Entities.csproj.CoreCompileInputs.cache
 E:\Asp_Tranning\myven\SEN.Entities\obj\Debug\SEN.Entities.dll
 E:\Asp_Tranning\myven\SEN.Entities\obj\Debug\SEN.Entities.pdb
-E:\Asp_Tranning\myven\SEN.Entities\obj\Debug\SEN.Entities.csprojResolveAssemblyReference.cache
+E:\Asp_Tranning\myven\SEN.Entities\obj\Debug\SEN.Entities.csprojAssemblyReference.cache
+E:\Asp_Tranning\myven\SEN.Entities\obj\Debug\SEN.Entities.csproj.CopyComplete

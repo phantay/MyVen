@@ -74,7 +74,6 @@ namespace SEN.WebUI.Controllers
 
                 if (banTin != null && Request.Files != null && Request.Files.Count > 0)
                 {
-                    var fileIndex = 1;
                     for (var i = 0; i < Request.Files.Keys.Count; i++)
                     {
                         var fileContent = Request.Files[i];
@@ -154,8 +153,6 @@ namespace SEN.WebUI.Controllers
                 return Json(new { success = false, error = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-
-
 
         [HttpPost]
         public JsonResult DangBinhLuan(int banTinId, int thanhVienId, string binhLuan)
